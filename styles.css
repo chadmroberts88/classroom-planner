@@ -1,0 +1,501 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    min-width: 1290px;
+    background-image: url(./images/background.png);
+    background-position: center;
+    background-size: cover;
+    font-family: 'Quicksand', sans-serif;
+}
+
+/* Button Styling */
+
+.button {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.single {
+    justify-content: center;
+    pointer-events: all;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.single i {
+    padding: 5px 8px 5px 5px;
+}
+
+.double {
+    justify-content: space-between;
+}
+
+.double i {
+    pointer-events: all;
+    cursor: pointer;
+    padding: 15px;
+}
+
+/* Title */
+
+.title-box {
+    display: flex;
+    justify-content: center;
+    width: 1290px;
+    white-space: nowrap;
+}
+
+.title-box h1 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    color: white;
+    font-family: 'Cabin Sketch', sans-serif;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+/* Toolbar */
+
+.toolbar {
+    display: grid;
+    grid-template-columns: 410px 820px;
+    grid-template-rows: 50px;
+    margin: 20px;
+}
+
+.print-tools-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.print-tool {
+    background-color: gold;
+    width: 175px;
+    height: 30px;
+}
+
+.classroom-tools-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+.classroom-tool {
+    border: none;
+    border-radius: 10px;
+    background-color: cornflowerblue;
+    font-size: 1rem;
+    font-weight: bold;
+    width: 260px;
+    height: 50px;
+}
+
+/* Main Area */
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 50px 360px 820px;
+    grid-template-rows: 820px;
+    margin: 20px;
+}
+
+.sidebar {
+    width: 360px;
+    height: 820px;
+    position: relative;
+}
+
+.tabs-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tab {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 410px;
+    border: none;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tab span {
+    transform: rotate(-90deg);
+}
+
+/* Tabs */
+
+#objects-tab {
+    background-color: tomato;
+}
+
+#students-tab {
+    background-color: orange;
+}
+
+/* Objects Panel */
+
+.objects-panel {
+    background-color: tomato;
+    position: absolute;
+    width: 320px;
+    height: 780px;
+    padding: 20px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    visibility: visible;
+}
+
+.objects-panel p {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.object-tool {
+    background-color:yellowgreen;
+    margin-bottom: 20px;
+}
+
+.add-tool {
+    background-color: green;
+    margin-bottom: 20px;
+}
+
+/* Students Panel */
+
+.students-panel {
+    background-color: orange;
+    position: absolute;
+    width: 320px;
+    height: 780px;
+    padding: 20px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    visibility: hidden;
+}
+
+.add-student-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 20px;
+
+}
+
+.add-student-button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: green;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.student-list {
+    background-color: rgb(236, 236, 236);
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 720px;
+    overflow: hidden scroll;
+}
+
+.student {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 8px 10px;
+    margin: 7px;
+}
+
+.student p {
+    width: 100%;
+}
+
+.student-info-button {
+    background-color: transparent;
+    border: none;
+    padding-right: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.assign-seat-button {
+    background-color: transparent;
+    border: none;
+    padding-right: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.remove-student-button {
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* Classroom */
+
+.classroom-wrapper {
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 820px;
+    height: 820px;
+    margin-left: 20px;
+    box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.8);
+}
+
+.classroom {
+    background-image: url(./images/grid.png);
+    background-color: rgba(255,255,255,0.6);
+    background-blend-mode: lighten;
+    border: 5px ridge darkgrey;
+    margin: 20px;
+    width: 380px;
+    height: 380px;
+    max-width: 760px;
+    max-height: 760px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Objects */
+
+.student-desk {
+    background-color: lightgrey;
+    border: 2px solid black;
+    height: 36px;
+    width: 36px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.student-desk i{
+    pointer-events: none;
+}
+
+.student-desk:hover{
+    border-color: aqua;
+}
+
+.teacher-desk {
+    background-color: brown;
+    border: 2px solid black;
+    height: 50px;
+    width: 75px;
+    cursor: pointer;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.teacher-desk:hover{
+    border: 2px solid aqua;
+}
+
+.bookshelf {
+    background-color: darkslateblue;
+    border: 2px solid black;
+    height: 25px;
+    width: 50px;
+    cursor: pointer;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.bookshelf:hover{
+    border: 2px solid aqua;
+}
+
+.selected {
+    border-color: greenyellow;
+}
+
+/* Display Names */
+
+.display-name {
+    visibility: visible;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    font-size: 0.6rem;
+    padding: 5px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 120%;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.display-name::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+    pointer-events: none;
+    }
+
+/* Modal */
+
+.add-student-modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.modal-box {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 40%;
+    min-width: 600px;
+}
+
+.modal-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+
+}
+
+.modal-header p {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.close-modal-button {
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+    border-radius: 50%;
+    border: none;
+    background-color: black;
+    color: white;
+    font-size: 1rem;
+}
+
+.close-modal-button:hover {
+    background-color: grey;
+    cursor: pointer;
+}
+
+.modal-content {
+    display: grid;
+    grid-template-columns: 70px auto 70px auto;
+    column-gap: 2rem;
+}
+
+.modal-section {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.modal-section label {
+    font-weight: bold;
+}
+
+.modal-section input {
+    margin-left: 10px;
+    width: 100%;
+}
+
+#first-name, #last-name, #home-phone {
+    padding: 3px;
+}
+
+#birthday {
+    padding-left: 3px;
+}
+
+.modal-footer {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.save-changes-button {
+    background-color: lightgrey;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+}
+
+.save-changes-button:hover {
+    background-color: aqua;
+    cursor: pointer;
+}
+
+.assigned {
+    background-color: rgb(223, 255, 205);
+}
+
+.occupied {
+    background-color: lightgrey;
+}

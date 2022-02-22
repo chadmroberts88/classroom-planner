@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Classroom Planner</title>
+</head>
+
+<body>
+
+    <div class="title-box">
+        <h1>Classroom Planner</h1>
+    </div>
+
+    <div class="toolbar">
+        <div class="print-tools-container">
+            <div id="print-classroom-button" class="print-tool button single">
+                <span>Print Classroom Plan</span>
+            </div>
+
+            <div id="print-students-button" class="print-tool button single">
+                <span>Print Student List</span>
+            </div>
+        </div>
+
+        <div class="classroom-tools-container">
+            <div class="classroom-tool button double">
+                <i id="dec-width-button" class="fas fa-minus"></i>
+                <span>Classroom Width</span>
+                <i id="inc-width-button" class="fas fa-plus"></i>
+            </div>
+
+
+            <div class="classroom-tool button double">
+                <i id="dec-length-button" class="fas fa-minus"></i>
+                <span>Classroom Length</span>
+                <i id="inc-length-button" class="fas fa-plus"></i>
+            </div>
+
+
+            <div class="classroom-tool button double">
+                <i id="hide-names-button" class="fas fa-eye-slash"></i>
+                <span>Display Names</span>
+                <i id="show-names-button" class="fas fa-eye"></i>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="wrapper">
+
+        <div class="tabs-container">
+            <div id="objects-tab" class="tab">
+                <span>Objects</span>
+            </div>
+
+            <div id="students-tab" class="tab">
+                <span>Students</span>
+            </div>
+        </div>
+
+        <div class="sidebar">
+
+            <div class="objects-panel">
+
+                <p>Object Tools:</p>
+
+                <div class="object-tool button double">
+                    <i id="rotate-ccw-button" class="fas fa-undo-alt"></i>
+                    <span>Rotate Object</span>
+                    <i id="rotate-cw-button" class="fas fa-redo-alt"></i>
+                </div>
+
+                <div class="object-tool button single">
+                    <i id="remove-item-button" class="fas fa-trash-alt"></i>
+                    <span>Remove Object</span>
+                </div>
+
+                <p>Objects:</p>
+
+                <div id="add-student-desk-button" class="add-tool button single">
+                    <i class="fas fa-plus"></i>
+                    <span>Add Student Desk</span>
+                </div>
+
+                <div id="add-teacher-desk-button" class="add-tool button single">
+                    <i class="fas fa-plus"></i>
+                    <span>Add Teacher Desk</span>
+                </div>
+
+                <div id="add-bookshelf-button" class="add-tool button single">
+                    <i class="fas fa-plus"></i>
+                    <span>Add Bookshelf</span>
+                </div>
+
+            </div>
+
+            <div class="students-panel">
+
+                <div id="add-student-button" class="add-tool button single">
+                    <i class="fas fa-plus"></i>
+                    <span>Add Student</span>
+                </div>
+
+                <div class="student-list">
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- HERE -->
+
+        <div class="classroom-wrapper">
+            <div class="classroom">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="add-student-modal">
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+                <p>Edit Student Information</p>
+                <div id="close-modal-button" class="button single">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+
+            <div class="modal-content">
+
+                <div class="modal-section">
+                    <label for="first-name">First Name: </label>
+                </div>
+
+                <div class="modal-section">
+                    <input type="text" id="first-name" placeholder="New">
+                </div>
+
+                <div class="modal-section">
+                    <label for="last-name">Last Name: </label>
+                </div>
+
+                <div class="modal-section">
+                    <input type="text" id="last-name" placeholder="Student">
+                </div>
+
+                <div class="modal-section">
+                    <label for="birthday">Birthday: </label>
+                </div>
+
+                <div class="modal-section">
+                    <input type="date" id="birthday">
+                </div>
+
+                <div class="modal-section">
+                    <label for="home-phone">Home Phone: </label>
+                </div>
+
+                <div class="modal-section">
+                    <input type="tel" id="home-phone" placeholder="999-999-9999" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <div id="save-changes-button" class="button single">
+                    <i class="fas fa-save"></i>
+                    <span>Save Changes</span>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</body>
+
+<script src="./app.js"></script>
+
+</html>
