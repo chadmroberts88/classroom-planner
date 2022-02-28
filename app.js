@@ -9,7 +9,7 @@ const incLengthButton = document.querySelector('#inc-length-button');
 const decLengthButton = document.querySelector('#dec-length-button');
 const rotateCcwButton = document.querySelector('#rotate-ccw-button');
 const rotateCwButton = document.querySelector('#rotate-cw-button');
-const removeItemButton = document.querySelector('#remove-item-button');
+const removeObjectButton = document.querySelector('#remove-object-button');
 const showNamesButton = document.querySelector('#show-names-button');
 const hideNamesButton = document.querySelector('#hide-names-button');
 const addStudentButton = document.querySelector('#add-student-button');
@@ -46,7 +46,7 @@ incLengthButton.addEventListener('click', incclassroomLength);
 decLengthButton.addEventListener('click', decclassroomLength);
 rotateCcwButton.addEventListener('click', rotateCcw);
 rotateCwButton.addEventListener('click', rotateCw);
-removeItemButton.addEventListener('click', removeObject);
+removeObjectButton.addEventListener('click', removeObject);
 showNamesButton.addEventListener('click', showNames);
 hideNamesButton.addEventListener('click', hideNames);
 addStudentButton.addEventListener('click', addStudent);
@@ -89,10 +89,6 @@ class Student {
     constructor() {
         this.firstName = 'New';
         this.lastName = 'Student';
-        this.birthMonth = '';
-        this.birthDay = '';
-        this.birthYear = '';
-        this.grade = '';
         this.assignedSeat = null;
     }
 
