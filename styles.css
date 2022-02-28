@@ -358,7 +358,7 @@ html {
 /* Display Names */
 
 .display-name {
-    visibility: visible;
+    visibility: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
