@@ -153,17 +153,17 @@ html {
 /* Tabs */
 
 #objects-tab {
-    background-color: tomato;
+    background-color: orange;
 }
 
 #students-tab {
-    background-color: orange;
+    background-color: tomato;
 }
 
 /* Objects Panel */
 
 .objects-panel {
-    background-color: tomato;
+    background-color: orange;
     position: absolute;
     width: 320px;
     height: 780px;
@@ -192,7 +192,7 @@ html {
 /* Students Panel */
 
 .students-panel {
-    background-color: orange;
+    background-color: tomato;
     position: absolute;
     width: 320px;
     height: 780px;

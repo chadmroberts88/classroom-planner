@@ -172,7 +172,7 @@ function createObject() {
     var newDiv = document.createElement('div');
     newDiv.setAttribute('data-object-id', objectIds);
     newDiv.addEventListener('click', selectObject);
-    newDiv.addEventListener('mouseover', addDraggable);
+    newDiv.addEventListener('mousedown', addDraggable);
     newDiv.style.left = 0;
     newDiv.style.top = 0;
     newDiv.style.transform = "rotate(0deg)";
@@ -579,17 +579,21 @@ function unassignSeat(event) {
     currentObjectId = currentStudent.getAssignedSeat();
     currentObject = objects[currentObjectId];
 
-    // query the assigned seat and mark as vacant
-    var dataObjectId = "[data-object-id='" + currentObjectId + "']";
-    var assignedObject = document.querySelector(dataObjectId);
-    assignedObject.childNodes[0].classList.remove('fas');
-    assignedObject.childNodes[0].classList.add('far');
-    assignedObject.childNodes[1].innerText = "Vacant";
-    assignedObject.classList.remove('occupied')
+    if (currentObjectId != null) {
 
-    // set the assigned seat and assigned student to null
-    currentStudent.setAssignedSeat(null);
-    currentObject.setOccupant(null);
+        // query the assigned seat and mark as vacant
+        var dataObjectId = "[data-object-id='" + currentObjectId + "']";
+        var assignedObject = document.querySelector(dataObjectId);
+        assignedObject.childNodes[0].classList.remove('fas');
+        assignedObject.childNodes[0].classList.add('far');
+        assignedObject.childNodes[1].innerText = "Vacant";
+        assignedObject.classList.remove('occupied')
+
+        // set the assigned seat and assigned student to null
+        currentStudent.setAssignedSeat(null);
+        currentObject.setOccupant(null);
+
+    }
 
     // remove highlight from student div
     studentDiv.classList.remove('assigned');
