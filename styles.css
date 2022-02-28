@@ -22,10 +22,10 @@ html {
 .button {
     display: flex;
     align-items: center;
+    border: none;
     border-radius: 10px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1rem;
-    font-weight: bold;
 }
 
 .single {
@@ -36,7 +36,7 @@ html {
 }
 
 .single i {
-    padding: 5px 8px 5px 5px;
+    padding: 5px 8px 5px 0px;
 }
 
 .double {
@@ -86,8 +86,8 @@ html {
 
 .print-tool {
     background-color: gold;
-    width: 175px;
-    height: 30px;
+    width: 195px;
+    height: 50px;
 }
 
 .classroom-tools-container {
@@ -100,11 +100,7 @@ html {
 }
 
 .classroom-tool {
-    border: none;
-    border-radius: 10px;
     background-color: cornflowerblue;
-    font-size: 1rem;
-    font-weight: bold;
     width: 260px;
     height: 50px;
 }
@@ -182,11 +178,13 @@ html {
 .object-tool {
     background-color:yellowgreen;
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .add-tool {
     background-color: green;
     margin-bottom: 20px;
+    width: 100%;
 }
 
 /* Students Panel */
@@ -425,20 +423,21 @@ html {
     font-weight: bold;
 }
 
-.close-modal-button {
+#close-modal-button {
     width: 25px;
     height: 25px;
-    padding: 5px;
     border-radius: 50%;
-    border: none;
     background-color: black;
     color: white;
-    font-size: 1rem;
 }
 
-.close-modal-button:hover {
+#close-modal-button:hover {
     background-color: grey;
     cursor: pointer;
+}
+
+#close-modal-button i {
+    padding: 0px;
 }
 
 .modal-content {
@@ -480,14 +479,11 @@ html {
     margin-top: 15px;
 }
 
-.save-changes-button {
-    background-color: lightgrey;
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
+#save-changes-button {
+    background-color: darkgrey;
 }
 
-.save-changes-button:hover {
+#save-changes-button:hover {
     background-color: aqua;
     cursor: pointer;
 }
