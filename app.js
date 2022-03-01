@@ -17,6 +17,7 @@ const sortAzButton = document.querySelector('#sort-az-button');
 const closeModalButton = document.querySelector('#close-modal-button');
 const saveChangesButton = document.querySelector('#save-changes-button');
 const printClassroomButton = document.querySelector('#print-classroom-button');
+const printStudentsButton = document.querySelector('#print-students-button');
 
 // ------ Tab Selectors ------
 
@@ -58,6 +59,7 @@ objectsTab.addEventListener('click', showObjectsPanel);
 studentsTab.addEventListener('click', showStudentsPanel);
 saveChangesButton.addEventListener('click', setStudentInfo);
 printClassroomButton.addEventListener('click', printClassroom);
+printStudentsButton.addEventListener('click', printStudents);
 classroom.addEventListener('dblclick', deselectObjects);
 classroom.addEventListener("touchstart", dragStart, false);
 classroom.addEventListener("touchend", dragEnd, false);
@@ -479,11 +481,13 @@ function addStudent() {
 
 function sortAz() {
 
-    let studentList = document.querySelectorAll('.student');
+    let studentList = document.querySelector('.student-list');
+    let studentDivs = document.querySelectorAll('.student');
     let unsortedStudents = [];
     let studentsToSort = [];
+    let sortedStudentDivs = [];
 
-    studentList.forEach((element) => {
+    studentDivs.forEach((element) => {
         state.currentStudentId = element.getAttribute('data-student-id');
         unsortedStudents.push(state.students[state.currentStudentId]);
     });
@@ -504,9 +508,12 @@ function sortAz() {
     for (let i = 0; i < sortedStudents.length; i++) {
 
         let dataAttribute = "[data-student-id='" + sortedStudents[i].id + "']";
-        state.currentStudent = document.querySelector(dataAttribute);
-        state.currentStudent.style.order = i + 1;
+        sortedStudentDivs[i] = document.querySelector(dataAttribute);
 
+    }
+
+    for (let i = 0; i < sortedStudentDivs.length; i++) {
+        studentList.appendChild(sortedStudentDivs[i]);
     }
 
 }
@@ -664,6 +671,34 @@ function printClassroom() {
     win.document.write('<html><body>');
     win.document.write('<div id="print-title"><h1>My Classroom Plan</h1></div>');
     win.document.write(classroom);
+    win.document.write('</body></html>');
+    win.document.close();
+    win.print();
+}
+
+function printStudents() {
+    let studentDivs = document.querySelectorAll('.student');
+    let win = window.open('', '', 'height=750, width=1000');
+    win.document.write('<head>');
+    win.document.write('<link rel="stylesheet" href="./printstyles.css" />')
+    win.document.write('<title>Print Student List</title>');
+    win.document.write('</head>');
+    win.document.write('<html><body>');
+    win.document.write('<div id="print-title"><h1>My Student List</h1></div>');
+
+    for (let i = 0; i < studentDivs.length; i++) {
+        win.document.write('<p class="print-list">');
+        win.document.write('&#9744; ');
+
+        state.currentStudentId = studentDivs[i].getAttribute('data-student-id');
+        state.currentStudent = state.students[state.currentStudentId];
+        let firstName = state.currentStudent.getFirstName();
+        let lastName = state.currentStudent.getLastName();
+
+        win.document.write(firstName + " " + lastName);
+        win.document.write('</p>');
+    }
+
     win.document.write('</body></html>');
     win.document.close();
     win.print();
