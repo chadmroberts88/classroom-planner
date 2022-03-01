@@ -200,30 +200,20 @@ html {
     visibility: hidden;
 }
 
-.add-student-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 0 20px;
-
-}
-
-.add-student-button {
+.sort-tool {
+    background-color: mediumpurple;
+    margin-bottom: 20px;
     width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    background-color: green;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
+    height: 46px;
 }
 
 .student-list {
+    display: flex;
+    flex-direction: column;
     background-color: rgb(236, 236, 236);
     border: 1px solid black;
     border-radius: 10px;
-    height: 720px;
+    height: 650px;
     overflow: hidden scroll;
 }
 
@@ -234,11 +224,14 @@ html {
     border: 1px solid black;
     border-radius: 10px;
     padding: 8px 10px;
-    margin: 7px;
+    margin: 7px 7px 0px 7px;
 }
 
 .student p {
     width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-right: 10px;
 }
 
 .student-info-button {
@@ -262,6 +255,10 @@ html {
     border: none;
     font-size: 1rem;
     cursor: pointer;
+}
+
+.assigned {
+    background-color: rgb(223, 255, 205);
 }
 
 /* Classroom */
@@ -317,6 +314,10 @@ html {
 
 .student-desk:hover{
     border-color: aqua;
+}
+
+.occupied {
+    background-color: lightgrey;
 }
 
 .teacher-desk {
@@ -463,12 +464,8 @@ html {
     width: 100%;
 }
 
-#first-name, #last-name, #home-phone {
+#first-name, #last-name {
     padding: 3px;
-}
-
-#birthday {
-    padding-left: 3px;
 }
 
 .modal-footer {
@@ -486,12 +483,4 @@ html {
 #save-changes-button:hover {
     background-color: aqua;
     cursor: pointer;
-}
-
-.assigned {
-    background-color: rgb(223, 255, 205);
-}
-
-.occupied {
-    background-color: lightgrey;
 }

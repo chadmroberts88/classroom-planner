@@ -13,8 +13,10 @@ const removeObjectButton = document.querySelector('#remove-object-button');
 const showNamesButton = document.querySelector('#show-names-button');
 const hideNamesButton = document.querySelector('#hide-names-button');
 const addStudentButton = document.querySelector('#add-student-button');
+const sortAzButton = document.querySelector('#sort-az-button');
 const closeModalButton = document.querySelector('#close-modal-button');
 const saveChangesButton = document.querySelector('#save-changes-button');
+
 
 // ------ Tab Selectors ------
 
@@ -50,6 +52,7 @@ removeObjectButton.addEventListener('click', removeObject);
 showNamesButton.addEventListener('click', showNames);
 hideNamesButton.addEventListener('click', hideNames);
 addStudentButton.addEventListener('click', addStudent);
+sortAzButton.addEventListener('click', sortAz);
 closeModalButton.addEventListener('click', closeModal);
 objectsTab.addEventListener('click', showObjectsPanel);
 studentsTab.addEventListener('click', showStudentsPanel);
@@ -87,9 +90,18 @@ const state = {
 
 class Student {
     constructor() {
+        this.id = null;
         this.firstName = 'New';
         this.lastName = 'Student';
         this.assignedSeat = null;
+    }
+
+    setId(value) {
+        this.id = value;
+    }
+
+    getId() {
+        return this.id;
     }
 
     setFirstName(value) {
@@ -454,8 +466,43 @@ function addStudent() {
     removeStudentButton.addEventListener('click', removeStudent);
 
     state.students[state.studentIds] = new Student();
+    state.students[state.studentIds].setId(state.studentIds);
 
     state.studentIds++;
+
+}
+
+function sortAz() {
+
+    let studentList = document.querySelectorAll('.student');
+    let unsortedStudents = [];
+    let studentsToSort = [];
+
+    studentList.forEach((element) => {
+        state.currentStudentId = element.getAttribute('data-student-id');
+        unsortedStudents.push(state.students[state.currentStudentId]);
+    });
+
+    for (let i = 0; i < unsortedStudents.length; i++) {
+        studentsToSort[i] = {
+            fullName: unsortedStudents[i].getFirstName() + " " + unsortedStudents[i].getLastName(),
+            id: unsortedStudents[i].getId()
+        };
+    }
+
+    let sortedStudents = studentsToSort.sort(function (a, b) {
+        if (a.fullName.toLowerCase() < b.fullName.toLowerCase()) return -1;
+        if (a.fullName.toLowerCase() > b.fullName.toLowerCase()) return 1;
+        return 0;
+    });
+
+    for (let i = 0; i < sortedStudents.length; i++) {
+
+        let dataAttribute = "[data-student-id='" + sortedStudents[i].id + "']";
+        state.currentStudent = document.querySelector(dataAttribute);
+        state.currentStudent.style.order = i + 1;
+
+    }
 
 }
 
