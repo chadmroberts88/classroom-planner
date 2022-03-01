@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background: none;
+    display: flex;
+    justify-content: center;
+    font-family: 'Quicksand', sans-serif;
+}
+
+#print-title {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.classroom {
+    background-image: url(./images/grid.png);
+    background-color: rgba(255,255,255,0.6);
+    background-blend-mode: lighten;
+    border: 5px ridge darkgrey;
+    margin: 20px;
+    width: 380px;
+    height: 380px;
+    max-width: 760px;
+    max-height: 760px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+.student-desk {
+    background-color: lightgrey;
+    border: 2px solid black;
+    height: 36px;
+    width: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.teacher-desk {
+    background-color: brown;
+    border: 2px solid black;
+    height: 50px;
+    width: 75px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.bookshelf {
+    background-color: darkslateblue;
+    border: 2px solid black;
+    height: 25px;
+    width: 50px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.display-name {
+    visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    font-size: 0.6rem;
+    padding: 5px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 120%;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.display-name::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+    pointer-events: none;
+    }

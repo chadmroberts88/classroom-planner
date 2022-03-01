@@ -16,7 +16,7 @@ const addStudentButton = document.querySelector('#add-student-button');
 const sortAzButton = document.querySelector('#sort-az-button');
 const closeModalButton = document.querySelector('#close-modal-button');
 const saveChangesButton = document.querySelector('#save-changes-button');
-
+const printClassroomButton = document.querySelector('#print-classroom-button');
 
 // ------ Tab Selectors ------
 
@@ -57,6 +57,7 @@ closeModalButton.addEventListener('click', closeModal);
 objectsTab.addEventListener('click', showObjectsPanel);
 studentsTab.addEventListener('click', showStudentsPanel);
 saveChangesButton.addEventListener('click', setStudentInfo);
+printClassroomButton.addEventListener('click', printClassroom);
 classroom.addEventListener('dblclick', deselectObjects);
 classroom.addEventListener("touchstart", dragStart, false);
 classroom.addEventListener("touchend", dragEnd, false);
@@ -256,16 +257,20 @@ function dragStart(event) {
 
     state.draggableObject = document.querySelector('.draggable');
 
-    if (event.type === "touchstart") {
-        state.initialX = event.touches[0].clientX - parseInt(state.draggableObject.style.left);
-        state.initialY = event.touches[0].clientY - parseInt(state.draggableObject.style.top);
-    } else {
-        state.initialX = event.clientX - parseInt(state.draggableObject.style.left);
-        state.initialY = event.clientY - parseInt(state.draggableObject.style.top);
-    }
+    if (state.draggableObject) {
 
-    if (event.target === state.draggableObject) {
-        state.dragActive = true;
+        if (event.type === "touchstart") {
+            state.initialX = event.touches[0].clientX - parseInt(state.draggableObject.style.left);
+            state.initialY = event.touches[0].clientY - parseInt(state.draggableObject.style.top);
+        } else {
+            state.initialX = event.clientX - parseInt(state.draggableObject.style.left);
+            state.initialY = event.clientY - parseInt(state.draggableObject.style.top);
+        }
+
+        if (event.target === state.draggableObject) {
+            state.dragActive = true;
+        }
+
     }
 
 }
@@ -649,3 +654,17 @@ function removeStudent(event) {
     }
 }
 
+function printClassroom() {
+    let classroom = document.querySelector('.classroom-wrapper').innerHTML;
+    let win = window.open('', '', 'height=750, width=1000');
+    win.document.write('<head>');
+    win.document.write('<link rel="stylesheet" href="./printstyles.css" />')
+    win.document.write('<title>Print Classroom Plan</title>');
+    win.document.write('</head>');
+    win.document.write('<html><body>');
+    win.document.write('<div id="print-title"><h1>My Classroom Plan</h1></div>');
+    win.document.write(classroom);
+    win.document.write('</body></html>');
+    win.document.close();
+    win.print();
+}
