@@ -1,8 +1,13 @@
 // ------ Button Selectors ------
 
-const studentDeskButton = document.querySelector('#add-student-desk-button');
-const teacherDeskButton = document.querySelector('#add-teacher-desk-button');
-const bookshelfButton = document.querySelector('#add-bookshelf-button');
+const addStudentDeskButton = document.querySelector('#add-student-desk-button');
+const addTeacherDeskButton = document.querySelector('#add-teacher-desk-button');
+const addBookshelfButton = document.querySelector('#add-bookshelf-button');
+const addWhiteboardButton = document.querySelector('#add-whiteboard-button');
+const addDoorwayButton = document.querySelector('#add-doorway-button');
+const addWindowButton = document.querySelector('#add-window-button');
+const addWallSegmentButton = document.querySelector('#add-wall-segment-button');
+const addRoundTableButton = document.querySelector('#add-round-table-button');
 const incWidthButton = document.querySelector('#inc-width-button');
 const decWidthButton = document.querySelector('#dec-width-button');
 const incLengthButton = document.querySelector('#inc-length-button');
@@ -40,9 +45,14 @@ const addStudentModal = document.querySelector(".add-student-modal");
 
 // ------ Event Listeners ------
 
-studentDeskButton.addEventListener('click', addStudentDesk);
-teacherDeskButton.addEventListener('click', addTeacherDesk);
-bookshelfButton.addEventListener('click', addBookshelf);
+addStudentDeskButton.addEventListener('click', addStudentDesk);
+addTeacherDeskButton.addEventListener('click', addTeacherDesk);
+addBookshelfButton.addEventListener('click', addBookshelf);
+addWhiteboardButton.addEventListener('click', addWhiteboard);
+addDoorwayButton.addEventListener('click', addDoorway);
+addWindowButton.addEventListener('click', addWindow);
+addWallSegmentButton.addEventListener('click', addWallSegment);
+addRoundTableButton.addEventListener('click', addRoundTable);
 incWidthButton.addEventListener('click', incclassroomWidth);
 decWidthButton.addEventListener('click', decclassroomWidth);
 incLengthButton.addEventListener('click', incclassroomLength);
@@ -218,6 +228,31 @@ function addTeacherDesk() {
 
 function addBookshelf() {
     createObject().classList.add('bookshelf');
+    state.objectIds++;
+}
+
+function addWhiteboard() {
+    createObject().classList.add('whiteboard');
+    state.objectIds++;
+}
+
+function addDoorway() {
+    createObject().classList.add('doorway');
+    state.objectIds++;
+}
+
+function addWindow() {
+    createObject().classList.add('window');
+    state.objectIds++;
+}
+
+function addWallSegment() {
+    createObject().classList.add('wall-segment');
+    state.objectIds++;
+}
+
+function addRoundTable() {
+    createObject().classList.add('round-table');
     state.objectIds++;
 }
 
@@ -437,7 +472,6 @@ function removeObject() {
             selectedObject.remove();
             const objectId = selectedObject.getAttribute('data-object-id');
             state.objects[objectId] = null;
-            console.log(state.objects);
         }
     } else {
         alert("Please select an object to remove.")
@@ -660,10 +694,10 @@ function removeStudent(event) {
 
         const studentId = event.target.parentNode.getAttribute('data-student-id');
         state.students[studentId] = null;
-        console.log(state.students);
-
     }
 }
+
+// ------ Print Functions ------
 
 function printClassroom() {
     const classroom = document.querySelector('.classroom-wrapper').innerHTML;
