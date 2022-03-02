@@ -46,8 +46,8 @@ html {
 .student-desk {
     background-color: lightgrey;
     border: 2px solid black;
-    height: 36px;
-    width: 36px;
+    height: 26px;
+    width: 26px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,18 +59,71 @@ html {
 .teacher-desk {
     background-color: brown;
     border: 2px solid black;
-    height: 50px;
-    width: 75px;
+    height: 46px;
+    width: 76px;
     position: absolute;
     left: 0px;
     top: 0px;
 }
 
 .bookshelf {
-    background-color: darkslateblue;
+    background-color: burlywood;
     border: 2px solid black;
-    height: 25px;
+    height: 16px;
+    width: 46px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.whiteboard {
+    background-color: rgb(120, 165, 79);
+    border: 2px solid black;
+    height: 6px;
+    width: 96px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.doorway {
+    background-color: rgba(255, 160, 122, 0.5);
+    border: 2px dotted black;
+    border-left: 2px solid black;
+    height: 36px;
+    width: 36px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.window {
+    background-color: rgba(10, 187, 187, 0.5);
+    border: 2px solid black;
+    border-radius: 8px;
+    height: 6px;
     width: 50px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.wall-segment {
+    background-color: darkgrey;
+    border: 5px solid darkgrey;
+    height: 50px;
+    width: 0px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.round-table {
+    background-color:bisque;
+    border: 2px solid black;
+    border-radius: 50%;
+    height: 56px;
+    width: 56px;
     position: absolute;
     left: 0px;
     top: 0px;
@@ -85,7 +138,7 @@ html {
     color: #fff;
     text-align: center;
     font-size: 0.6rem;
-    padding: 5px;
+    padding: 2px 6px 3px 6px;
     border-radius: 6px;
     position: absolute;
     z-index: 1;
