@@ -435,6 +435,9 @@ function removeObject() {
             alert("Please unassign this desk before removing it.");
         } else {
             selectedObject.remove();
+            const objectId = selectedObject.getAttribute('data-object-id');
+            state.objects[objectId] = null;
+            console.log(state.objects);
         }
     } else {
         alert("Please select an object to remove.")
@@ -654,6 +657,11 @@ function removeStudent(event) {
     if (confirmRemove) {
         unassignDesk(event);
         event.target.parentNode.remove();
+
+        const studentId = event.target.parentNode.getAttribute('data-student-id');
+        state.students[studentId] = null;
+        console.log(state.students);
+
     }
 }
 
