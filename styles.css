@@ -271,13 +271,14 @@ html {
     height: 820px;
     margin-left: 20px;
     box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.8);
+    /* position: relative; */
 }
 
 .classroom {
     background-image: url(./images/grid.png);
     background-color: rgba(255,255,255,0.6);
     background-blend-mode: lighten;
-    border: 5px ridge darkgrey;
+    border: 5px solid darkgrey;
     margin: 20px;
     width: 380px;
     height: 380px;
