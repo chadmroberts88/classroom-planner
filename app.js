@@ -79,19 +79,21 @@ classroom.addEventListener('mousedown', dragStart, false);
 classroom.addEventListener("mousemove", drag, false);
 classroom.addEventListener("mouseup", dragEnd, false);
 classroom.addEventListener('mouseleave', dragEnd, false);
+document.addEventListener('keydown', moveObject, false);
 
 // ------ State Object ------
 
 const state = {
     objectIds: 0,
-    objects: [],
-    test: new Map(),
+    objects: new Map(),
     currentObjectId: null,
     currentObject: null,
+
     studentIds: 0,
-    students: [],
+    students: new Map(),
     currentStudentId: null,
     currentStudent: null,
+
     draggableObject: null,
     dragActive: false,
     offSet: { x: 0, y: 0 },
@@ -146,8 +148,6 @@ class Student {
 class Object {
     constructor() {
         this.rotationState = 0;
-        this.xPosition = 0;
-        this.yPosition = 0;
         this.occupant = null;
     }
 
@@ -157,22 +157,6 @@ class Object {
 
     setRotationState(value) {
         this.rotationState = value;
-    }
-
-    getXPosition() {
-        return this.xPosition;
-    }
-
-    setXPosition(value) {
-        this.xPosition = value;
-    }
-
-    getYPosition() {
-        return this.yPosition;
-    }
-
-    setYPosition(value) {
-        this.yPosition = value;
     }
 
     getOccupant() {
@@ -198,11 +182,8 @@ function createObject() {
 
     const newObject = new Object();
     newObject.setRotationState(0);
-    newObject.setXPosition(0);
-    newObject.setYPosition(0);
 
-    state.objects[state.objectIds] = newObject;
-    state.test.set(state.objectIds, newObject);
+    state.objects.set(state.objectIds, newObject);
 
     return newDiv;
 }
@@ -264,9 +245,9 @@ function addRoundTable() {
 function deselectObjects() {
     for (let i = 0; i <= state.objectIds; i++) {
         const dataAttribute = "[data-object-id='" + i + "']";
-        state.currentObject = document.querySelector(dataAttribute);
-        if (state.currentObject) {
-            state.currentObject.classList.remove('selected');
+        const currentRoomObject = document.querySelector(dataAttribute);
+        if (currentRoomObject) {
+            currentRoomObject.classList.remove('selected');
         }
     }
 }
@@ -279,9 +260,9 @@ function selectObject(event) {
 function removeDraggable() {
     for (let i = 0; i <= state.objectIds; i++) {
         const dataAttribute = "[data-object-id='" + i + "']";
-        state.currentObject = document.querySelector(dataAttribute);
-        if (state.currentObject) {
-            state.currentObject.classList.remove('draggable');
+        const currentRoomObject = document.querySelector(dataAttribute);
+        if (currentRoomObject) {
+            currentRoomObject.classList.remove('draggable');
         }
     }
 }
@@ -345,8 +326,8 @@ function dragEnd() {
 
 function checkBounds(object) {
 
-    state.currentObjectId = object.getAttribute('data-object-id');
-    state.currentObject = state.objects[state.currentObjectId];
+    state.currentObjectId = parseInt(object.getAttribute('data-object-id'));
+    state.currentObject = state.objects.get(state.currentObjectId);
 
     let deg = Math.abs(state.currentObject.getRotationState());
 
@@ -405,6 +386,46 @@ function checkBounds(object) {
     if (state.newPos.y < bounds.top) { state.newPos.y = bounds.top; };
     if (state.newPos.x > bounds.right) { state.newPos.x = bounds.right; };
     if (state.newPos.y > bounds.bottom) { state.newPos.y = bounds.bottom; };
+
+}
+
+
+// ------ Move Object with Keys ------
+
+function moveObject(event) {
+
+    event.preventDefault();
+
+    const object = document.querySelector('.selected');
+
+    if (object) {
+
+        const currentPos = {
+            x: parseInt(getComputedStyle(object).left),
+            y: parseInt(getComputedStyle(object).top)
+        }
+
+        switch (event.key) {
+            case "ArrowRight":
+                state.newPos.x = currentPos.x + 1;
+                break;
+            case "ArrowLeft":
+                state.newPos.x = currentPos.x - 1;
+                break;
+            case "ArrowUp":
+                state.newPos.y = currentPos.y - 1;
+                break;
+            case "ArrowDown":
+                state.newPos.y = currentPos.y + 1;
+                break;
+        }
+
+        checkBounds(object);
+
+        object.style.left = state.newPos.x + "px";
+        object.style.top = state.newPos.y + "px";
+
+    }
 
 }
 
@@ -504,8 +525,8 @@ function rotateCcw() {
     const selectedObject = document.querySelector('.selected');
 
     if (selectedObject) {
-        state.currentObjectId = selectedObject.getAttribute('data-object-id');
-        state.currentObject = state.objects[state.currentObjectId];
+        state.currentObjectId = parseInt(selectedObject.getAttribute('data-object-id'));
+        state.currentObject = state.objects.get(state.currentObjectId);
 
         const currentRotationState = state.currentObject.getRotationState();
         let newRotationState = parseInt(currentRotationState) - 15;
@@ -525,8 +546,8 @@ function rotateCw() {
     const selectedObject = document.querySelector('.selected');
 
     if (selectedObject) {
-        state.currentObjectId = selectedObject.getAttribute('data-object-id');
-        state.currentObject = state.objects[state.currentObjectId];
+        state.currentObjectId = parseInt(selectedObject.getAttribute('data-object-id'));
+        state.currentObject = state.objects.get(state.currentObjectId);
 
         const currentRotationState = state.currentObject.getRotationState();
         let newRotationState = parseInt(currentRotationState) + 15;
@@ -548,8 +569,8 @@ function removeObject() {
             alert("Please unassign this desk before removing it.");
         } else {
             selectedObject.remove();
-            const objectId = selectedObject.getAttribute('data-object-id');
-            state.objects[objectId] = null;
+            state.currentObjectId = parseInt(selectedObject.getAttribute('data-object-id'));
+            state.objects.delete(state.currentObjectId);
         }
     } else {
         alert("Please select an object to remove.")
@@ -585,8 +606,10 @@ function addStudent() {
     newAssignButton.addEventListener('click', assignDesk);
     removeStudentButton.addEventListener('click', removeStudent);
 
-    state.students[state.studentIds] = new Student();
-    state.students[state.studentIds].setId(state.studentIds);
+    const newStudent = new Student();
+    newStudent.setId(state.studentIds);
+
+    state.students.set(state.studentIds, newStudent);
 
     state.studentIds++;
 
@@ -601,8 +624,8 @@ function sortAz() {
     const sortedStudentDivs = [];
 
     studentDivs.forEach((element) => {
-        state.currentStudentId = element.getAttribute('data-student-id');
-        unsortedStudents.push(state.students[state.currentStudentId]);
+        state.currentStudentId = parseInt(element.getAttribute('data-student-id'));
+        unsortedStudents.push(state.students.get(state.currentStudentId));
     });
 
     for (let i = 0; i < unsortedStudents.length; i++) {
@@ -633,8 +656,8 @@ function sortAz() {
 
 function loadStudentInfo(event) {
 
-    state.currentStudentId = event.target.parentNode.getAttribute('data-student-id');
-    state.currentStudent = state.students[state.currentStudentId];
+    state.currentStudentId = parseInt(event.target.parentNode.getAttribute('data-student-id'));
+    state.currentStudent = state.students.get(state.currentStudentId);
 
     const currentFirstName = state.currentStudent.getFirstName();
     const currentLastName = state.currentStudent.getLastName();
@@ -675,8 +698,8 @@ function assignDesk(event) {
     const selectedObject = document.querySelector(".selected");
     const studentDiv = event.target.parentNode;
 
-    state.currentStudentId = studentDiv.getAttribute('data-student-id');
-    state.currentStudent = state.students[state.currentStudentId];
+    state.currentStudentId = parseInt(studentDiv.getAttribute('data-student-id'));
+    state.currentStudent = state.students.get(state.currentStudentId);
 
     if (selectedObject && selectedObject.classList.contains('student-desk')) { // if an object is selected
 
@@ -699,8 +722,8 @@ function assignDesk(event) {
             } else {
 
                 // set student id for desk
-                state.currentObjectId = selectedObject.getAttribute('data-object-id');
-                state.currentObject = state.objects[state.currentObjectId];
+                state.currentObjectId = parseInt(selectedObject.getAttribute('data-object-id'));
+                state.currentObject = state.objects.get(state.currentObjectId);
                 state.currentObject.setOccupant(state.currentStudentId);
 
                 // set desk id for student
@@ -735,12 +758,12 @@ function unassignDesk(event) {
 
     const studentDiv = event.target.parentNode;
 
-    state.currentStudentId = studentDiv.getAttribute('data-student-id');
-    state.currentStudent = state.students[state.currentStudentId];
+    state.currentStudentId = parseInt(studentDiv.getAttribute('data-student-id'));
+    state.currentStudent = state.students.get(state.currentStudentId);
 
-    // get object id and array object for assigned desk
-    state.currentObjectId = state.currentStudent.getAssignedDesk();
-    state.currentObject = state.objects[state.currentObjectId];
+    // get object id and map object for assigned desk
+    state.currentObjectId = parseInt(state.currentStudent.getAssignedDesk());
+    state.currentObject = state.objects.get(state.currentObjectId);
 
     if (state.currentObjectId) {
 
@@ -770,8 +793,8 @@ function removeStudent(event) {
         unassignDesk(event);
         event.target.parentNode.remove();
 
-        const studentId = event.target.parentNode.getAttribute('data-student-id');
-        state.students[studentId] = null;
+        const studentId = parseInt(event.target.parentNode.getAttribute('data-student-id'));
+        state.students.delete(studentId);
     }
 }
 
@@ -806,8 +829,8 @@ function printStudents() {
         win.document.write('<p class="print-list">');
         win.document.write('&#9744; ');
 
-        state.currentStudentId = studentDivs[i].getAttribute('data-student-id');
-        state.currentStudent = state.students[state.currentStudentId];
+        state.currentStudentId = parseInt(studentDivs[i].getAttribute('data-student-id'));
+        state.currentStudent = state.students.get(state.currentStudentId);
         const firstName = state.currentStudent.getFirstName();
         const lastName = state.currentStudent.getLastName();
 
