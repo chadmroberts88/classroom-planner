@@ -35,8 +35,9 @@ const objectsPanel = document.querySelector('.objects-panel');
 const studentsPanel = document.querySelector('.students-panel');
 const studentList = document.querySelector('.student-list');
 
-// ------ Classroom Selector ------
+// ------ Classroom Selectors ------
 
+const classroomWrapper = document.querySelector('.classroom-wrapper');
 const classroom = document.querySelector('.classroom');
 
 // ------ Modal Selector ------
@@ -84,6 +85,7 @@ classroom.addEventListener('mouseleave', dragEnd, false);
 const state = {
     objectIds: 0,
     objects: [],
+    test: new Map(),
     currentObjectId: null,
     currentObject: null,
     studentIds: 0,
@@ -92,8 +94,8 @@ const state = {
     currentStudent: null,
     draggableObject: null,
     dragActive: false,
-    initialPos: { x: null, y: null },
-    currentPos: { x: null, y: null },
+    offSet: { x: 0, y: 0 },
+    newPos: { x: 0, y: 0 },
     currentDisplayNameState: "hidden"
 };
 
@@ -200,6 +202,7 @@ function createObject() {
     newObject.setYPosition(0);
 
     state.objects[state.objectIds] = newObject;
+    state.test.set(state.objectIds, newObject);
 
     return newDiv;
 }
@@ -262,7 +265,7 @@ function deselectObjects() {
     for (let i = 0; i <= state.objectIds; i++) {
         const dataAttribute = "[data-object-id='" + i + "']";
         state.currentObject = document.querySelector(dataAttribute);
-        if (state.currentObject != null) {
+        if (state.currentObject) {
             state.currentObject.classList.remove('selected');
         }
     }
@@ -277,7 +280,7 @@ function removeDraggable() {
     for (let i = 0; i <= state.objectIds; i++) {
         const dataAttribute = "[data-object-id='" + i + "']";
         state.currentObject = document.querySelector(dataAttribute);
-        if (state.currentObject != null) {
+        if (state.currentObject) {
             state.currentObject.classList.remove('draggable');
         }
     }
@@ -288,6 +291,8 @@ function addDraggable(event) {
     event.target.classList.add('draggable');
 }
 
+// ------ Drag Events ------
+
 function dragStart(event) {
 
     state.draggableObject = document.querySelector('.draggable');
@@ -295,11 +300,11 @@ function dragStart(event) {
     if (state.draggableObject) {
 
         if (event.type === "touchstart") {
-            state.initialPos.x = event.touches[0].clientX - parseInt(state.draggableObject.style.left);
-            state.initialPos.y = event.touches[0].clientY - parseInt(state.draggableObject.style.top);
+            state.offSet.x = event.touches[0].clientX - parseInt(state.draggableObject.style.left);
+            state.offSet.y = event.touches[0].clientY - parseInt(state.draggableObject.style.top);
         } else {
-            state.initialPos.x = event.clientX - parseInt(state.draggableObject.style.left);
-            state.initialPos.y = event.clientY - parseInt(state.draggableObject.style.top);
+            state.offSet.x = event.clientX - parseInt(state.draggableObject.style.left);
+            state.offSet.y = event.clientY - parseInt(state.draggableObject.style.top);
         }
 
         if (event.target === state.draggableObject) {
@@ -313,28 +318,94 @@ function dragStart(event) {
 function drag(event) {
     if (state.dragActive) {
 
-        state.draggableObject = document.querySelector('.draggable');
-
         event.preventDefault();
 
         if (event.type === "touchmove") {
-            state.currentPos.x = event.touches[0].clientX - state.initialPos.x;
-            state.currentPos.y = event.touches[0].clientY - state.initialPos.y;
+            state.newPos.x = event.touches[0].clientX - state.offSet.x;
+            state.newPos.y = event.touches[0].clientY - state.offSet.y;
         } else {
-            state.currentPos.x = event.clientX - state.initialPos.x;
-            state.currentPos.y = event.clientY - state.initialPos.y;
+            state.newPos.x = event.clientX - state.offSet.x;
+            state.newPos.y = event.clientY - state.offSet.y;
         }
 
-        state.draggableObject.style.left = state.currentPos.x + "px";
-        state.draggableObject.style.top = state.currentPos.y + "px";
+        checkBounds(state.draggableObject);
+
+        state.draggableObject.style.left = state.newPos.x + "px";
+        state.draggableObject.style.top = state.newPos.y + "px";
 
     }
+
 }
 
 function dragEnd() {
-    state.initialPos.x = state.currentPos.x;
-    state.initialPos.y = state.currentPos.y;
+    state.offSet.x = 0;
+    state.offSet.y = 0;
     state.dragActive = false;
+}
+
+function checkBounds(object) {
+
+    state.currentObjectId = object.getAttribute('data-object-id');
+    state.currentObject = state.objects[state.currentObjectId];
+
+    let deg = Math.abs(state.currentObject.getRotationState());
+
+    if (deg >= 0 && deg <= 90) {
+        deg = deg;
+    } else if (deg > 90 && deg <= 180) {
+        deg = 180 - deg;
+    } else if (deg > 180 && deg <= 270) {
+        deg = deg - 180;
+    } else if (deg > 270 && deg <= 360) {
+        deg = 360 - deg;
+    }
+
+    const rad = deg * (Math.PI / 180);
+
+    const room = {
+        width: parseInt(getComputedStyle(classroom).width),
+        height: parseInt(getComputedStyle(classroom).height)
+    };
+
+    const obj = {
+        width: parseInt(getComputedStyle(object).width) + (parseInt(getComputedStyle(object).borderRightWidth) * 2),
+        height: parseInt(getComputedStyle(object).height) + (parseInt(getComputedStyle(object).borderBottomWidth) * 2)
+    };
+
+    const centerObj = {
+        x: obj.width / 2,
+        y: obj.height / 2
+    }
+
+    const boundingBox = {
+        width: Math.sin(rad) * obj.height + Math.cos(rad) * obj.width,
+        height: Math.cos(rad) * obj.height + Math.sin(rad) * obj.width
+    }
+
+    const centerBoundingBox = {
+        x: boundingBox.width / 2,
+        y: boundingBox.height / 2
+    }
+
+    const bounds = {
+        left: centerBoundingBox.x - centerObj.x,
+        top: centerBoundingBox.y - centerObj.y,
+        right: room.width - obj.width - (centerBoundingBox.x - centerObj.x),
+        bottom: room.width - obj.height - (centerBoundingBox.y - centerObj.y)
+    };
+
+    if (object.classList.contains('round-table')) {
+        bounds.left = 0;
+        bounds.top = 0;
+        bounds.right = room.width - obj.width;
+        bounds.bottom = room.height - obj.height;
+    };
+
+    if (state.newPos.x < bounds.left) { state.newPos.x = bounds.left; };
+    if (state.newPos.y < bounds.top) { state.newPos.y = bounds.top; };
+    if (state.newPos.x > bounds.right) { state.newPos.x = bounds.right; };
+    if (state.newPos.y > bounds.bottom) { state.newPos.y = bounds.bottom; };
+
 }
 
 // ------ Panel Selection Functions ------
@@ -432,12 +503,16 @@ function rotateCcw() {
 
     const selectedObject = document.querySelector('.selected');
 
-    if (selectedObject != null) {
+    if (selectedObject) {
         state.currentObjectId = selectedObject.getAttribute('data-object-id');
         state.currentObject = state.objects[state.currentObjectId];
 
         const currentRotationState = state.currentObject.getRotationState();
-        const newRotationState = parseInt(currentRotationState) - 15;
+        let newRotationState = parseInt(currentRotationState) - 15;
+
+        if (newRotationState === -360) {
+            newRotationState = 0;
+        }
 
         selectedObject.style.transform = "rotate(" + newRotationState + "deg)";
         state.currentObject.setRotationState(newRotationState);
@@ -449,13 +524,16 @@ function rotateCw() {
 
     const selectedObject = document.querySelector('.selected');
 
-    if (selectedObject != null) {
+    if (selectedObject) {
         state.currentObjectId = selectedObject.getAttribute('data-object-id');
         state.currentObject = state.objects[state.currentObjectId];
 
         const currentRotationState = state.currentObject.getRotationState();
-        const newRotationState = parseInt(currentRotationState) + 15;
+        let newRotationState = parseInt(currentRotationState) + 15;
 
+        if (newRotationState === 360) {
+            newRotationState = 0;
+        }
         selectedObject.style.transform = "rotate(" + newRotationState + "deg)";
         state.currentObject.setRotationState(newRotationState);
     }
@@ -465,7 +543,7 @@ function rotateCw() {
 function removeObject() {
     const selectedObject = document.querySelector(".selected");
 
-    if (selectedObject != null) {
+    if (selectedObject) {
         if (selectedObject.classList.contains('occupied')) {
             alert("Please unassign this desk before removing it.");
         } else {
@@ -580,7 +658,7 @@ function setStudentInfo() {
 
     currentStudentDiv.childNodes[1].innerText = newFirstName + " " + newLastName;
 
-    if (state.currentStudent.getAssignedDesk() != null) {
+    if (state.currentStudent.getAssignedDesk()) {
 
         const dataObjectId = "[data-object-id='" + state.currentStudent.getAssignedDesk() + "']";
         const deskToUpdate = document.querySelector(dataObjectId);
@@ -600,7 +678,7 @@ function assignDesk(event) {
     state.currentStudentId = studentDiv.getAttribute('data-student-id');
     state.currentStudent = state.students[state.currentStudentId];
 
-    if (selectedObject != null && selectedObject.classList.contains('student-desk')) { // if an object is selected
+    if (selectedObject && selectedObject.classList.contains('student-desk')) { // if an object is selected
 
         if (studentDiv.classList.contains('assigned')) { // if student is already assigned to a desk, unassign student
 
@@ -664,7 +742,7 @@ function unassignDesk(event) {
     state.currentObjectId = state.currentStudent.getAssignedDesk();
     state.currentObject = state.objects[state.currentObjectId];
 
-    if (state.currentObjectId != null) {
+    if (state.currentObjectId) {
 
         // query the assigned desk and mark as vacant
         const dataObjectId = "[data-object-id='" + state.currentObjectId + "']";
@@ -700,7 +778,7 @@ function removeStudent(event) {
 // ------ Print Functions ------
 
 function printClassroom() {
-    const classroom = document.querySelector('.classroom-wrapper').innerHTML;
+    const classroomHtml = document.querySelector('.classroom-wrapper').innerHTML;
     const win = window.open('', '', 'height=750, width=1000');
     win.document.write('<head>');
     win.document.write('<link rel="stylesheet" href="./printstyles.css" />')
@@ -708,7 +786,7 @@ function printClassroom() {
     win.document.write('</head>');
     win.document.write('<html><body>');
     win.document.write('<div id="print-title"><h1>My Classroom Plan</h1></div>');
-    win.document.write(classroom);
+    win.document.write(classroomHtml);
     win.document.write('</body></html>');
     win.document.close();
     win.print();
