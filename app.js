@@ -99,6 +99,7 @@ const state = {
     newPos: { x: 0, y: 0 },
 
     displayNameStatus: "hidden",
+    classroomInFocus: true
 };
 
 // ------ Classes ------
@@ -401,7 +402,7 @@ function transformWithKeys(event) {
 
     const selectedObject = document.querySelector('.selected');
 
-    if (selectedObject) {
+    if (selectedObject && state.classroomInFocus) {
 
         const currentPos = {
             x: parseInt(getComputedStyle(selectedObject).left),
@@ -425,14 +426,18 @@ function transformWithKeys(event) {
                 state.newPos.y = currentPos.y + 1;
                 event.preventDefault();
                 break;
+            case "Delete":
+                removeObject();
+                event.preventDefault();
+                return;
             case "z":
                 rotateCcw();
                 event.preventDefault();
-                break;
+                return;
             case "x":
                 rotateCw();
                 event.preventDefault();
-                break;
+                return;
         }
 
         checkBounds(selectedObject);
@@ -697,6 +702,7 @@ function loadStudentInfo(event) {
     document.querySelector('#last-name').value = state.targetStudent.getLastName();
 
     openModal();
+    state.classroomInFocus = false;
 }
 
 function setStudentInfo() {
@@ -719,6 +725,7 @@ function setStudentInfo() {
     }
 
     closeModal();
+    state.classroomInFocus = true;
 }
 
 function assignDesk(event) {
