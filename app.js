@@ -79,7 +79,7 @@ classroom.addEventListener('mousedown', dragStart, false);
 classroom.addEventListener("mousemove", drag, false);
 classroom.addEventListener("mouseup", dragEnd, false);
 classroom.addEventListener('mouseleave', dragEnd, false);
-document.addEventListener('keydown', moveObject, false);
+document.addEventListener('keydown', transformWithKeys, false);
 
 // ------ State Object ------
 
@@ -395,10 +395,9 @@ function checkBounds(object) {
 
 }
 
+// ------ Transform Object with Keys Function ------
 
-// ------ Move Object with Keys ------
-
-function moveObject(event) {
+function transformWithKeys(event) {
 
     const selectedObject = document.querySelector('.selected');
 
@@ -424,6 +423,14 @@ function moveObject(event) {
                 break;
             case "ArrowDown":
                 state.newPos.y = currentPos.y + 1;
+                event.preventDefault();
+                break;
+            case "z":
+                rotateCcw();
+                event.preventDefault();
+                break;
+            case "x":
+                rotateCw();
                 event.preventDefault();
                 break;
         }
