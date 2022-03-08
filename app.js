@@ -54,8 +54,8 @@ addDoorwayButton.addEventListener('click', addDoorway);
 addWindowButton.addEventListener('click', addWindow);
 addWallSegmentButton.addEventListener('click', addWallSegment);
 addRoundTableButton.addEventListener('click', addRoundTable);
-incWidthButton.addEventListener('click', incclassroomWidth);
-decWidthButton.addEventListener('click', decclassroomWidth);
+incWidthButton.addEventListener('click', incClassroomWidth);
+decWidthButton.addEventListener('click', decClassroomWidth);
 incLengthButton.addEventListener('click', incclassroomLength);
 decLengthButton.addEventListener('click', decclassroomLength);
 rotateCcwButton.addEventListener('click', rotateCcw);
@@ -383,14 +383,14 @@ function checkBounds(object) {
 
     if (object.classList.contains('round-table')) {
         bounds.left = 0;
-        bounds.top = 0;
         bounds.right = room.width - obj.width;
+        bounds.top = 0;
         bounds.bottom = room.height - obj.height;
     };
 
-    if (state.newPos.x < bounds.left) { state.newPos.x = bounds.left; };
-    if (state.newPos.y < bounds.top) { state.newPos.y = bounds.top; };
+    if (state.newPos.x < bounds.left) { state.newPos.x = bounds.left };
     if (state.newPos.x > bounds.right) { state.newPos.x = bounds.right; };
+    if (state.newPos.y < bounds.top) { state.newPos.y = bounds.top; };
     if (state.newPos.y > bounds.bottom) { state.newPos.y = bounds.bottom; };
 
 }
@@ -461,35 +461,53 @@ function closeModal() {
 
 // ------ Classroom Panel Functions ------
 
-function decclassroomWidth() {
+function decClassroomWidth() {
     const currentWidth = getComputedStyle(classroom).width;
+    const roomElements = classroom.childNodes;
 
     if (parseInt(currentWidth) > 240) {
         classroom.style.width = parseInt(currentWidth) - 10 + "px";
+
+        roomElements.forEach((element) => {
+            const currentPosX = parseInt(getComputedStyle(element).left);
+            state.newPos.x = currentPosX;
+            checkBounds(element);
+            element.style.left = state.newPos.x + "px";
+        });
+
     } else {
-        alert("You've reached the min width.");
+        alert("You've reached the minimum classroom width.");
     }
 
 }
 
-function incclassroomWidth() {
+function incClassroomWidth() {
     const currentWidth = getComputedStyle(classroom).width;
 
     if (parseInt(currentWidth) < 760) {
         classroom.style.width = parseInt(currentWidth) + 10 + "px";
     } else {
-        alert("You've reached the max width.");
+        alert("You've reached the maximum classroom width.");
     }
 
 }
 
 function decclassroomLength() {
     const currentHeight = getComputedStyle(classroom).height;
+    const roomElements = classroom.childNodes;
 
     if (parseInt(currentHeight) > 240) {
         classroom.style.height = parseInt(currentHeight) - 10 + "px";
+
+        roomElements.forEach((element) => {
+            const currentPosY = parseInt(getComputedStyle(element).top);
+            state.newPos.y = currentPosY;
+            checkBounds(element);
+            element.style.top = state.newPos.y + "px";
+        });
+
     } else {
-        alert("You've reached the min length.");
+        alert("You've reached the minimum classroom length.");
     }
 }
 
@@ -499,7 +517,7 @@ function incclassroomLength() {
     if (parseInt(currentHeight) < 760) {
         classroom.style.height = parseInt(currentHeight) + 10 + "px";
     } else {
-        alert("You've reached the max length.");
+        alert("You've reached the maximum classroom length.");
     }
 }
 
