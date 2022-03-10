@@ -18,40 +18,88 @@
         <h1>Classroom Planner</h1>
     </div>
 
-    <div class="toolbar">
-        <div class="print-tools-container">
-            <button id="print-classroom-button" class="print-tool button single">
-                <span>Print Classroom Plan</span>
-            </button>
 
-            <button id="print-students-button" class="print-tool button single">
-                <span>Print Student List</span>
-            </button>
+    <div class="toolbar">
+        <div class="toolbar-section">
+            <div class="buttons-container">
+                <div class="classroom-button-underlay">
+                    <button id="dec-width-button" class="toolbar-button"><i class="fas fa-minus"></i></button>
+                </div>
+                <div class="classroom-button-underlay">
+                    <button id="inc-width-button" class="toolbar-button"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            <span>Classroom Width</span>
+
         </div>
 
-        <div class="classroom-tools-container">
-            <button class="classroom-tool button double">
-                <i id="dec-width-button" class="fas fa-minus"></i>
-                <span>Classroom Width</span>
-                <i id="inc-width-button" class="fas fa-plus"></i>
-            </button>
+
+        <div class="toolbar-section">
+            <div class="buttons-container">
+                <div class="classroom-button-underlay">
+                    <button id="dec-length-button" class="toolbar-button"><i class="fas fa-minus"></i></button>
+                </div>
+                <div class="classroom-button-underlay">
+                    <button id="inc-length-button" class="toolbar-button"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            <span>Classroom Length</span>
+
+        </div>
 
 
-            <button class="classroom-tool button double">
-                <i id="dec-length-button" class="fas fa-minus"></i>
-                <span>Classroom Length</span>
-                <i id="inc-length-button" class="fas fa-plus"></i>
-            </button>
+        <div class="toolbar-section">
+            <div class="buttons-container">
+                <div class="classroom-button-underlay">
+                    <button id="toggle-names-button" class="toolbar-button"><i class="fas fa-toggle-off"></i></button>
+                </div>
+            </div>
+            <span>Display Names</span>
+
+        </div>
 
 
-            <button class="classroom-tool button double">
-                <i id="hide-names-button" class="fas fa-eye-slash"></i>
-                <span>Display Names</span>
-                <i id="show-names-button" class="fas fa-eye"></i>
-            </button>
+        <div class="toolbar-section">
+            <div class="buttons-container">
+                <div class="object-button-underlay">
+                    <button id="rotate-ccw-button" class="toolbar-button"><i class="fas fa-undo-alt"></i></button>
+                </div>
+                <div class="object-button-underlay">
+                    <button id="rotate-cw-button" class="toolbar-button"><i class="fas fa-redo-alt"></i></button>
+                </div>
+            </div>
+            <span>Rotate Object</span>
+        </div>
+
+        <div class="toolbar-section">
+            <div class="buttons-container">
+                <div class="object-button-underlay">
+                    <button id="remove-object-button" class="toolbar-button"><i class="fas fa-trash-alt "></i></button>
+                </div>
+            </div>
+            <span>Remove Object</span>
+        </div>
+
+        <div class="toolbar-section">
+            <div class="buttons-container">
+                <div class="print-button-underlay">
+                    <button id="print-classroom-button" class="toolbar-button"><i class="fas fa-print"></i></button>
+                </div>
+            </div>
+            <span>Print Classroom Plan</span>
+        </div>
+
+        <div class="toolbar-section">
+            <div class="buttons-container">
+                <div class="print-button-underlay">
+                    <button id="print-students-button" class="toolbar-button"><i class="fas fa-print"></i></button>
+                </div>
+            </div>
+            <span>Print Student List</span>
         </div>
 
     </div>
+
 
     <div class="wrapper">
 
@@ -69,76 +117,88 @@
 
             <div class="objects-panel">
 
-                <p>Classroom Objects:</p>
+                <div class="objects-panel-section">
+                    <span>Student Desk</span>
+                    <div class="add-object-button-underlay">
+                        <button id="add-student-desk-button" class="add-object-button"><i
+                                class="fas fa-plus"></i></button>
+                    </div>
+                </div>
 
-                <button id="add-student-desk-button" class="add-tool button single">
-                    <i class="fas fa-plus"></i>
-                    <span>Add Student Desk</span>
-                </button>
+                <div class="objects-panel-section">
+                    <span>Teacher Desk/Table</span>
+                    <div class="add-object-button-underlay">
+                        <button id="add-teacher-desk-button" class="add-object-button"><i
+                                class="fas fa-plus"></i></button>
+                    </div>
+                </div>
 
-                <button id="add-teacher-desk-button" class="add-tool button single">
-                    <i class="fas fa-plus"></i>
-                    <span>Add Teacher Desk / Table</span>
-                </button>
+                <div class="objects-panel-section">
+                    <span>Bookshelf</span>
+                    <div class="add-object-button-underlay">
+                        <button id="add-bookshelf-button" class="add-object-button"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
 
-                <button id="add-bookshelf-button" class="add-tool button single">
-                    <i class="fas fa-plus"></i>
-                    <span>Add Bookshelf</span>
-                </button>
+                <div class="objects-panel-section">
+                    <span>Whiteboard/Smartboard</span>
+                    <div class="add-object-button-underlay">
+                        <button id="add-whiteboard-button" class="add-object-button"><i
+                                class="fas fa-plus"></i></button>
+                    </div>
+                </div>
 
-                <button id="add-whiteboard-button" class="add-tool button single">
-                    <i class="fas fa-plus"></i>
-                    <span>Add Whiteboard / Smartboard</span>
-                </button>
+                <div class="objects-panel-section">
+                    <span>Doorway (Left Swinging)</span>
+                    <div class="add-object-button-underlay">
+                        <button id="add-doorway-left-button" class="add-object-button"><i
+                                class="fas fa-plus"></i></button>
+                    </div>
+                </div>
 
-                <button id="add-doorway-button" class="add-tool button single">
-                    <i class="fas fa-plus"></i>
-                    <span>Add Doorway</span>
-                </button>
+                <div class="objects-panel-section">
+                    <span>Doorway (Right Swinging)</span>
+                    <div class="add-object-button-underlay">
+                        <button id="add-doorway-right-button" class="add-object-button"><i
+                                class="fas fa-plus"></i></button>
+                    </div>
+                </div>
 
-                <button id="add-window-button" class="add-tool button single">
-                    <i class="fas fa-plus"></i>
-                    <span>Add Window</span>
-                </button>
+                <div class="objects-panel-section">
+                    <span>Window</span>
+                    <div class="add-object-button-underlay">
+                        <button id="add-window-button" class="add-object-button"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
 
-                <button id="add-wall-segment-button" class="add-tool button single">
-                    <i class="fas fa-plus"></i>
-                    <span>Add Wall Segment / Barrier</span>
-                </button>
+                <div class="objects-panel-section">
+                    <span>Wall Segment/Barrier</span>
+                    <div class="add-object-button-underlay">
+                        <button id="add-wall-segment-button" class="add-object-button"><i
+                                class="fas fa-plus"></i></button>
+                    </div>
+                </div>
 
-                <button id="add-round-table-button" class="add-tool button single">
-                    <i class="fas fa-plus"></i>
-                    <span>Add Round Table</span>
-                </button>
-
-                <p>Tools:</p>
-
-                <button class="object-tool button double">
-                    <i id="rotate-ccw-button" class="fas fa-undo-alt"></i>
-                    <span>Rotate Object</span>
-                    <i id="rotate-cw-button" class="fas fa-redo-alt"></i>
-                </button>
-
-                <button id="remove-object-button" class="object-tool button single">
-                    <i class="fas fa-trash-alt"></i>
-                    <span>Remove Object</span>
-                </button>
-
+                <div class="objects-panel-section">
+                    <span>Round Table</span>
+                    <div class="add-object-button-underlay">
+                        <button id="add-round-table-button" class="add-object-button"><i
+                                class="fas fa-plus"></i></button>
+                    </div>
+                </div>
             </div>
 
             <div class="students-panel">
-
-                <button id="add-student-button" class="add-tool button single">
-                    <i class="fas fa-plus"></i>
-                    <span>Add Student</span>
-                </button>
-
-                <button id="sort-az-button" class="sort-tool button single">
-                    <span> Sort A-Z</span>
-                </button>
-
-                <div class="student-list">
+                <div class="buttons-container">
+                    <div class="add-student-button-underlay">
+                        <button id="add-student-button" class=""><span>Add Student</span></button>
+                    </div>
+                    <div class="sort-az-button-underlay">
+                        <button id="sort-az-button" class=""><span> Sort A-Z</span></button>
+                    </div>
                 </div>
+
+                <div class="student-list"></div>
 
             </div>
 
@@ -156,36 +216,29 @@
 
             <div class="modal-header">
                 <p>Edit Student Information</p>
-                <button id="close-modal-button" class="button single">
-                    <i class="fas fa-times"></i>
-                </button>
             </div>
 
             <div class="modal-content">
 
                 <div class="modal-section">
                     <label for="first-name">First Name: </label>
-                </div>
-
-                <div class="modal-section">
                     <input type="text" id="first-name" placeholder="New">
                 </div>
 
                 <div class="modal-section">
                     <label for="last-name">Last Name: </label>
-                </div>
-
-                <div class="modal-section">
                     <input type="text" id="last-name" placeholder="Student">
                 </div>
 
             </div>
 
             <div class="modal-footer">
-                <button id="save-changes-button" class="button single">
-                    <i class="fas fa-save"></i>
-                    <span>Save Changes</span>
-                </button>
+                <div class="modal-button-underlay">
+                    <button id="close-modal-button" class="modal-button"><span>Close</span></button>
+                </div>
+                <div class="modal-button-underlay">
+                    <button id="save-changes-button" class="modal-button"><span>Save Changes</span></button>
+                </div>
             </div>
 
         </div>

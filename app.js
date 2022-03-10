@@ -4,7 +4,8 @@ const addStudentDeskButton = document.querySelector('#add-student-desk-button');
 const addTeacherDeskButton = document.querySelector('#add-teacher-desk-button');
 const addBookshelfButton = document.querySelector('#add-bookshelf-button');
 const addWhiteboardButton = document.querySelector('#add-whiteboard-button');
-const addDoorwayButton = document.querySelector('#add-doorway-button');
+const addDoorwayLeftButton = document.querySelector('#add-doorway-left-button');
+const addDoorwayRightButton = document.querySelector('#add-doorway-right-button');
 const addWindowButton = document.querySelector('#add-window-button');
 const addWallSegmentButton = document.querySelector('#add-wall-segment-button');
 const addRoundTableButton = document.querySelector('#add-round-table-button');
@@ -15,8 +16,7 @@ const decLengthButton = document.querySelector('#dec-length-button');
 const rotateCcwButton = document.querySelector('#rotate-ccw-button');
 const rotateCwButton = document.querySelector('#rotate-cw-button');
 const removeObjectButton = document.querySelector('#remove-object-button');
-const showNamesButton = document.querySelector('#show-names-button');
-const hideNamesButton = document.querySelector('#hide-names-button');
+const toggleNamesButton = document.querySelector('#toggle-names-button');
 const addStudentButton = document.querySelector('#add-student-button');
 const sortAzButton = document.querySelector('#sort-az-button');
 const closeModalButton = document.querySelector('#close-modal-button');
@@ -50,7 +50,8 @@ addStudentDeskButton.addEventListener('click', addStudentDesk);
 addTeacherDeskButton.addEventListener('click', addTeacherDesk);
 addBookshelfButton.addEventListener('click', addBookshelf);
 addWhiteboardButton.addEventListener('click', addWhiteboard);
-addDoorwayButton.addEventListener('click', addDoorway);
+addDoorwayLeftButton.addEventListener('click', addDoorwayLeft);
+addDoorwayRightButton.addEventListener('click', addDoorwayRight);
 addWindowButton.addEventListener('click', addWindow);
 addWallSegmentButton.addEventListener('click', addWallSegment);
 addRoundTableButton.addEventListener('click', addRoundTable);
@@ -61,8 +62,7 @@ decLengthButton.addEventListener('click', decclassroomLength);
 rotateCcwButton.addEventListener('click', rotateCcw);
 rotateCwButton.addEventListener('click', rotateCw);
 removeObjectButton.addEventListener('click', removeObject);
-showNamesButton.addEventListener('click', showNames);
-hideNamesButton.addEventListener('click', hideNames);
+toggleNamesButton.addEventListener('click', toggleNames);
 addStudentButton.addEventListener('click', addStudent);
 sortAzButton.addEventListener('click', sortAz);
 closeModalButton.addEventListener('click', closeModal);
@@ -221,8 +221,13 @@ function addWhiteboard() {
     state.objectIds++;
 }
 
-function addDoorway() {
-    createObject().classList.add('doorway');
+function addDoorwayLeft() {
+    createObject().classList.add('doorway-left');
+    state.objectIds++;
+}
+
+function addDoorwayRight() {
+    createObject().classList.add('doorway-right');
     state.objectIds++;
 }
 
@@ -284,6 +289,8 @@ function addDraggable(event) {
 function dragStart(event) {
 
     state.draggableObject = document.querySelector('.draggable');
+
+    event.preventDefault();
 
     if (state.draggableObject) {
 
@@ -533,27 +540,37 @@ function incclassroomLength() {
     }
 }
 
-function showNames() {
+function toggleNames() {
 
     const displayNames = document.querySelectorAll('.display-name');
 
-    displayNames.forEach((item) => {
-        item.style.visibility = "visible";
-    });
+    if (state.displayNameStatus === "hidden") {
 
-    state.displayNameStatus = "visible";
+        toggleNamesButton.childNodes[0].classList.remove('fa-toggle-off');
+        toggleNamesButton.childNodes[0].classList.add('fa-toggle-on');
+        displayNames.forEach((item) => {
+            item.style.visibility = "visible";
+        });
+
+        state.displayNameStatus = "visible";
+
+    } else if (state.displayNameStatus === "visible") {
+
+        toggleNamesButton.childNodes[0].classList.remove('fa-toggle-on');
+        toggleNamesButton.childNodes[0].classList.add('fa-toggle-off');
+        displayNames.forEach((item) => {
+            item.style.visibility = "hidden";
+        });
+
+        state.displayNameStatus = "hidden";
+
+    }
 
 }
 
 function hideNames() {
 
-    const displayNames = document.querySelectorAll('.display-name');
 
-    displayNames.forEach((item) => {
-        item.style.visibility = "hidden";
-    });
-
-    state.displayNameStatus = "hidden";
 
 
 }
