@@ -23,45 +23,13 @@
 
 html {
     background-color: black;
-    display: flex;
-    justify-content: center;
-    min-width: 1290px;
     background-image: url(./images/background.png);
     background-position: center;
     background-size: cover;
-    font-family: 'Quicksand', sans-serif;
-}
-
-/* Button Styling */
-
-.button {
     display: flex;
-    align-items: center;
-    border: none;
-    border-radius: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1rem;
-}
-
-.single {
+    font-family: 'Quicksand', sans-serif;
     justify-content: center;
-    pointer-events: all;
-    cursor: pointer;
-    padding: 10px;
-}
-
-.single i {
-    padding: 5px 8px 5px 0px;
-}
-
-.double {
-    justify-content: space-between;
-}
-
-.double i {
-    pointer-events: all;
-    cursor: pointer;
-    padding: 15px;
+    min-width: 1290px;
 }
 
 /* Title */
@@ -69,55 +37,95 @@ html {
 .title-box {
     display: flex;
     justify-content: center;
-    width: 1290px;
     white-space: nowrap;
+    width: 1290px;
 }
 
 .title-box h1 {
-    margin-top: 15px;
-    margin-bottom: 10px;
     color: white;
     font-family: 'Cabin Sketch', sans-serif;
     font-size: 3rem;
     font-weight: bold;
+    margin-top: 20px;
 }
 
 /* Toolbar */
 
 .toolbar {
-    display: grid;
-    grid-template-columns: 410px 820px;
-    grid-template-rows: 50px;
-    margin: 20px;
-}
-
-.print-tools-container {
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
     display: flex;
     justify-content: space-between;
+    margin: 20px 20px 0px 20px;
+    padding: 20px;
+}
+
+.toolbar-section {
     align-items: center;
-    width: 100%;
-    height: 100%;
-}
-
-.print-tool {
-    background-color: gold;
-    width: 195px;
-    height: 50px;
-}
-
-.classroom-tools-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 20px;
-    width: 100%;
-    height: 100%;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.classroom-tool {
+.toolbar-section span{
+    font-size: 1rem;
+    margin: 5px;
+}
+
+.buttons-container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.classroom-button-underlay {
+    align-items: center;
     background-color: cornflowerblue;
-    width: 260px;
-    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    height: 30px;
+    justify-content: center;
+    margin: 5px;
+    width: 60px;
+}
+
+.object-button-underlay {
+    align-items: center;
+    background-color: yellowgreen;
+    border-radius: 10px;
+    display: flex;
+    height: 30px;
+    margin: 5px;
+    width: 60px;
+}
+
+.print-button-underlay {
+    align-items: center;
+    background-color: gold;
+    border-radius: 10px;
+    display: flex;
+    height: 30px;
+    margin: 5px;
+    width: 60px;
+}
+
+.toolbar-button {
+    background-color: transparent;
+    align-items: center;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    height: 30px;
+    justify-content: center;
+    width: 60px;
+}
+
+.toolbar-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Main Area */
@@ -130,144 +138,215 @@ html {
 }
 
 .sidebar {
-    width: 360px;
     height: 820px;
     position: relative;
+    width: 360px;
 }
 
 .tabs-container {
+    align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
 }
 
 .tab {
+    align-items: center;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border: none;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 410px;
-    border: none;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: bold;
-    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 410px;
+    justify-content: center;
+    width: 50px;
 }
 
 .tab span {
     transform: rotate(-90deg);
 }
 
-/* Tabs */
-
 #objects-tab {
-    background-color: orange;
+    background-color: rgba(255, 166, 0, 0.6);
 }
 
 #students-tab {
-    background-color: tomato;
+    background-color: rgba(255, 99, 71, 0.6);
 }
 
 /* Objects Panel */
 
 .objects-panel {
-    background-color: orange;
-    position: absolute;
-    width: 320px;
+    background-color: rgba(255, 166, 0, 0.6);
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
     height: 780px;
     padding: 20px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    position: absolute;
     visibility: visible;
+    width: 320px;
 }
 
-.objects-panel p {
-    font-size: 1.1rem;
-    font-weight: bold;
+.objects-panel-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
 }
 
-.object-tool {
-    background-color:yellowgreen;
-    margin-bottom: 20px;
-    width: 100%;
+.objects-panel-section span {
+    font-size: 1rem;
 }
 
-.add-tool {
+.add-object-button-underlay {
+    align-items: center;
     background-color: green;
-    margin-bottom: 20px;
-    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    width: 60px;
+}
+
+.add-object-button {
+    align-items: center;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    height: 40px;
+    justify-content: center;
+    width: 60px;
+    background-color: transparent;
+}
+
+.add-object-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Students Panel */
 
 .students-panel {
-    background-color: tomato;
-    position: absolute;
-    width: 320px;
+    background-color: rgba(255, 99, 71, 0.6);
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
     height: 780px;
     padding: 20px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    position: absolute;
     visibility: hidden;
+    width: 320px;
 }
 
-.sort-tool {
-    background-color: mediumpurple;
-    margin-bottom: 20px;
+.add-student-button-underlay {
+    background-color: green;
+    align-items: center;
+    border-radius: 10px;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    margin-right: 5px;
+    width: 50%;
+}
+
+#add-student-button {
+    align-items: center;
+    background-color: transparent;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    height: 40px;
+    justify-content: center;
     width: 100%;
-    height: 46px;
+}
+
+#add-student-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.sort-az-button-underlay {
+    background-color: mediumpurple;
+    align-items: center;
+    border-radius: 10px;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    margin-left: 5px;
+    width: 50%;
+}
+
+#sort-az-button {
+    align-items: center;
+    background-color: transparent;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    height: 40px;
+    justify-content: center;
+    width: 100%;
+}
+
+#sort-az-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 .student-list {
-    background-color: rgb(236, 236, 236);
-    border: 1px solid black;
+    background-color: rgb(236, 236, 236, 0.6);
     border-radius: 10px;
-    height: 650px;
+    height: 710px;
+    margin-top: 20px;
+    padding: 5px;
     overflow: hidden scroll;
 }
 
 .student {
-    background-color: white;
-    display: flex;
     align-items: center;
-    border: 1px solid black;
+    background-color: white;
     border-radius: 10px;
-    padding: 8px 10px;
-    margin: 7px 7px 0px 7px;
+    display: flex;
+    margin: 5px;
+    padding: 10px;
 }
 
 .student p {
-    width: 100%;
+    margin-right: 10px;
     overflow: hidden;
     white-space: nowrap;
-    margin-right: 10px;
+    width: 100%;
 }
 
 .student-info-button {
     background-color: transparent;
     border: none;
-    padding-right: 8px;
-    font-size: 1.2rem;
     cursor: pointer;
+    font-size: 1.2rem;
+    padding-right: 8px;
 }
 
 .assign-desk-button {
     background-color: transparent;
     border: none;
-    padding-right: 8px;
-    font-size: 1rem;
     cursor: pointer;
+    font-size: 1rem;
+    padding-right: 8px;
 }
 
 .remove-student-button {
     background-color: transparent;
     border: none;
-    font-size: 1rem;
     cursor: pointer;
+    font-size: 1rem;
 }
 
 .assigned {
@@ -277,49 +356,48 @@ html {
 /* Classroom */
 
 .classroom-wrapper {
-    background-color: rgba(255, 255, 255, 0.6);
+    align-items: center;
+    background-color:rgba(238, 232, 170, 0.6);
     border-radius: 10px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 820px;
     height: 820px;
+    justify-content: center;
     margin-left: 20px;
-    box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.8);
-    /* position: relative; */
+    width: 820px;
 }
 
 .classroom {
-    background-image: url(./images/grid.png);
-    background-color: rgba(255,255,255,0.6);
     background-blend-mode: lighten;
+    background-color: rgba(255,255,255,0.6);
+    background-image: url(./images/grid.png);
     border: 5px solid darkgrey;
-    margin: 20px;
-    width: 380px;
-    height: 380px;
-    max-width: 760px;
-    max-height: 760px;
+    box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.8);
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
+    flex-wrap: wrap;
+    height: 380px;
+    margin: 20px;
+    max-height: 760px;
+    max-width: 760px;
     overflow: hidden;
     position: relative;
+    width: 380px;
 }
 
 /* Objects */
 
 .student-desk {
+    align-items: center;
     background-color: lightgrey;
     border: 2px solid black;
-    height: 26px;
-    width: 26px;
     cursor: pointer;
     display: flex;
+    height: 26px;
     justify-content: center;
-    align-items: center;
-    position: absolute;
     left: 0px;
+    position: absolute;
     top: 0px;
+    width: 26px;
 }
 
 .student-desk i{
@@ -337,12 +415,12 @@ html {
 .teacher-desk {
     background-color: brown;
     border: 2px solid black;
-    height: 46px;
-    width: 76px;
     cursor: pointer;
-    position: absolute;
+    height: 46px;
     left: 0px;
+    position: absolute;
     top: 0px;
+    width: 76px;
 }
 
 .teacher-desk:hover{
@@ -352,12 +430,12 @@ html {
 .bookshelf {
     background-color: burlywood;
     border: 2px solid black;
-    height: 16px;
-    width: 46px;
     cursor: pointer;
-    position: absolute;
+    height: 16px;
     left: 0px;
+    position: absolute;
     top: 0px;
+    width: 46px;
 }
 
 .bookshelf:hover{
@@ -367,44 +445,62 @@ html {
 .whiteboard {
     background-color: rgb(120, 165, 79);
     border: 2px solid black;
-    height: 6px;
-    width: 96px;
     cursor: pointer;
-    position: absolute;
+    height: 6px;
     left: 0px;
+    position: absolute;
     top: 0px;
+    width: 96px;
 }
 
 .whiteboard:hover{
     border-color: aqua;
 }
 
-.doorway {
+.doorway-left {
     background-color: rgba(255, 160, 122, 0.5);
+    border-bottom-right-radius: 100%;
     border: 2px dotted black;
     border-left: 2px solid black;
-    height: 36px;
-    width: 36px;
     cursor: pointer;
-    position: absolute;
+    height: 36px;
     left: 0px;
+    position: absolute;
     top: 0px;
+    width: 36px;
 }
 
-.doorway:hover{
+.doorway-left:hover{
+    border-color: aqua;
+}
+
+.doorway-right {
+    background-color: rgba(255, 160, 122, 0.5);
+    border-top-right-radius: 100%;
+    border: 2px dotted black;
+    border-left: 2px solid black;
+    cursor: pointer;
+    height: 36px;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 36px;
+}
+
+.doorway-right:hover{
     border-color: aqua;
 }
 
 .window {
     background-color: rgba(10, 187, 187, 0.5);
-    border: 2px solid black;
     border-radius: 8px;
-    height: 6px;
-    width: 50px;
+    border: 2px solid black;
     cursor: pointer;
-    position: absolute;
+    height: 6px;
     left: 0px;
+    position: absolute;
     top: 0px;
+    width: 50px;
 }
 
 .window:hover{
@@ -414,12 +510,12 @@ html {
 .wall-segment {
     background-color: darkgrey;
     border: 5px solid darkgrey;
-    height: 50px;
-    width: 0px;
     cursor: pointer;
-    position: absolute;
+    height: 50px;
     left: 0px;
+    position: absolute;
     top: 0px;
+    width: 0px;
 }
 
 .wall-segment:hover {
@@ -428,14 +524,14 @@ html {
 
 .round-table {
     background-color:bisque;
-    border: 2px solid black;
     border-radius: 50%;
-    height: 56px;
-    width: 56px;
+    border: 2px solid black;
     cursor: pointer;
-    position: absolute;
+    height: 56px;
     left: 0px;
+    position: absolute;
     top: 0px;
+    width: 56px;
 }
 
 .round-table:hover {
@@ -449,66 +545,65 @@ html {
 /* Display Names */
 
 .display-name {
-    visibility: hidden;
-    display: flex;
     align-items: center;
-    justify-content: center;
     background-color: black;
-    color: #fff;
-    text-align: center;
-    font-size: 0.6rem;
-    padding: 2px 6px 3px 6px;
     border-radius: 6px;
-    position: absolute;
-    z-index: 1;
     bottom: 120%;
+    color: #fff;
+    display: flex;
+    font-size: 0.6rem;
+    justify-content: center;
+    padding: 2px 6px 3px 6px;
     pointer-events: none;
+    position: absolute;
+    text-align: center;
+    visibility: hidden;
     white-space: nowrap;
+    z-index: 1;
 }
 
 .display-name::after {
+    border-color: black transparent transparent transparent;
+    border-style: solid;
+    border-width: 5px;
     content: "";
-    position: absolute;
-    top: 100%;
     left: 50%;
     margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: black transparent transparent transparent;
     pointer-events: none;
+    position: absolute;
+    top: 100%;
 }
 
 /* Modal */
 
 .add-student-modal{
+    background-color: rgba(0,0,0,0.6);
     display: none;
-    position: fixed;
-    z-index: 1;
+    height: 100%;
     left: 0;
+    overflow: hidden;
+    position: fixed;
     top: 0;
     width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: rgba(0,0,0,0.6);
+    z-index: 1;
 }
 
 .modal-box {
     background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid black;
     border-radius: 10px;
-    width: 40%;
-    min-width: 600px;
+    border: 1px solid black;
+    margin: 15% auto;
+    min-width: 400px;
+    padding: 20px;
+    width: 20%;
 }
 
 .modal-header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
+    display: flex;
+    justify-content: center;
     margin-bottom: 15px;
-
+    width: 100%;
 }
 
 .modal-header p {
@@ -516,34 +611,16 @@ html {
     font-weight: bold;
 }
 
-#close-modal-button {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background-color: black;
-    color: white;
-}
-
-#close-modal-button:hover {
-    background-color: grey;
-    cursor: pointer;
-}
-
-#close-modal-button i {
-    padding: 0px;
-}
-
 .modal-content {
-    display: grid;
-    grid-template-columns: 70px auto 70px auto;
-    column-gap: 2rem;
+    margin: 20px 0px 30px 0px;
 }
 
 .modal-section {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    display: flex;
     align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    margin-top: 15px;
     white-space: nowrap;
 }
 
@@ -553,7 +630,7 @@ html {
 
 .modal-section input {
     margin-left: 10px;
-    width: 100%;
+    width: 70%;
 }
 
 #first-name, #last-name {
@@ -561,18 +638,38 @@ html {
 }
 
 .modal-footer {
-    width: 100%;
-    display: flex;
-    justify-content: left;
     align-items: center;
+    display: flex;
+    justify-content: center;
     margin-top: 15px;
+    width: 100%;
 }
 
-#save-changes-button {
+.modal-button-underlay {
+    align-items: center;
     background-color: darkgrey;
+    border-radius: 10px;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    margin: 0px 10px;
+    width: 140px;
 }
 
-#save-changes-button:hover {
-    background-color: aqua;
+.modal-button {
+    align-items: center;
+    background-color: transparent;
+    border-radius: 10px;
+    border: none;
     cursor: pointer;
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    height: 40px;
+    justify-content: center;
+    width: 140px;
+}
+
+.modal-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
 }
