@@ -58,6 +58,7 @@
 
         </div>
 
+        <div class="toolbar-divider"></div>
 
         <div class="toolbar-section">
             <div class="buttons-container">
@@ -74,11 +75,27 @@
         <div class="toolbar-section">
             <div class="buttons-container">
                 <div class="object-button-underlay">
+                    <button id="send-backward-button" class="toolbar-button"><i
+                            class="fas fa-caret-up fa-2x"></i></button>
+                </div>
+                <div class="object-button-underlay">
+                    <button id="bring-forward-button" class="toolbar-button"><i
+                            class="fas fa-caret-down fa-2x"></i></button>
+                </div>
+            </div>
+            <span>Send Backward/Bring Forward</span>
+        </div>
+
+        <div class="toolbar-section">
+            <div class="buttons-container">
+                <div class="object-button-underlay">
                     <button id="remove-object-button" class="toolbar-button"><i class="fas fa-trash-alt "></i></button>
                 </div>
             </div>
             <span>Remove Object</span>
         </div>
+
+        <div class="toolbar-divider"></div>
 
         <div class="toolbar-section">
             <div class="buttons-container">
@@ -212,7 +229,7 @@
 
     <div class="add-student-modal">
 
-        <div class="modal-box">
+        <div class="modal-container">
 
             <div class="modal-header">
                 <p>Edit Student Information</p>

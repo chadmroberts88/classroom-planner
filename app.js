@@ -15,6 +15,8 @@ const incLengthButton = document.querySelector('#inc-length-button');
 const decLengthButton = document.querySelector('#dec-length-button');
 const rotateCcwButton = document.querySelector('#rotate-ccw-button');
 const rotateCwButton = document.querySelector('#rotate-cw-button');
+const sendbackwardButton = document.querySelector('#send-backward-button');
+const bringForwardButton = document.querySelector('#bring-forward-button');
 const removeObjectButton = document.querySelector('#remove-object-button');
 const toggleNamesButton = document.querySelector('#toggle-names-button');
 const addStudentButton = document.querySelector('#add-student-button');
@@ -61,6 +63,8 @@ incLengthButton.addEventListener('click', incclassroomLength);
 decLengthButton.addEventListener('click', decclassroomLength);
 rotateCcwButton.addEventListener('click', rotateCcw);
 rotateCwButton.addEventListener('click', rotateCw);
+sendbackwardButton.addEventListener('click', sendBackward);
+bringForwardButton.addEventListener('click', bringforward);
 removeObjectButton.addEventListener('click', removeObject);
 toggleNamesButton.addEventListener('click', toggleNames);
 addStudentButton.addEventListener('click', addStudent);
@@ -79,7 +83,8 @@ classroom.addEventListener('mousedown', dragStart, false);
 classroom.addEventListener("mousemove", drag, false);
 classroom.addEventListener("mouseup", dragEnd, false);
 classroom.addEventListener('mouseleave', dragEnd, false);
-document.addEventListener('keydown', transformWithKeys, false);
+document.addEventListener('keydown', transformWithKeys, true);
+document.addEventListener('keyup', resetArrowKeys, true);
 
 // ------ State Object ------
 
@@ -97,6 +102,8 @@ const state = {
     dragActive: false,
     cursorOffset: { x: 0, y: 0 },
     newPos: { x: 0, y: 0 },
+
+    arrowKeysPressed: {},
 
     displayNameStatus: "hidden",
     classroomInFocus: true
@@ -405,6 +412,7 @@ function checkBounds(object) {
 
 // ------ Transform Object with Keys Function ------
 
+
 function transformWithKeys(event) {
 
     const selectedObject = document.querySelector('.selected');
@@ -416,35 +424,51 @@ function transformWithKeys(event) {
             y: parseInt(getComputedStyle(selectedObject).top)
         }
 
-        switch (event.key) {
-            case "ArrowRight":
-                state.newPos.x = currentPos.x + 1;
-                event.preventDefault();
-                break;
-            case "ArrowLeft":
-                state.newPos.x = currentPos.x - 1;
-                event.preventDefault();
-                break;
-            case "ArrowUp":
-                state.newPos.y = currentPos.y - 1;
-                event.preventDefault();
-                break;
-            case "ArrowDown":
-                state.newPos.y = currentPos.y + 1;
-                event.preventDefault();
-                break;
-            case "Delete":
-                removeObject();
-                event.preventDefault();
-                return;
-            case "z":
-                rotateCcw();
-                event.preventDefault();
-                return;
-            case "x":
-                rotateCw();
-                event.preventDefault();
-                return;
+        state.newPos.x = currentPos.x;
+        state.newPos.y = currentPos.y;
+
+        const velocity = {
+            x: 1,
+            y: 1
+        }
+
+        const watchKeys = ["ArrowUp", "ArrowDown", "ArrowRight", "ArrowLeft"];
+
+        if (watchKeys.includes(event.key)) {
+            event.preventDefault();
+            state.arrowKeysPressed[event.key] = true;
+        }
+
+        if (event.key === "z") {
+            event.preventDefault();
+            rotateCcw();
+        }
+
+        if (event.key === "x") {
+            event.preventDefault();
+            rotateCw();
+        }
+
+        if (event.key === "Delete" || event.key === "Backspace") {
+            event.preventDefault();
+            removeObject();
+            return;
+        }
+
+        if (state.arrowKeysPressed.ArrowDown) {
+            state.newPos.y = currentPos.y + velocity.y;
+        }
+
+        if (state.arrowKeysPressed.ArrowUp) {
+            state.newPos.y = currentPos.y - velocity.y;
+        }
+
+        if (state.arrowKeysPressed.ArrowRight) {
+            state.newPos.x = currentPos.x + velocity.x;
+        }
+
+        if (state.arrowKeysPressed.ArrowLeft) {
+            state.newPos.x = currentPos.x - velocity.x;
         }
 
         checkBounds(selectedObject);
@@ -452,6 +476,19 @@ function transformWithKeys(event) {
         selectedObject.style.left = state.newPos.x + "px";
         selectedObject.style.top = state.newPos.y + "px";
 
+    }
+
+}
+
+function resetArrowKeys(event) {
+
+    const selectedObject = document.querySelector('.selected');
+    const watchKeys = ["ArrowUp", "ArrowDown", "ArrowRight", "ArrowLeft"];
+
+    if (selectedObject && state.classroomInFocus) {
+        if (watchKeys.includes(event.key)) {
+            state.arrowKeysPressed[event.key] = false;
+        }
     }
 
 }
@@ -568,13 +605,6 @@ function toggleNames() {
 
 }
 
-function hideNames() {
-
-
-
-
-}
-
 function rotateCcw() {
 
     const selectedElement = document.querySelector('.selected');
@@ -592,6 +622,19 @@ function rotateCcw() {
 
         selectedElement.style.transform = "rotate(" + newRotationState + "deg)";
         currentObject.setRotationState(newRotationState);
+
+        const currentPos = {
+            x: parseInt(getComputedStyle(selectedElement).left),
+            y: parseInt(getComputedStyle(selectedElement).top),
+        }
+
+        state.newPos.x = currentPos.x;
+        state.newPos.y = currentPos.y;
+
+        checkBounds(selectedElement);
+
+        selectedElement.style.left = state.newPos.x + "px";
+        selectedElement.style.top = state.newPos.y + "px";
     }
 
 }
@@ -613,6 +656,49 @@ function rotateCw() {
 
         selectedElement.style.transform = "rotate(" + newRotationState + "deg)";
         currentObject.setRotationState(newRotationState);
+
+        const currentPos = {
+            x: parseInt(getComputedStyle(selectedElement).left),
+            y: parseInt(getComputedStyle(selectedElement).top),
+        }
+
+        state.newPos.x = currentPos.x;
+        state.newPos.y = currentPos.y;
+
+        checkBounds(selectedElement);
+
+        selectedElement.style.left = state.newPos.x + "px";
+        selectedElement.style.top = state.newPos.y + "px";
+    }
+
+}
+
+function sendBackward() {
+
+    const selectedElement = document.querySelector('.selected');
+    let prevElement = null;
+
+    if (selectedElement) {
+        prevElement = document.querySelector('.selected').previousSibling;
+    }
+
+    if (selectedElement && prevElement) {
+        classroom.insertBefore(selectedElement, prevElement);
+    }
+
+}
+
+function bringforward() {
+
+    const selectedElement = document.querySelector('.selected');
+    let nextElement = null;
+
+    if (selectedElement) {
+        nextElement = document.querySelector('.selected').nextSibling;
+    }
+
+    if (selectedElement && nextElement) {
+        classroom.insertBefore(nextElement, selectedElement);
     }
 
 }
