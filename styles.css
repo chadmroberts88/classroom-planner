@@ -7,7 +7,7 @@
     padding: 0;
 }
 
-/* Print Styles */
+/* Print Styling */
 
 #print-title {
     display: flex;
@@ -21,8 +21,10 @@
     margin-top: 10px;
 }
 
+/* HTML Styling */
+
 html {
-    background-color: black;
+    background-color: white;
     background-image: url(./images/background.png);
     background-position: center;
     background-size: cover;
@@ -68,9 +70,16 @@ html {
     justify-content: center;
 }
 
-.toolbar-section span{
-    font-size: 1rem;
+.toolbar-section span {
+    font-size: 0.75rem;
     margin: 5px;
+}
+
+.toolbar-divider {
+    background-color: darkgrey;
+    height: 70px;
+    margin: 0px 20px;
+    width: 1px;
 }
 
 .buttons-container {
@@ -79,48 +88,41 @@ html {
     justify-content: center;
 }
 
-.classroom-button-underlay {
+.classroom-button-underlay, .object-button-underlay, .print-button-underlay {
     align-items: center;
-    background-color: cornflowerblue;
     border-radius: 10px;
     display: flex;
     height: 30px;
     justify-content: center;
-    margin: 5px;
+    margin: 3px;
     width: 60px;
+}
+
+.classroom-button-underlay {
+    background-color: cornflowerblue;
 }
 
 .object-button-underlay {
-    align-items: center;
     background-color: yellowgreen;
-    border-radius: 10px;
-    display: flex;
-    height: 30px;
-    margin: 5px;
-    width: 60px;
 }
 
 .print-button-underlay {
-    align-items: center;
     background-color: gold;
-    border-radius: 10px;
-    display: flex;
-    height: 30px;
-    margin: 5px;
-    width: 60px;
 }
 
 .toolbar-button {
-    background-color: transparent;
     align-items: center;
+    background-color: transparent;
     border-radius: 10px;
     border: none;
+    box-shadow: none;
     cursor: pointer;
     display: flex;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1rem;
     height: 30px;
     justify-content: center;
+    outline: none;
     width: 60px;
 }
 
@@ -155,14 +157,16 @@ html {
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
     border: none;
+    box-shadow: none;
     cursor: pointer;
     display: flex;
     flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 1.2rem;
     font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
     height: 410px;
     justify-content: center;
+    outline: none;
     width: 50px;
 }
 
@@ -192,9 +196,9 @@ html {
 }
 
 .objects-panel-section {
+    align-items: center;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 20px;
 }
 
@@ -214,16 +218,18 @@ html {
 
 .add-object-button {
     align-items: center;
+    background-color: transparent;
     border-radius: 10px;
     border: none;
+    box-shadow: none;
     cursor: pointer;
     display: flex;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1rem;
     height: 40px;
     justify-content: center;
+    outline: none;
     width: 60px;
-    background-color: transparent;
 }
 
 .add-object-button:hover {
@@ -243,61 +249,42 @@ html {
     width: 320px;
 }
 
-.add-student-button-underlay {
-    background-color: green;
+.add-student-button-underlay, .sort-az-button-underlay {
     align-items: center;
     border-radius: 10px;
     display: flex;
     height: 40px;
     justify-content: center;
-    margin-right: 5px;
     width: 50%;
 }
 
-#add-student-button {
-    align-items: center;
-    background-color: transparent;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1rem;
-    height: 40px;
-    justify-content: center;
-    width: 100%;
-}
-
-#add-student-button:hover {
-    background-color: rgba(255, 255, 255, 0.3);
+.add-student-button-underlay {
+    background-color: green;
+    margin-right: 3px;
 }
 
 .sort-az-button-underlay {
     background-color: mediumpurple;
-    align-items: center;
-    border-radius: 10px;
-    display: flex;
-    height: 40px;
-    justify-content: center;
-    margin-left: 5px;
-    width: 50%;
+    margin-left: 3px;
 }
 
-#sort-az-button {
+#add-student-button, #sort-az-button {
     align-items: center;
     background-color: transparent;
     border-radius: 10px;
     border: none;
+    box-shadow: none;
     cursor: pointer;
     display: flex;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1rem;
     height: 40px;
     justify-content: center;
+    outline: none;
     width: 100%;
 }
 
-#sort-az-button:hover {
+#add-student-button:hover, #sort-az-button:hover {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -306,8 +293,8 @@ html {
     border-radius: 10px;
     height: 710px;
     margin-top: 20px;
-    padding: 5px;
     overflow: hidden scroll;
+    padding: 5px;
 }
 
 .student {
@@ -404,14 +391,6 @@ html {
     pointer-events: none;
 }
 
-.student-desk:hover{
-    border-color: aqua;
-}
-
-.occupied {
-    background-color: lightgrey;
-}
-
 .teacher-desk {
     background-color: brown;
     border: 2px solid black;
@@ -421,10 +400,6 @@ html {
     position: absolute;
     top: 0px;
     width: 76px;
-}
-
-.teacher-desk:hover{
-    border-color: aqua;
 }
 
 .bookshelf {
@@ -438,10 +413,6 @@ html {
     width: 46px;
 }
 
-.bookshelf:hover{
-    border-color: aqua;
-}
-
 .whiteboard {
     background-color: rgb(120, 165, 79);
     border: 2px solid black;
@@ -453,42 +424,25 @@ html {
     width: 96px;
 }
 
-.whiteboard:hover{
-    border-color: aqua;
+.doorway-left, .doorway-right {
+    background-color: rgba(255, 160, 122, 0.5);
+    border: 2px dotted black;
+    cursor: pointer;
+    height: 36px;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 36px;
 }
 
 .doorway-left {
-    background-color: rgba(255, 160, 122, 0.5);
     border-bottom-right-radius: 100%;
-    border: 2px dotted black;
     border-left: 2px solid black;
-    cursor: pointer;
-    height: 36px;
-    left: 0px;
-    position: absolute;
-    top: 0px;
-    width: 36px;
-}
-
-.doorway-left:hover{
-    border-color: aqua;
 }
 
 .doorway-right {
-    background-color: rgba(255, 160, 122, 0.5);
-    border-top-right-radius: 100%;
-    border: 2px dotted black;
     border-left: 2px solid black;
-    cursor: pointer;
-    height: 36px;
-    left: 0px;
-    position: absolute;
-    top: 0px;
-    width: 36px;
-}
-
-.doorway-right:hover{
-    border-color: aqua;
+    border-top-right-radius: 100%;
 }
 
 .window {
@@ -503,10 +457,6 @@ html {
     width: 50px;
 }
 
-.window:hover{
-    border-color: aqua;
-}
-
 .wall-segment {
     background-color: darkgrey;
     border: 5px solid darkgrey;
@@ -516,10 +466,6 @@ html {
     position: absolute;
     top: 0px;
     width: 0px;
-}
-
-.wall-segment:hover {
-    border-color: aqua;
 }
 
 .round-table {
@@ -534,12 +480,16 @@ html {
     width: 56px;
 }
 
-.round-table:hover {
+[data-object-id]:hover {
     border-color: aqua;
 }
 
 .selected {
     border-color: greenyellow;
+}
+
+.occupied {
+    background-color: lightgrey;
 }
 
 /* Display Names */
@@ -588,7 +538,7 @@ html {
     z-index: 1;
 }
 
-.modal-box {
+.modal-container {
     background-color: #fefefe;
     border-radius: 10px;
     border: 1px solid black;
@@ -661,12 +611,14 @@ html {
     background-color: transparent;
     border-radius: 10px;
     border: none;
+    box-shadow: none;
     cursor: pointer;
     display: flex;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1rem;
     height: 40px;
     justify-content: center;
+    outline: none;
     width: 140px;
 }
 
