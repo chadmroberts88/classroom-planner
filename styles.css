@@ -29,14 +29,17 @@ html {
     background-image: url(./images/background.png);
     background-position: center;
     background-size: cover;
+    color: black;
     font-family: 'Quicksand', sans-serif;
-    display: flex;
-    justify-content: center;
-    min-width: 1430px;
+
 }
 
-i {
-    color: black;
+body {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    min-width: 1390px;
 }
 
 /* Title */
@@ -45,9 +48,8 @@ i {
     display: flex;
     justify-content: center;
     white-space: nowrap;
-    width: 1390px;
-    margin: 20px;
-
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 .title-box h1 {
@@ -62,9 +64,8 @@ i {
 
 .wrapper {
     display: grid;
-    grid-template-columns: 300px 300px 750px;
+    grid-template-columns: auto auto auto;
     column-gap: 20px;
-    margin: 20px;
 }
 
 /* Students Panel */
@@ -87,7 +88,7 @@ i {
     background-color: rgb(236, 236, 236, 0.6);
     border-radius: 10px;
     height: 650px;
-    overflow: hidden scroll;
+    overflow: scroll;
     padding: 5px;
 }
 
@@ -132,7 +133,6 @@ i {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     padding: 20px;
     width: 260px;
     height: 710px;
@@ -153,20 +153,24 @@ i {
     align-items: center;
     justify-content: space-between;
     display: flex;
-    margin: 2px;
+    margin: 3px 0px;
+}
+
+.toolbar-item-container {
+    display: flex;
+    align-items: center;
 }
 
 .toolbar-item span {
     font-size: 1rem;
     white-space: nowrap;
-    width: 160px;
 }
 
 .toolbar-divider {
     align-self: center;
     background-color: darkgrey;
     width: 260px;
-    margin: 0px 20px;
+    margin: 20px;
     height: 1px;
 }
 
@@ -182,7 +186,7 @@ i {
     display: flex;
     height: 30px;
     justify-content: center;
-    margin: 3px;
+    margin-left: 5px;
     width: 40px;
 }
 
@@ -228,6 +232,13 @@ i {
 
 /* Classroom */
 
+.classroom-container {
+    border-radius: 10px;
+    height: 750px;
+    width: 750px;
+    overflow: scroll;
+}
+
 .classroom-wrapper {
     align-items: center;
     background-color:rgba(238, 232, 170, 0.6);
@@ -245,9 +256,9 @@ i {
     border: 5px solid darkgrey;
     box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.8);
     height: 380px;
-    margin: 20px;
-    max-height: 700px;
-    max-width: 700px;
+    margin: 40px;
+    max-height: 660px;
+    max-width: 660px;
     min-width: 240px;
     min-height: 240px;
     overflow: hidden;
@@ -519,4 +530,53 @@ i {
 
 .modal-button:hover {
     background-color: rgba(255, 255, 255, 0.3);
+}
+
+@media screen and (max-width: 600px) {
+
+    body {
+        padding: 5vw;
+        width: 90vw;
+        min-width: 320px;
+    }
+
+    .title-box {
+        width: 100%;
+    }
+
+    .title-box h1 {
+        font-size: calc(2rem + 1.5vw);
+    }
+
+    .wrapper {
+        grid-template-columns: 100%;
+        grid-template-rows: auto;
+        row-gap: 20px;
+    }
+
+    .students-panel {
+        width: 90%;
+        padding: 5%;
+    }
+
+    .toolbar {
+        height: auto;
+        width: 90%;
+        padding: 5%;
+    }
+
+    .classroom-button-underlay, .object-button-underlay, .print-button-underlay, .student-button-underlay {
+        height: 40px;
+        width: 60px;
+    }
+
+    .toolbar-button {
+        height: 40px;
+        width: 60px;
+    }
+
+    .classroom-container {
+        width: 100%;
+    }
+
 }
