@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
 
+
 * {
     margin: 0;
     padding: 0;
@@ -21,17 +22,21 @@
     margin-top: 10px;
 }
 
-/* HTML Styling */
+/* Global Styling */
 
 html {
-    background-color: white;
+    background-color: black;
     background-image: url(./images/background.png);
     background-position: center;
     background-size: cover;
-    display: flex;
     font-family: 'Quicksand', sans-serif;
+    display: flex;
     justify-content: center;
-    min-width: 1290px;
+    min-width: 1430px;
+}
+
+i {
+    color: black;
 }
 
 /* Title */
@@ -40,7 +45,9 @@ html {
     display: flex;
     justify-content: center;
     white-space: nowrap;
-    width: 1290px;
+    width: 1390px;
+    margin: 20px;
+
 }
 
 .title-box h1 {
@@ -48,38 +55,119 @@ html {
     font-family: 'Cabin Sketch', sans-serif;
     font-size: 3rem;
     font-weight: bold;
-    margin-top: 20px;
+    text-align: center;
 }
 
-/* Toolbar */
+/* Main Wrapper */
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 300px 300px 750px;
+    column-gap: 20px;
+    margin: 20px;
+}
+
+/* Students Panel */
+
+.students-panel {
+    background-color: rgba(255, 166, 0, 0.6);
+    border-radius: 10px;
+    height: 710px;
+    padding: 20px;
+    width: 260px;
+}
+
+.students-panel h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    user-select: none;
+}
+
+.student-list {
+    background-color: rgb(236, 236, 236, 0.6);
+    border-radius: 10px;
+    height: 650px;
+    overflow: hidden scroll;
+    padding: 5px;
+}
+
+.student {
+    align-items: center;
+    border: 2px solid black;
+    cursor: pointer;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    margin: 5px;
+    padding: 10px;
+    height: 20px;
+}
+
+.student:hover {
+    border-color: aqua;
+}
+
+.student p {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    text-align: center;
+    pointer-events: none;
+    user-select: none;
+}
+
+.assigned {
+    background-color: rgb(223, 255, 205);
+}
+
+.selected-student {
+    border-color: greenyellow;
+}
+
+/* Tools */
 
 .toolbar {
-    align-items: center;
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    margin: 20px 20px 0px 20px;
     padding: 20px;
+    width: 260px;
+    height: 710px;
+}
+
+.toolbar h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    user-select: none;
 }
 
 .toolbar-section {
-    align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
 }
 
-.toolbar-section span {
-    font-size: 0.75rem;
-    margin: 5px;
+.toolbar-item {
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    margin: 2px;
+}
+
+.toolbar-item span {
+    font-size: 1rem;
+    white-space: nowrap;
+    width: 160px;
 }
 
 .toolbar-divider {
+    align-self: center;
     background-color: darkgrey;
-    height: 70px;
+    width: 260px;
     margin: 0px 20px;
-    width: 1px;
+    height: 1px;
 }
 
 .buttons-container {
@@ -88,14 +176,14 @@ html {
     justify-content: center;
 }
 
-.classroom-button-underlay, .object-button-underlay, .print-button-underlay {
+.classroom-button-underlay, .object-button-underlay, .print-button-underlay, .student-button-underlay {
     align-items: center;
     border-radius: 10px;
     display: flex;
     height: 30px;
     justify-content: center;
     margin: 3px;
-    width: 60px;
+    width: 40px;
 }
 
 .classroom-button-underlay {
@@ -104,6 +192,10 @@ html {
 
 .object-button-underlay {
     background-color: yellowgreen;
+}
+
+.student-button-underlay {
+    background-color: orange;
 }
 
 .print-button-underlay {
@@ -115,14 +207,12 @@ html {
     background-color: transparent;
     border-radius: 10px;
     border: none;
-    box-shadow: none;
     cursor: pointer;
     display: flex;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1rem;
     height: 30px;
     justify-content: center;
-    outline: none;
     width: 60px;
 }
 
@@ -130,214 +220,10 @@ html {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Main Area */
-
-.wrapper {
-    display: grid;
-    grid-template-columns: 50px 360px 820px;
-    grid-template-rows: 820px;
-    margin: 20px;
-}
-
-.sidebar {
-    height: 820px;
-    position: relative;
-    width: 360px;
-}
-
-.tabs-container {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.tab {
-    align-items: center;
-    border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px;
-    border: none;
-    box-shadow: none;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.2rem;
-    font-weight: bold;
-    height: 410px;
-    justify-content: center;
-    outline: none;
-    width: 50px;
-}
-
-.tab span {
-    transform: rotate(-90deg);
-}
-
-#objects-tab {
-    background-color: rgba(255, 166, 0, 0.6);
-}
-
-#students-tab {
-    background-color: rgba(255, 99, 71, 0.6);
-}
-
-/* Objects Panel */
-
-.objects-panel {
-    background-color: rgba(255, 166, 0, 0.6);
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
-    height: 780px;
-    padding: 20px;
-    position: absolute;
-    visibility: visible;
-    width: 320px;
-}
-
-.objects-panel-section {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.objects-panel-section span {
-    font-size: 1rem;
-}
-
-.add-object-button-underlay {
-    align-items: center;
-    background-color: green;
-    border-radius: 10px;
-    display: flex;
-    height: 40px;
-    justify-content: center;
-    width: 60px;
-}
-
-.add-object-button {
-    align-items: center;
-    background-color: transparent;
-    border-radius: 10px;
-    border: none;
-    box-shadow: none;
-    cursor: pointer;
-    display: flex;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1rem;
-    height: 40px;
-    justify-content: center;
-    outline: none;
-    width: 60px;
-}
-
-.add-object-button:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-}
-
-/* Students Panel */
-
-.students-panel {
-    background-color: rgba(255, 99, 71, 0.6);
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
-    height: 780px;
-    padding: 20px;
-    position: absolute;
-    visibility: hidden;
-    width: 320px;
-}
-
-.add-student-button-underlay, .sort-az-button-underlay {
-    align-items: center;
-    border-radius: 10px;
-    display: flex;
-    height: 40px;
-    justify-content: center;
-    width: 50%;
-}
-
-.add-student-button-underlay {
-    background-color: green;
-    margin-right: 3px;
-}
-
-.sort-az-button-underlay {
-    background-color: mediumpurple;
-    margin-left: 3px;
-}
-
-#add-student-button, #sort-az-button {
-    align-items: center;
-    background-color: transparent;
-    border-radius: 10px;
-    border: none;
-    box-shadow: none;
-    cursor: pointer;
-    display: flex;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1rem;
-    height: 40px;
-    justify-content: center;
-    outline: none;
-    width: 100%;
-}
-
-#add-student-button:hover, #sort-az-button:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-}
-
-.student-list {
-    background-color: rgb(236, 236, 236, 0.6);
-    border-radius: 10px;
-    height: 710px;
-    margin-top: 20px;
-    overflow: hidden scroll;
-    padding: 5px;
-}
-
-.student {
-    align-items: center;
-    background-color: white;
-    border-radius: 10px;
-    display: flex;
-    margin: 5px;
-    padding: 10px;
-}
-
-.student p {
-    margin-right: 10px;
-    overflow: hidden;
-    white-space: nowrap;
-    width: 100%;
-}
-
-.student-info-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2rem;
-    padding-right: 8px;
-}
-
-.assign-desk-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    padding-right: 8px;
-}
-
-.remove-student-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.assigned {
-    background-color: rgb(223, 255, 205);
+#quantity-selector, #object-selector {
+    border-radius: 5px;
+    height: 30px;
+    margin-right: 5px;
 }
 
 /* Classroom */
@@ -347,10 +233,9 @@ html {
     background-color:rgba(238, 232, 170, 0.6);
     border-radius: 10px;
     display: flex;
-    height: 820px;
+    height: 750px;
     justify-content: center;
-    margin-left: 20px;
-    width: 820px;
+    width: 750px;
 }
 
 .classroom {
@@ -359,13 +244,12 @@ html {
     background-image: url(./images/grid.png);
     border: 5px solid darkgrey;
     box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.8);
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
     height: 380px;
     margin: 20px;
-    max-height: 760px;
-    max-width: 760px;
+    max-height: 700px;
+    max-width: 700px;
+    min-width: 240px;
+    min-height: 240px;
     overflow: hidden;
     position: relative;
     width: 380px;
@@ -377,61 +261,41 @@ html {
     align-items: center;
     background-color: lightgrey;
     border: 2px solid black;
-    cursor: pointer;
     display: flex;
     height: 26px;
     justify-content: center;
-    left: 0px;
-    position: absolute;
-    top: 0px;
     width: 26px;
 }
 
-.student-desk i{
+.student-desk i {
     pointer-events: none;
 }
 
 .teacher-desk {
     background-color: brown;
     border: 2px solid black;
-    cursor: pointer;
-    height: 46px;
-    left: 0px;
-    position: absolute;
-    top: 0px;
+    height: 36px;
     width: 76px;
 }
 
 .bookshelf {
     background-color: burlywood;
     border: 2px solid black;
-    cursor: pointer;
     height: 16px;
-    left: 0px;
-    position: absolute;
-    top: 0px;
     width: 46px;
 }
 
 .whiteboard {
     background-color: rgb(120, 165, 79);
     border: 2px solid black;
-    cursor: pointer;
     height: 6px;
-    left: 0px;
-    position: absolute;
-    top: 0px;
     width: 96px;
 }
 
 .doorway-left, .doorway-right {
     background-color: rgba(255, 160, 122, 0.5);
     border: 2px dotted black;
-    cursor: pointer;
     height: 36px;
-    left: 0px;
-    position: absolute;
-    top: 0px;
     width: 36px;
 }
 
@@ -447,44 +311,73 @@ html {
 
 .window {
     background-color: rgba(10, 187, 187, 0.5);
-    border-radius: 8px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
     border: 2px solid black;
-    cursor: pointer;
-    height: 6px;
-    left: 0px;
-    position: absolute;
-    top: 0px;
-    width: 50px;
+    height: 50px;
+    width: 6px;
 }
 
 .wall-segment {
     background-color: darkgrey;
-    border: 5px solid darkgrey;
-    cursor: pointer;
-    height: 50px;
-    left: 0px;
-    position: absolute;
-    top: 0px;
-    width: 0px;
+    border: 2px solid black;
+    height: 36px;
+    width: 6px;
 }
 
-.round-table {
-    background-color:bisque;
+.table-round {
+    background-color: bisque;
     border-radius: 50%;
     border: 2px solid black;
+    height: 46px;
+    width: 46px;
+}
+
+.table-square {
+    background-color: bisque;
+    border: 2px solid black;
+    height: 46px;
+    width: 46px;
+}
+
+.table-rectangle {
+    background-color: bisque;
+    border: 2px solid black;
+    height: 46px;
+    width: 76px;
+}
+
+.computer-station {
+    background-color: rgb(224, 127, 164);
+    border: 2px solid black;
+    height: 36px;
+    width: 36px;
+}
+
+[data-object-id] {
+    align-items: center;
+    display: flex;
+    justify-content: center;
     cursor: pointer;
-    height: 56px;
     left: 0px;
     position: absolute;
     top: 0px;
-    width: 56px;
+}
+
+[data-object-id] span {
+    font-size: 0.5rem;
+    font-weight: bold;
+    pointer-events: none;
+    user-select: none;
+    text-align: center;
+    line-height: 1;
 }
 
 [data-object-id]:hover {
     border-color: aqua;
 }
 
-.selected {
+.selected-object {
     border-color: greenyellow;
 }
 
@@ -510,6 +403,8 @@ html {
     visibility: hidden;
     white-space: nowrap;
     z-index: 1;
+    min-height: 7px;
+    min-width: 30px;
 }
 
 .display-name::after {
@@ -543,9 +438,9 @@ html {
     border-radius: 10px;
     border: 1px solid black;
     margin: 15% auto;
-    min-width: 400px;
+    width: 60vw;
     padding: 20px;
-    width: 20%;
+    max-width: 500px;
 }
 
 .modal-header {
@@ -559,19 +454,21 @@ html {
 .modal-header p {
     font-size: 1.5rem;
     font-weight: bold;
+    text-align: center;
 }
 
 .modal-content {
-    margin: 20px 0px 30px 0px;
+    margin: 0px;
 }
 
 .modal-section {
     align-items: center;
     display: flex;
     justify-content: center;
-    margin-bottom: 15px;
-    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     white-space: nowrap;
+    flex-wrap: wrap;
 }
 
 .modal-section label {
@@ -579,7 +476,7 @@ html {
 }
 
 .modal-section input {
-    margin-left: 10px;
+    margin: 5px 10px;
     width: 70%;
 }
 
@@ -591,8 +488,8 @@ html {
     align-items: center;
     display: flex;
     justify-content: center;
-    margin-top: 15px;
     width: 100%;
+    flex-wrap: wrap;
 }
 
 .modal-button-underlay {
@@ -602,7 +499,7 @@ html {
     display: flex;
     height: 40px;
     justify-content: center;
-    margin: 0px 10px;
+    margin: 5px;
     width: 140px;
 }
 
@@ -611,14 +508,12 @@ html {
     background-color: transparent;
     border-radius: 10px;
     border: none;
-    box-shadow: none;
     cursor: pointer;
     display: flex;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1rem;
     height: 40px;
     justify-content: center;
-    outline: none;
     width: 140px;
 }
 
