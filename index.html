@@ -14,282 +14,197 @@
 
 <body>
 
-    <div class="title-box">
+    <div id="title-box">
         <h1>Classroom Planner</h1>
     </div>
 
-    <div class="wrapper">
+    <div class="toolbar-wrapper">
+        <div class="toolbar">
+            <div class="toolbar-section">
+                <span>Add Classroom Objects</span>
+                <div class="buttons-container">
+                    <select id="quantity-selector" class="ol-active" name="quantity">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <select id="object-selector" class="ol-active" name="objects">
+                        <option value="student-desk">Student Desk</option>
+                        <option value="teacher-desk">Teacher Desk</option>
+                        <option value="computer-station">Computer Station</option>
+                        <option value="table-round">Round Table</option>
+                        <option value="table-square">Square Table</option>
+                        <option value="table-rectangle">Rectangle Table</option>
+                        <option value="whiteboard">Whiteboard/Smartboard</option>
+                        <option value="bookshelf">Bookshelf</option>
+                        <option value="doorway-left">Left Swinging Doorway</option>
+                        <option value="doorway-right">Right Swinging Doorway</option>
+                        <option value="window">Window</option>
+                        <option value="wall-segment">Wall Segment/Barrier</option>
+                    </select>
+                    <button id="add-objects-button" class="toolbar-button ol-active bg-active" type="submit"
+                        role="button" title="Add Objects"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
 
-        <div class="students-panel" role="region">
-            <h2>Student List</h2>
-            <div class="student-list"></div>
-        </div>
-
-        <div class="toolbar" role="region">
-
-            <h2>Tools</h2>
+            <div class="div toolbar-divider"></div>
 
             <div class="toolbar-section">
-                <div class="toolbar-item">
-                    <div class="toolbar-item-container">
-                        <select name="quantity" id="quantity-selector">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                        <select name="objects" id="object-selector">
-                            <option value="student-desk">Student Desk</option>
-                            <option value="teacher-desk">Teacher Desk</option>
-                            <option value="computer-station">Computer Station</option>
-                            <option value="table-round">Round Table</option>
-                            <option value="table-square">Square Table</option>
-                            <option value="table-rectangle">Rectangle Table</option>
-                            <option value="whiteboard">Whiteboard/Smartboard</option>
-                            <option value="bookshelf">Bookshelf</option>
-                            <option value="doorway-left">Left Swinging Doorway</option>
-                            <option value="doorway-right">Right Swinging Doorway</option>
-                            <option value="window">Window</option>
-                            <option value="wall-segment">Wall Segment/Barrier</option>
-                        </select>
-                    </div>
-
-                    <div class="toolbar-item-container">
-                        <div class="object-button-underlay">
-                            <button id="add-objects-button" class="toolbar-button" type="submit" role="button"
-                                title="Add Objects"><i class="fas fa-plus"></i></button>
-                        </div>
-                    </div>
-
+                <span>Remove Object</span>
+                <div class="buttons-container">
+                    <button id="remove-object-button" class="toolbar-button ol-active bg-active" role="button"
+                        title="Remove Object"><i class="fas fa-trash-alt "></i></button>
                 </div>
-
-                <div class="toolbar-item">
-                    <span>Rotate Object:</span>
-                    <div class="toolbar-item-container">
-                        <div class="object-button-underlay">
-                            <button id="rotate-ccw-button" class="toolbar-button" role="button"
-                                title="Rotate Counterclockwise 'Z'"><i class="fas fa-undo-alt"></i></button>
-                        </div>
-                        <div class="object-button-underlay">
-                            <button id="rotate-cw-button" class="toolbar-button" role="button"
-                                title="Rotate Clockwise 'X'"><i class="fas fa-redo-alt"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="toolbar-item">
-                    <span>Backward/Forward:</span>
-                    <div class="toolbar-item-container">
-                        <div class="object-button-underlay">
-                            <button id="send-backward-button" class="toolbar-button" role="button"
-                                title="Send Object Backward"><i class="fas fa-caret-up fa-2x"></i></button>
-                        </div>
-                        <div class="object-button-underlay">
-                            <button id="bring-forward-button" class="toolbar-button" role="button"
-                                title="Bring Object Forward"><i class="fas fa-caret-down fa-2x"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="toolbar-item">
-                    <span>Remove Object:</span>
-                    <div class="toolbar-item-container">
-                        <div class="object-button-underlay">
-                            <button id="remove-object-button" class="toolbar-button" role="button"
-                                title="Remove Object"><i class="fas fa-trash-alt "></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="toolbar-item">
-                    <span>Deselect Object:</span>
-                    <div class="toolbar-item-container">
-                        <div class="object-button-underlay">
-                            <button id="deselect-object-button" class="toolbar-button" role="button"
-                                title="Deselect Object"><i class="fas fa-ban"></i></button>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
-
-            <div class="toolbar-divider" role="separator" aria-orientation="horizontal"></div>
+            <div class="div toolbar-divider"></div>
 
             <div class="toolbar-section">
-                <div class="toolbar-item">
-                    <span>Add Student:</span>
-                    <div class="toolbar-item-container">
-                        <div class="student-button-underlay">
-                            <button id="add-student-button" class="toolbar-button" role="button" title="Add Student"><i
-                                    class="fas fa-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="toolbar-item">
-                    <span>Sort Students A-Z:</span>
-                    <div class="toolbar-item-container">
-                        <div class="student-button-underlay">
-                            <button id="sort-az-button" class="toolbar-button" role="button"
-                                title="Sort Students A-Z"><i class="fas fa-sort-alpha-down"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="toolbar-item">
-                    <span>Edit Student Info:</span>
-                    <div class="toolbar-item-container">
-                        <div class="student-button-underlay">
-                            <button id="edit-student-info-button" class="toolbar-button" role="button"
-                                title="Edit Student Info"><i class="fas fa-info"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="toolbar-item">
-                    <span>Assign/Unassign:</span>
-                    <div class="toolbar-item-container">
-                        <div class="student-button-underlay">
-                            <button id="assign-to-desk-button" class="toolbar-button" role="button"
-                                title="Assign/Unassign Student"><i class="fas fa-chair"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="toolbar-item">
-                    <span>Remove Student:</span>
-                    <div class="toolbar-item-container">
-                        <div class="student-button-underlay">
-                            <button id="remove-student-button" class="toolbar-button" role="button"
-                                title="Remove Student"><i class="fas fa-trash-alt"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="toolbar-item">
-                    <span>Deselect Student:</span>
-                    <div class="toolbar-item-container">
-                        <div class="student-button-underlay">
-                            <button id="deselect-student-button" class="toolbar-button" role="button"
-                                title="Deselect Student"><i class="fas fa-ban"></i></button>
-                        </div>
-                    </div>
+                <span>Rotate Object</span>
+                <div class="buttons-container">
+                    <button id="rotate-ccw-button" class="toolbar-button ol-active bg-active" role="button"
+                        title="Rotate Counterclockwise 'Z'"><i class="fas fa-undo-alt"></i></button>
+                    <button id="rotate-cw-button" class="toolbar-button ol-active bg-active" role="button"
+                        title="Rotate Clockwise 'X'"><i class="fas fa-redo-alt"></i></button>
                 </div>
             </div>
 
-            <div class="toolbar-divider" role="separator" aria-orientation="horizontal"></div>
+            <div class="div toolbar-divider"></div>
 
             <div class="toolbar-section">
-                <div class="toolbar-item">
-                    <span>Classroom Width:</span>
-                    <div class="toolbar-item-container">
-                        <div class="classroom-button-underlay">
-                            <button id="dec-width-button" class="toolbar-button" role="button"
-                                title="Decrease Classroom Width"><i class="fas fa-minus"></i></button>
-                        </div>
-                        <div class="classroom-button-underlay">
-                            <button id="inc-width-button" class="toolbar-button" role="button"
-                                title="Increase Classroom Width"><i class="fas fa-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="toolbar-item">
-                    <span>Classroom Length:</span>
-                    <div class="toolbar-item-container">
-                        <div class="classroom-button-underlay">
-                            <button id="dec-length-button" class="toolbar-button" role="button"
-                                title="Decrease Classroom Length"><i class="fas fa-minus"></i></button>
-                        </div>
-                        <div class="classroom-button-underlay">
-                            <button id="inc-length-button" class="toolbar-button" role="button"
-                                title="Increase Classroom Length"><i class="fas fa-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="toolbar-item">
-                    <span>Display Names:</span>
-                    <div class="toolbar-item-container">
-                        <div class="classroom-button-underlay">
-                            <button id="toggle-names-button" class="toolbar-button" role="button"
-                                title="Toggle Display Names"><i class="fas fa-toggle-off"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="toolbar-item">
-                    <span>Print Classroom Plan:</span>
-                    <div class="toolbar-item-container">
-                        <div class="print-button-underlay">
-                            <button id="print-classroom-button" class="toolbar-button" role="button"
-                                title="Print Classroom Plan"><i class="fas fa-print"></i></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="toolbar-item">
-                    <span>Print Student List:</span>
-                    <div class="toolbar-item-container">
-                        <div class="print-button-underlay">
-                            <button id="print-students-button" class="toolbar-button" role="button"
-                                title="Print Student List"><i class="fas fa-print"></i></button>
-                        </div>
-                    </div>
+                <span>Backward/Forward</span>
+                <div class="buttons-container">
+                    <button id="send-backward-button" class="toolbar-button ol-active bg-active" role="button"
+                        title="Send Object Backward"><i class="fas fa-share-square"></i></button>
+                    <button id="bring-forward-button" class="toolbar-button ol-active bg-active" role="button"
+                        title="Bring Object Forward"><i class="fas fa-share-square"></i></button>
                 </div>
             </div>
 
-        </div>
+            <div class="div toolbar-divider"></div>
 
-        <div class="classroom-container">
-            <div class="classroom-wrapper">
-                <div class="classroom" role="region"></div>
+            <div class="toolbar-section">
+                <span>Classroom Width</span>
+                <div class="buttons-container">
+                    <button id="dec-width-button" class="toolbar-button ol-active bg-active" role="button"
+                        title="Decrease Classroom Width"><i class="fas fa-compress-alt"></i></button>
+                    <button id="inc-width-button" class="toolbar-button ol-active bg-active" role="button"
+                        title="Increase Classroom Width"><i class="fas fa-expand-alt"></i></button>
+                </div>
+            </div>
+
+            <div class="div toolbar-divider"></div>
+
+            <div class="toolbar-section">
+                <span>Classroom Length</span>
+                <div class="buttons-container">
+                    <button id="dec-length-button" class="toolbar-button ol-active bg-active" role="button"
+                        title="Decrease Classroom Length"><i class="fas fa-compress-alt"></i></button>
+                    <button id="inc-length-button" class="toolbar-button ol-active bg-active" role="button"
+                        title="Increase Classroom Length"><i class="fas fa-expand-alt"></i></button>
+                </div>
+            </div>
+
+            <div class="div toolbar-divider"></div>
+
+            <div class="toolbar-section">
+                <span>Toggle Display Names</span>
+                <div class="buttons-container">
+                    <button id="toggle-names-button" class="toolbar-button ol-active bg-active" role="button"
+                        title="Toggle Display Names"><i class="fas fa-toggle-off"></i></button>
+                </div>
+            </div>
+
+            <div class="div toolbar-divider"></div>
+
+            <div class="toolbar-section">
+                <span>Print Classroom Plan</span>
+                <div class="buttons-container">
+                    <button id="print-classroom-button" class="toolbar-button ol-active bg-active" role="button"
+                        title="Print Classroom Plan"><i class="fas fa-print"></i></button>
+                </div>
             </div>
         </div>
-
-
     </div>
 
+    <div id="classroom-container">
+        <div id="classroom-wrapper">
+            <div id="classroom" role="region"></div>
+        </div>
     </div>
 
-    <div class="add-student-modal" role="dialog" aria-modal="true">
+    <div id="drawer">
+        <div class="drawer-row">
+            <div class="span-3-col">
+                <button id="collapse-drawer-button" class="ol-active" role="button" title="Collapse Drawer"><span
+                        class="collapse-drawer-label">Student
+                        Controls</span><i class="fas fa-chevron-up"></i></button>
+            </div>
+        </div>
 
+        <div class="drawer-row">
+            <div class="span-3-col">
+                <div id="student-list"></div>
+            </div>
+        </div>
+
+        <div class="drawer-row">
+            <div class="span-1-col">
+                <div class="buttons-container">
+                    <button id="add-student-button" class="toolbar-button ol-active bg-active" role="button"
+                        title="Add Student"><i class="fas fa-plus"></i></button>
+                </div>
+                <span>Add Student</span>
+            </div>
+
+            <div class="span-1-col">
+                <div class="buttons-container">
+                    <button id="sort-az-button" class="toolbar-button ol-active bg-active" role="button"
+                        title="Sort Students A-Z"><i class="fas fa-sort-alpha-down"></i></button>
+                </div>
+                <span>Sort A-Z</span>
+            </div>
+
+            <div class="span-1-col">
+                <div class="buttons-container">
+                    <button id="print-students-button" class="toolbar-button ol-active bg-active" role="button"
+                        title="Print Student List"><i class="fas fa-print"></i></button>
+                </div>
+                <span>Print Student List</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="add-student-modal" role="dialog" aria-modal="true">
         <div class="modal-container">
-
             <div class="modal-header">
                 <p>Edit Student Information</p>
             </div>
 
             <div class="modal-content">
-
                 <div class="modal-section">
                     <label for="first-name">First Name: </label>
-                    <input type="text" id="first-name" placeholder="First Name">
+                    <input type="text" id="first-name" class="ol-active" placeholder="First Name">
                 </div>
-
                 <div class="modal-section">
                     <label for="last-name">Last Name: </label>
-                    <input type="text" id="last-name" placeholder="Last Name">
+                    <input type="text" id="last-name" class="ol-active" placeholder="Last Name">
                 </div>
-
             </div>
 
             <div class="modal-footer">
-
                 <div class="modal-button-underlay">
-                    <button id="close-modal-button" class="modal-button" role="button"
+                    <button id="close-modal-button" class="modal-button ol-active bg-active" role="button"
                         title="Close Modal"><span>Close</span></button>
                 </div>
-
                 <div class="modal-button-underlay">
-                    <button id="save-changes-button" class="modal-button" role="button" title="Save Changes"><span>Save
+                    <button id="save-changes-button" class="modal-button ol-active bg-active" role="button"
+                        title="Save Changes"><span>Save
                             Changes</span></button>
                 </div>
-
             </div>
-
         </div>
     </div>
 

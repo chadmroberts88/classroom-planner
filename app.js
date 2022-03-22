@@ -1,26 +1,21 @@
 // ------ Button Selectors ------
 
 const addObjectsButton = document.querySelector('#add-objects-button');
+const removeObjectButton = document.querySelector('#remove-object-button');
 const rotateCcwButton = document.querySelector('#rotate-ccw-button');
 const rotateCwButton = document.querySelector('#rotate-cw-button');
 const sendbackwardButton = document.querySelector('#send-backward-button');
 const bringForwardButton = document.querySelector('#bring-forward-button');
-const removeObjectButton = document.querySelector('#remove-object-button');
-const delselectObjectButton = document.querySelector('#deselect-object-button');
-
-const addStudentButton = document.querySelector('#add-student-button');
-const sortAzButton = document.querySelector('#sort-az-button');
-const editStudentInfoButton = document.querySelector('#edit-student-info-button');
-const assignToDeskButton = document.querySelector('#assign-to-desk-button');
-const removeStudentButton = document.querySelector('#remove-student-button');
-const deselectStudentButton = document.querySelector('#deselect-student-button');
-
 const incWidthButton = document.querySelector('#inc-width-button');
 const decWidthButton = document.querySelector('#dec-width-button');
 const incLengthButton = document.querySelector('#inc-length-button');
 const decLengthButton = document.querySelector('#dec-length-button');
 const toggleNamesButton = document.querySelector('#toggle-names-button');
 const printClassroomButton = document.querySelector('#print-classroom-button');
+
+const collapseDrawerButton = document.querySelector('#collapse-drawer-button');
+const addStudentButton = document.querySelector('#add-student-button');
+const sortAzButton = document.querySelector('#sort-az-button');
 const printStudentsButton = document.querySelector('#print-students-button');
 
 const closeModalButton = document.querySelector('#close-modal-button');
@@ -28,61 +23,85 @@ const saveChangesButton = document.querySelector('#save-changes-button');
 
 // ------ Student List Selector ------
 
-const studentList = document.querySelector('.student-list');
+const studentList = document.querySelector('#student-list');
 
 // ------ Classroom Selectors ------
 
-const classroomWrapper = document.querySelector('.classroom-wrapper');
-const classroom = document.querySelector('.classroom');
+const classroomContainer = document.querySelector('#classroom-container');
+const classroom = document.querySelector('#classroom');
 
 // ------ Modal Selector ------
 
-const addStudentModal = document.querySelector(".add-student-modal");
+const addStudentModal = document.querySelector('#add-student-modal');
+
+// ------ Drawer Selector ------
+
+const drawer = document.querySelector('#drawer');
+
+// ------ Title Box Selector ------
+
+const titleBox = document.querySelector('#title-box');
 
 // ------ Event Listeners ------
 
 addObjectsButton.addEventListener('click', addObject);
+removeObjectButton.addEventListener('click', removeObject);
 rotateCcwButton.addEventListener('click', rotateCcw);
 rotateCwButton.addEventListener('click', rotateCw);
 sendbackwardButton.addEventListener('click', sendBackward);
 bringForwardButton.addEventListener('click', bringforward);
-removeObjectButton.addEventListener('click', removeObject);
-delselectObjectButton.addEventListener('click', deselectObjects);
-
-addStudentButton.addEventListener('click', addStudent);
-sortAzButton.addEventListener('click', sortAz);
-editStudentInfoButton.addEventListener('click', loadStudentInfo);
-assignToDeskButton.addEventListener('click', checkSelected);
-removeStudentButton.addEventListener('click', removeStudent);
-deselectStudentButton.addEventListener('click', deselectStudents);
-
 incWidthButton.addEventListener('click', incClassroomWidth);
 decWidthButton.addEventListener('click', decClassroomWidth);
 incLengthButton.addEventListener('click', incclassroomLength);
 decLengthButton.addEventListener('click', decclassroomLength);
 toggleNamesButton.addEventListener('click', toggleNames);
 printClassroomButton.addEventListener('click', printClassroom);
+
+collapseDrawerButton.addEventListener('click', collapseDrawer);
+addStudentButton.addEventListener('click', addStudent);
+sortAzButton.addEventListener('click', sortAz);
 printStudentsButton.addEventListener('click', printStudents);
 
 closeModalButton.addEventListener('click', closeModal);
 saveChangesButton.addEventListener('click', setStudentInfo);
 
-classroom.addEventListener('dblclick', deselectObjects);
 classroom.addEventListener("touchstart", dragStart, false);
-classroom.addEventListener("touchend", dragEnd, false);
-classroom.addEventListener("touchmove", drag, false);
+classroomContainer.addEventListener("touchend", dragEnd, false);
+classroomContainer.addEventListener("touchmove", drag, false);
 classroom.addEventListener('mousedown', dragStart, false);
-classroom.addEventListener("mousemove", drag, false);
-classroom.addEventListener("mouseup", dragEnd, false);
-classroom.addEventListener('mouseleave', dragEnd, false);
-studentList.addEventListener('dblclick', deselectStudents);
+classroomContainer.addEventListener("mousemove", drag, false);
+classroomContainer.addEventListener("mouseup", dragEnd, false);
 document.addEventListener('keydown', transformWithKeys, true);
 document.addEventListener('keyup', resetArrowKeys, true);
-document.addEventListener('keydown', (event) => {
-    if (event.key === "Enter") {
-        document.activeElement.click();
+
+// ------ Handle Deselection of Classroom Objects ------
+
+titleBox.addEventListener('click', deselectObjects);
+
+classroom.addEventListener('mouseenter', () => {
+    state.classroomInFocus = true;
+});
+
+classroom.addEventListener('mouseleave', () => {
+    state.classroomInFocus = false;
+});
+
+classroom.addEventListener('touchstart', () => {
+    state.classroomInFocus = true;
+});
+
+classroom.addEventListener('touchend', () => {
+    state.classroomInFocus = false;
+});
+
+classroomContainer.addEventListener('click', () => {
+    if (state.classroomInFocus) {
+        return;
+    } else {
+        deselectObjects();
     }
 });
+
 
 // ------ State Object ------
 
@@ -104,7 +123,10 @@ const state = {
     arrowKeysPressed: {},
 
     displayNameStatus: "hidden",
-    classroomInFocus: true
+    mainPageInFocus: true,
+    classroomInFocus: false,
+
+    drawerOpen: false
 };
 
 // ------ Classes ------
@@ -183,6 +205,12 @@ function createObject() {
     newDiv.addEventListener('touchstart', selectObject);
     newDiv.addEventListener('mousedown', addDraggable);
     newDiv.addEventListener('touchstart', addDraggable);
+    newDiv.addEventListener('keydown', (event) => {
+        if (event.key === "Enter") {
+            selectObject(event);
+        }
+    });
+
     newDiv.style.left = 0;
     newDiv.style.top = 0;
     newDiv.style.transform = "rotate(0deg)";
@@ -382,7 +410,7 @@ function addWallSegment() {
 
 function rotateCcw() {
 
-    const selectedElement = document.querySelector('.selected-object');
+    const selectedElement = document.querySelector('.selected');
 
     if (selectedElement) {
         const objectId = parseInt(selectedElement.getAttribute('data-object-id'));
@@ -417,7 +445,7 @@ function rotateCcw() {
 
 function rotateCw() {
 
-    const selectedElement = document.querySelector('.selected-object');
+    const selectedElement = document.querySelector('.selected');
 
     if (selectedElement) {
         const objectId = parseInt(selectedElement.getAttribute('data-object-id'));
@@ -452,11 +480,11 @@ function rotateCw() {
 
 function sendBackward() {
 
-    const selectedElement = document.querySelector('.selected-object');
+    const selectedElement = document.querySelector('.selected');
     let prevElement = null;
 
     if (selectedElement) {
-        prevElement = document.querySelector('.selected-object').previousSibling;
+        prevElement = document.querySelector('.selected').previousSibling;
     }
 
     if (selectedElement && prevElement) {
@@ -467,11 +495,11 @@ function sendBackward() {
 
 function bringforward() {
 
-    const selectedElement = document.querySelector('.selected-object');
+    const selectedElement = document.querySelector('.selected');
     let nextElement = null;
 
     if (selectedElement) {
-        nextElement = document.querySelector('.selected-object').nextSibling;
+        nextElement = document.querySelector('.selected').nextSibling;
     }
 
     if (selectedElement && nextElement) {
@@ -481,7 +509,7 @@ function bringforward() {
 }
 
 function removeObject() {
-    const selectedElement = document.querySelector(".selected-object");
+    const selectedElement = document.querySelector('.selected');
 
     if (selectedElement) {
         if (selectedElement.classList.contains('occupied')) {
@@ -504,7 +532,7 @@ function deselectObjects() {
         const selectedObject = document.querySelector(dataAttribute);
 
         if (selectedObject) {
-            selectedObject.classList.remove('selected-object');
+            selectedObject.classList.remove('selected');
         }
 
     }
@@ -512,7 +540,7 @@ function deselectObjects() {
 
 function selectObject(event) {
     deselectObjects();
-    event.target.classList.add('selected-object');
+    event.target.classList.add('selected');
 }
 
 // ------ Student Functions ------
@@ -521,36 +549,47 @@ function addStudent() {
     const newDiv = document.createElement('div');
     newDiv.classList.add('student');
     newDiv.setAttribute('data-student-id', state.studentIds);
-    newDiv.addEventListener('click', selectStudent);
-    newDiv.addEventListener('touchstart', selectStudent);
-    newDiv.setAttribute("tabindex", 0);
     studentList.appendChild(newDiv);
+
+    const newInfoButton = document.createElement('button');
+    newInfoButton.classList.add('student-info-button', 'fas', 'fa-info', 'ol-active', 'bg-active');
+    newInfoButton.setAttribute('role', 'button');
+    newInfoButton.setAttribute('title', 'Edit Student Info');
+    newInfoButton.setAttribute('tabindex', 0);
+    newDiv.appendChild(newInfoButton);
 
     const newPara = document.createElement('p');
     newPara.textContent = "New Student";
     newDiv.appendChild(newPara);
 
+    const newAssignButton = document.createElement('button');
+    newAssignButton.classList.add('assign-desk-button', 'fas', 'fa-chair', 'ol-active', 'bg-active');
+    newAssignButton.setAttribute('role', 'button');
+    newAssignButton.setAttribute('title', 'Assign to Desk');
+    newAssignButton.setAttribute('tabindex', 0);
+    newDiv.appendChild(newAssignButton);
+
+    const newRemoveStudentButton = document.createElement('button');
+    newRemoveStudentButton.classList.add('remove-student-button', 'fas', 'fa-trash-alt', 'ol-active', 'bg-active');
+    newRemoveStudentButton.setAttribute('role', 'button');
+    newRemoveStudentButton.setAttribute('title', 'Assign to Desk');
+    newRemoveStudentButton.setAttribute('tabindex', 0);
+    newDiv.appendChild(newRemoveStudentButton);
+
+    newInfoButton.addEventListener('click', loadStudentInfo);
+    newAssignButton.addEventListener('click', assignDesk);
+    newRemoveStudentButton.addEventListener('click', removeStudent);
+
     const newStudent = new Student();
     newStudent.setId(state.studentIds);
 
     state.students.set(state.studentIds, newStudent);
-
-    state.targetStudentId = state.studentIds;
-    state.targetStudent = state.students.get(state.targetStudentId);
-
-    document.querySelector('#first-name').value = state.targetStudent.getFirstName();
-    document.querySelector('#last-name').value = state.targetStudent.getLastName();
-
     state.studentIds++;
-
-    openModal();
-    state.classroomInFocus = false;
 
 }
 
 function sortAz() {
 
-    const studentList = document.querySelector('.student-list');
     const studentDivs = document.querySelectorAll('.student');
     const unsortedStudents = [];
     const studentsToSort = [];
@@ -587,24 +626,17 @@ function sortAz() {
 
 }
 
-function loadStudentInfo() {
+function loadStudentInfo(event) {
 
-    const selectedStudent = document.querySelector('.selected-student');
+    state.targetStudentId = parseInt(event.target.parentNode.getAttribute('data-student-id'));
+    state.targetStudent = state.students.get(state.targetStudentId);
 
-    if (selectedStudent) {
+    document.querySelector('#first-name').value = state.targetStudent.getFirstName();
+    document.querySelector('#last-name').value = state.targetStudent.getLastName();
 
-        state.targetStudentId = parseInt(selectedStudent.getAttribute('data-student-id'));
-        state.targetStudent = state.students.get(state.targetStudentId);
+    openModal();
+    state.mainPageInFocus = false;
 
-        document.querySelector('#first-name').value = state.targetStudent.getFirstName();
-        document.querySelector('#last-name').value = state.targetStudent.getLastName();
-
-        openModal();
-        state.classroomInFocus = false;
-
-    } else {
-        alert("Please select a student to edit.")
-    }
 }
 
 function setStudentInfo() {
@@ -617,7 +649,7 @@ function setStudentInfo() {
 
     let currentElement = document.querySelector(`[data-student-id='${state.targetStudentId}']`);
 
-    currentElement.childNodes[0].innerText = `${firstName} ${lastName}`;
+    currentElement.childNodes[1].innerText = `${firstName} ${lastName}`;
 
     if (parseInt(state.targetStudent.getAssignedDeskId()) >= 0) {
 
@@ -627,193 +659,90 @@ function setStudentInfo() {
     }
 
     closeModal();
-    state.classroomInFocus = true;
+    state.mainPageInFocus = true;
 }
 
+function assignDesk(event) {
 
-function checkSelected() {
+    const selectedElement = document.querySelector(".selected");
+    const studentDiv = event.target.parentNode;
 
-    const selectedObject = document.querySelector('.selected-object');
-    const selectedStudent = document.querySelector('.selected-student');
-    let objectIsDesk = false;
+    const studentId = parseInt(studentDiv.getAttribute('data-student-id'));
+    const currentStudent = state.students.get(studentId);
 
-    if (selectedObject && selectedObject.classList.contains('student-desk')) {
-        objectIsDesk = true;
-    }
-
-    if (!(selectedObject && objectIsDesk) && !selectedStudent) {
-        alert("Please select a student and a student desk.");
+    if (studentDiv.classList.contains('assigned')) {
+        if (confirm(`${currentStudent.getFirstName()} ${currentStudent.getLastName()} will be unassigned from thier desk.`)) { unassignDesk(event); }
         return;
     }
 
-    if ((selectedObject && objectIsDesk) && !selectedStudent) {
-        if (selectedObject.classList.contains('occupied')) {
-            const assignedStudent = getAssignedStudentElement(selectedObject);
-            if (confirm("The assigned student will be removed from this desk.")) {
-                removeAssignedDesk(assignedStudent);
-                removeAssignedStudent(selectedObject);
-            }
-            return;
-        } else {
-            alert("Please select a student.");
-            return;
-        }
+    if (!selectedElement || !selectedElement.classList.contains('student-desk')) {
+        alert("Please select a student desk to assign.");
+        return;
     }
 
-    if (!(selectedObject && objectIsDesk) && selectedStudent) {
-        if (selectedStudent.classList.contains('assigned')) {
-            const assignedDesk = getAssignedDeskElement(selectedStudent);
-            if (confirm("This student will be removed from its assigned desk.")) {
-                removeAssignedStudent(assignedDesk);
-                removeAssignedDesk(selectedStudent);
-            }
-            return;
-        } else {
-            alert("Please select a student desk.");
-            return;
-        }
-    }
-
-    if ((selectedObject && objectIsDesk) && selectedStudent) {
-        const assignedStudent = getAssignedStudentElement(selectedObject);
-        const assignedDesk = getAssignedDeskElement(selectedStudent);
-
-        if (!selectedObject.classList.contains('occupied') && !selectedStudent.classList.contains('assigned')) {
-            assignDesk();
-            return;
-        }
-
-        if (selectedObject.classList.contains('occupied') && !selectedStudent.classList.contains('assigned')) {
-            removeAssignedDesk(assignedStudent);
-            removeAssignedStudent(selectedObject);
-            assignDesk();
-            return;
-        }
-
-        if (!selectedObject.classList.contains('occupied') && selectedStudent.classList.contains('assigned')) {
-            removeAssignedStudent(assignedDesk);
-            removeAssignedDesk(selectedStudent);
-            assignDesk();
-            return;
-        }
-
-        if (selectedObject.classList.contains('occupied') && selectedStudent.classList.contains('assigned')) {
-            removeAssignedStudent(assignedDesk);
-            removeAssignedDesk(assignedStudent);
-            removeAssignedStudent(selectedObject);
-            removeAssignedDesk(selectedStudent);
-            assignDesk();
-            return;
-        }
-
-    }
-
-}
-
-function getAssignedStudentElement(deskElement) {
-    const selectedDeskId = parseInt(deskElement.getAttribute('data-object-id'));
-    const deskRecord = state.objects.get(selectedDeskId);
-    const assignedStudentId = deskRecord.getAssignedStudentId();
-    const assignedStudent = document.querySelector(`[data-student-id='${assignedStudentId}']`);
-    return assignedStudent;
-}
-
-function getAssignedDeskElement(studentElement) {
-    const selectedStudentId = parseInt(studentElement.getAttribute('data-student-id'));
-    const studentRecord = state.students.get(selectedStudentId);
-    const assignedDeskId = studentRecord.getAssignedDeskId();
-    const assignedDesk = document.querySelector(`[data-object-id='${assignedDeskId}']`);
-    return assignedDesk;
-}
-
-function assignDesk() {
-
-    const selectedDesk = document.querySelector('.selected-object');
-    const selectedDeskId = parseInt(selectedDesk.getAttribute('data-object-id'));
-    const deskRecord = state.objects.get(selectedDeskId);
-
-    const selectedStudent = document.querySelector('.selected-student');
-    const selectedStudentId = parseInt(selectedStudent.getAttribute('data-student-id'));
-    const studentRecord = state.students.get(selectedStudentId);
-
-    deskRecord.setAssignedStudentId(selectedStudentId);
-    studentRecord.setAssignedDeskId(selectedDeskId);
-
-    selectedDesk.childNodes[1].innerText = `${studentRecord.getFirstName()} ${studentRecord.getLastName()}`;
-    selectedDesk.childNodes[0].classList.remove('far');
-    selectedDesk.childNodes[0].classList.add('fas');
-
-    selectedStudent.classList.add('assigned');
-    selectedDesk.classList.add('occupied');
-
-    alert(`${studentRecord.getFirstName()} ${studentRecord.getLastName()} was assigned to the selected desk.`);
-}
-
-
-function removeAssignedStudent(desk) {
-
-    desk.childNodes[0].classList.remove('fas');
-    desk.childNodes[0].classList.add('far');
-    desk.childNodes[1].innerText = "Vacant";
-    desk.classList.remove('occupied');
-    const deskId = parseInt(desk.getAttribute('data-object-id'));
-    const deskRecord = state.objects.get(deskId);
-    deskRecord.setAssignedStudentId(null);
-
-}
-
-function removeAssignedDesk(student) {
-
-    student.classList.remove('assigned');
-    const studentId = parseInt(student.getAttribute('data-student-id'));
-    const studentRecord = state.students.get(studentId);
-    studentRecord.setAssignedDeskId(null);
-
-}
-
-function removeStudent() {
-
-    const selectedStudent = document.querySelector('.selected-student');
-
-    if (selectedStudent) {
-
-        if (confirm("WARNING: This student will be removed. This action cannot be undone.")) {
-
-            const assignedDesk = getAssignedDeskElement(selectedStudent);
-
-            if (assignedDesk) {
-                removeAssignedStudent(assignedDesk);
-            }
-
-            removeAssignedDesk(selectedStudent);
-            const studentId = parseInt(selectedStudent.getAttribute('data-student-id'));
-            state.students.delete(studentId);
-            selectedStudent.remove();
-
-        }
-
+    if (selectedElement.classList.contains('occupied')) {
+        alert("The selected desk is already occupied.");
     } else {
-        alert("Please select a student to remove.");
+
+        const objectId = parseInt(selectedElement.getAttribute('data-object-id'));
+        const currentObject = state.objects.get(objectId);
+
+        currentObject.setAssignedStudentId(studentId);
+        currentStudent.setAssignedDeskId(objectId);
+
+        selectedElement.childNodes[1].innerText = `${currentStudent.getFirstName()} ${currentStudent.getLastName()}`;
+        selectedElement.childNodes[0].classList.remove('far');
+        selectedElement.childNodes[0].classList.add('fas');
+
+        studentDiv.classList.add('assigned');
+        selectedElement.classList.add('occupied');
+
+        alert(`${currentStudent.getFirstName()} ${currentStudent.getLastName()} was assigned to the selected desk.`);
+
     }
 
 }
 
-function deselectStudents() {
-    for (let i = 0; i < state.studentIds; i++) {
+function unassignDesk(event) {
 
-        const dataAttribute = "[data-student-id='" + i + "']";
-        const selectedObject = document.querySelector(dataAttribute);
+    const studentDiv = event.target.parentNode;
 
-        if (selectedObject) {
-            selectedObject.classList.remove('selected-student');
-        }
+    const studentId = parseInt(studentDiv.getAttribute('data-student-id'));
+    const currentStudent = state.students.get(studentId);
+
+    const objectId = parseInt(currentStudent.getAssignedDeskId());
+    const currentObject = state.objects.get(objectId);
+
+    if (objectId >= 0) {
+
+        const assignedObject = document.querySelector(`[data-object-id='${objectId}']`);
+
+        assignedObject.childNodes[0].classList.remove('fas');
+        assignedObject.childNodes[0].classList.add('far');
+        assignedObject.childNodes[1].innerText = "Vacant";
+        assignedObject.classList.remove('occupied')
+
+        currentStudent.setAssignedDeskId(null);
+        currentObject.setAssignedStudentId(null);
 
     }
+
+    studentDiv.classList.remove('assigned');
+
 }
 
-function selectStudent(event) {
-    deselectStudents();
-    event.target.classList.add('selected-student');
+function removeStudent(event) {
+
+    if (confirm("WARNING: This student will be removed. This action cannot be undone.")) {
+
+        unassignDesk(event);
+        event.target.parentNode.remove();
+
+        const studentId = parseInt(event.target.parentNode.getAttribute('data-student-id'));
+        state.students.delete(studentId);
+
+    }
+
 }
 
 // ------ Add-Student Modal Functions ------
@@ -822,6 +751,7 @@ function openModal() {
     addStudentModal.style.display = "block";
 
     let buttons = document.getElementsByTagName('button');
+    let selectors = document.getElementsByTagName('select');
     let roomObjects = document.querySelectorAll('[data-object-id]');
 
     for (let i = 0; i < buttons.length; i++) {
@@ -834,6 +764,10 @@ function openModal() {
 
     }
 
+    for (let i = 0; i < selectors.length; i++) {
+        selectors[i].setAttribute("tabindex", -1);
+    }
+
     for (let i = 0; i < roomObjects.length; i++) {
         roomObjects[i].setAttribute("tabindex", -1);
     }
@@ -844,6 +778,7 @@ function closeModal() {
     addStudentModal.style.display = "none";
 
     let buttons = document.getElementsByTagName('button');
+    let selectors = document.getElementsByTagName('select');
     let roomObjects = document.querySelectorAll('[data-object-id]');
 
     for (let i = 0; i < buttons.length; i++) {
@@ -854,6 +789,10 @@ function closeModal() {
             buttons[i].setAttribute("tabindex", 0);
         }
 
+    }
+
+    for (let i = 0; i < selectors.length; i++) {
+        selectors[i].setAttribute("tabindex", 0);
     }
 
     for (let i = 0; i < roomObjects.length; i++) {
@@ -1101,9 +1040,9 @@ function checkBounds(object) {
 
 function transformWithKeys(event) {
 
-    const selectedObject = document.querySelector('.selected-object');
+    const selectedObject = document.querySelector('.selected');
 
-    if (selectedObject && state.classroomInFocus) {
+    if (selectedObject && state.mainPageInFocus) {
 
         const currentPos = {
             x: parseInt(getComputedStyle(selectedObject).left),
@@ -1168,10 +1107,10 @@ function transformWithKeys(event) {
 
 function resetArrowKeys(event) {
 
-    const selectedObject = document.querySelector('.selected-object');
+    const selectedObject = document.querySelector('.selected');
     const watchKeys = ["ArrowUp", "ArrowDown", "ArrowRight", "ArrowLeft"];
 
-    if (selectedObject && state.classroomInFocus) {
+    if (selectedObject && state.mainPageInFocus) {
         if (watchKeys.includes(event.key)) {
             state.arrowKeysPressed[event.key] = false;
         }
@@ -1182,7 +1121,7 @@ function resetArrowKeys(event) {
 // ------ Print Functions ------
 
 function printClassroom() {
-    const classroomHTML = document.querySelector('.classroom-wrapper').innerHTML;
+    const classroomHTML = document.querySelector('#classroom-wrapper').innerHTML;
     const win = window.open('', '', 'height=750, width=1000');
     win.document.write('<head>');
     win.document.write('<link rel="stylesheet" href="./styles.css" />')
@@ -1192,7 +1131,7 @@ function printClassroom() {
     win.document.write('<div id="print-title"><h1>My Classroom Plan</h1></div>');
     win.document.write(classroomHTML);
 
-    const roomElements = win.document.querySelector('.classroom').childNodes;
+    const roomElements = win.document.querySelector('#classroom').childNodes;
 
     roomElements.forEach((element) => {
         element.style.borderColor = "black";
@@ -1230,4 +1169,26 @@ function printStudents() {
     win.document.write('</body></html>');
     win.document.close();
     setTimeout(() => { win.print(); }, 1000);
+}
+
+// ------ Drawer Functions ------
+
+function collapseDrawer() {
+
+    drawer.style.transition = "top 0.5s ease-out";
+
+    if (state.drawerOpen) {
+        drawer.style.top = "calc(100vh - 60px)";
+        drawer.style.bottom = 0 + "px";
+        collapseDrawerButton.childNodes[1].style.transform = "rotateX(0deg)";
+        state.drawerOpen = false;
+    } else {
+        drawer.style.top = "calc(50vh - 60px)";
+        drawer.style.bottom = 0 + "px";
+        collapseDrawerButton.childNodes[1].style.transform = "rotateX(-180deg)";
+        state.drawerOpen = true;
+    }
+
+    setTimeout(() => { drawer.style.transition = "none"; }, 500);
+
 }
