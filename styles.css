@@ -10,12 +10,12 @@
 }
 
 html {
-    background-color: black;
-    background: url(./images/background.svg) no-repeat center center fixed;
-    background-size: cover;
-    -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
+    -webkit-background-size: cover;
+    background-color: rgb(226, 226, 226);
+    background-size: cover;
+    background: url(./images/background.svg) no-repeat center center fixed;
     color: black;
     font-family: 'Quicksand', sans-serif;
 }
@@ -32,24 +32,26 @@ i {
 /* Title Box Styling */
 
 #title-box {
-    display: flex;
-    justify-content: center;
     align-items: center;
-    white-space: nowrap;
-    width: 100vw;
+    background-color: #197545;
+    border-bottom: 5px solid goldenrod;
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.8);
+    display: flex;
     height: 40px;
-    background-color:dodgerblue;
+    justify-content: center;
+    left: 0px;
+    padding: 10px 0px;
     position: fixed;
     top: 0px;
-    left: 0px;
+    white-space: nowrap;
+    width: 100vw;
     z-index: 4;
-    padding: 10px 20px;
 }
 
 #title-box h1 {
     color: white;
     font-family: 'Cabin Sketch', sans-serif;
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: bold;
     text-align: center;
 }
@@ -57,41 +59,42 @@ i {
 /* Toolbar Styling */
 
 .toolbar-wrapper {
-    display: grid;
     align-items: center;
-    background-color: goldenrod;
-    width: 100vw;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.8);
+    display: grid;
     height: auto;
-    position: fixed;
-    top: 60px;
     left: 0px;
-    z-index: 4;
     overflow: auto overlay;
+    position: fixed;
+    top: 65px;
+    width: 100vw;
+    z-index: 3;
 }
 
 .toolbar {
+    align-items: center;
+    column-gap: 10px;
     display: grid;
     grid-template-columns: repeat(15, auto);
-    column-gap: 10px;
     justify-content: center;
-    align-items: center;
-    white-space: nowrap;
     padding: 10px 20px;
+    white-space: nowrap;
 }
 
 .toolbar-section span {
-    display: flex;
-    justify-content: center;
     align-items: center;
+    display: flex;
     font-size: 0.75rem;
+    justify-content: center;
     user-select: none;
     white-space: nowrap;
 }
 
 .toolbar-divider {
+    background-color: rgba(0, 0, 0, 0.2);
     height: 100%;
     width: 1px;
-    background-color: rgba(0, 0, 0, 0.2);
 }
 
 /* Button Styling */
@@ -106,20 +109,20 @@ i {
     align-items: center;
     background-color: transparent;
     border-radius: 10px;
-    cursor: pointer;
     border: none;
+    cursor: pointer;
     display: flex;
     font-family: Arial, Helvetica, sans-serif;
     height: 40px;
     justify-content: center;
-    width: 40px;
     margin: 5px;
+    width: 40px;
 }
 
 #quantity-selector, #object-selector {
-    background-color: rgba(255, 255, 255, 0.6);
-    color: black;
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 5px;
+    color: black;
     height: 20px;
     margin: 15px 5px 15px 5px;
 }
@@ -151,25 +154,21 @@ i {
 /* Classroom Styling */
 
 #classroom-container {
-    width: 100vw;
     height: auto;
-    padding-left: 0px;
-    padding-top: 0px;
-    padding-right: 0px;
-    padding-bottom: 0px;
+    width: 100vw;
 }
 
 #classroom-wrapper {
-    display: grid;
     align-items: center;
+    display: grid;
+    height: calc(100vh - 320px);
     justify-items: center;
+    overflow: auto overlay;
+    padding-bottom: 120px;
     padding-left: 60px;
     padding-right: 60px;
-    padding-bottom: 120px;
     padding-top: 210px;
     width: auto;
-    height: calc(100vh - 330px);
-    overflow: auto overlay;
 }
 
 #classroom {
@@ -180,29 +179,30 @@ i {
     height: 380px;
     max-height: 670px;
     max-width: 670px;
-    min-width: 240px;
     min-height: 240px;
+    min-width: 240px;
+    overflow: hidden;
     position: relative;
     width: 380px;
-    overflow: hidden;
 }
 
 /* Drawer Styling */
 
 #drawer {
+    background-color: rgba(255, 255, 255, 0.8);
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
+    bottom: 0px;
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.8);
     display: grid;
     grid-template-rows: 60px auto 65px;
-    width: 300px;
     height: auto;
-    background-color: tomato;
+    left: 0px;
+    padding: 0px 10px 10px 10px;
     position: fixed;
     top: calc(100vh - 60px);
-    bottom: 0px;
-    left: 0px;
+    width: 300px;
     z-index: 4;
-    padding: 0px 10px 10px 10px;
 }
 
 .drawer-row {
@@ -212,8 +212,8 @@ i {
 
 .drawer-row span {
     display: flex;
-    justify-content: center;
     font-size: 0.75rem;
+    justify-content: center;
     user-select: none;
     white-space: nowrap;
 }
@@ -236,68 +236,68 @@ i {
     font-family: Arial, Helvetica, sans-serif;
     height: 40px;
     justify-content: center;
-    width: 100%;
     margin: 10px 0px;
+    width: 100%;
 }
 
 #collapse-drawer-button i {
-    transition: transform 0.5s ease-out;
+    color: black;
     pointer-events: none;
-    color: white;
+    transition: transform 0.5s ease-out;
 }
 
 .collapse-drawer-label {
-    color: white;
+    color: black;
     font-weight: bold;
     margin: 0px 10px;
     user-select: none;
 }
 
 #student-list {
-    background-color: rgb(236, 236, 236, 0.6);
+    background-color: rgba(218, 165, 32, 0.4);
     border-radius: 10px;
-    width: 100%;
     height: calc(50vh - 85px);
-    overflow: auto overlay;
     margin-bottom: 10px;
+    overflow: auto overlay;
+    width: 100%;
 }
 
 .student {
     align-items: center;
-    border: 2px solid black;
-    cursor: pointer;
-    justify-content: left;
     background-color: white;
     border-radius: 10px;
+    border: 2px solid goldenrod;
+    column-gap: 5px;
+    cursor: pointer;
     display: grid;
     grid-template-columns: 30px auto 30px 30px;
-    column-gap: 5px;
+    justify-content: left;
     justify-content: stretch;
     margin: 5px;
     padding: 5px;
 }
 
 .student button {
-    font-size: 1rem;
-    background-color: transparent;
-    border: none;
-    border-radius: 5px;
-    width: 30px;
-    height: 30px;
-    display: flex;
     align-items: center;
+    background-color: transparent;
+    border-radius: 5px;
+    border: none;
+    display: flex;
+    font-size: 1rem;
+    height: 30px;
     justify-content: center;
+    width: 30px;
 }
 
 .student p {
     overflow: hidden;
-    white-space: nowrap;
     pointer-events: none;
     user-select: none;
+    white-space: nowrap;
 }
 
 .assigned {
-    background-color: rgb(223, 255, 205);
+    background-color: rgb(240, 195, 81);
 }
 
 /* Classroom Objects Styling */
@@ -313,8 +313,8 @@ i {
 }
 
 .student-desk i {
-    pointer-events: none;
     font-size: 1rem;
+    pointer-events: none;
 }
 
 .teacher-desk {
@@ -357,8 +357,8 @@ i {
 
 .window {
     background-color: rgba(10, 187, 187, 0.5);
-    border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
     border: 2px solid black;
     height: 50px;
     width: 6px;
@@ -402,9 +402,9 @@ i {
 
 [data-object-id] {
     align-items: center;
+    cursor: pointer;
     display: flex;
     justify-content: center;
-    cursor: pointer;
     left: 0px;
     position: absolute;
     top: 0px;
@@ -413,10 +413,10 @@ i {
 [data-object-id] span {
     font-size: 0.5rem;
     font-weight: bold;
-    pointer-events: none;
-    user-select: none;
-    text-align: center;
     line-height: 1;
+    pointer-events: none;
+    text-align: center;
+    user-select: none;
 }
 
 [data-object-id]:hover {
@@ -424,8 +424,8 @@ i {
 }
 
 [data-object-id]:hover, [data-object-id]:active, [data-object-id]:focus {
-    outline: none;
     border-color: aqua;
+    outline: none;
 }
 
 .selected {
@@ -443,6 +443,8 @@ i {
     display: flex;
     font-size: 0.6rem;
     justify-content: center;
+    min-height: 7px;
+    min-width: 30px;
     padding: 2px 6px 3px 6px;
     pointer-events: none;
     position: absolute;
@@ -450,8 +452,6 @@ i {
     visibility: hidden;
     white-space: nowrap;
     z-index: 1;
-    min-height: 7px;
-    min-width: 30px;
 }
 
 .display-name::after {
@@ -485,9 +485,9 @@ i {
     border-radius: 10px;
     border: 1px solid black;
     margin: 15% auto;
-    width: 60vw;
-    padding: 20px;
     max-width: 500px;
+    padding: 20px;
+    width: 60vw;
 }
 
 .modal-header {
@@ -511,11 +511,11 @@ i {
 .modal-section {
     align-items: center;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     margin-bottom: 10px;
     margin-top: 10px;
     white-space: nowrap;
-    flex-wrap: wrap;
 }
 
 .modal-section label {
@@ -534,9 +534,9 @@ i {
 .modal-footer {
     align-items: center;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     width: 100%;
-    flex-wrap: wrap;
 }
 
 .modal-button-underlay {
@@ -569,25 +569,22 @@ i {
 #print-title {
     display: flex;
     justify-content: center;
-    margin-top: 30px;
     margin-bottom: 30px;
+    margin-top: 30px;
 }
 
 .print-list {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
     margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 /* Media Queries */
 
 @media screen and (max-width: 600px) {
-    #top-drawer {
-        width: calc(100vw - 20px);
-    }
 
-    #bottom-drawer {
+    #drawer {
         width: calc(100vw - 20px);
     }
 
@@ -598,5 +595,4 @@ i {
     #title-box h1 {
         font-size: 8vw;
     }
-
 }
