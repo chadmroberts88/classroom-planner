@@ -94,7 +94,7 @@ classroom.addEventListener('touchend', () => {
     state.classroomInFocus = false;
 });
 
-classroomContainer.addEventListener('click', () => {
+classroomContainer.addEventListener('mousedown', () => {
     if (state.classroomInFocus) {
         return;
     } else {
@@ -201,7 +201,7 @@ class Object {
 function createObject() {
     const newDiv = document.createElement('div');
     newDiv.setAttribute('data-object-id', state.objectIds);
-    newDiv.addEventListener('click', selectObject);
+    newDiv.addEventListener('mousedown', selectObject);
     newDiv.addEventListener('touchstart', selectObject);
     newDiv.addEventListener('mousedown', addDraggable);
     newDiv.addEventListener('touchstart', addDraggable);
@@ -1180,12 +1180,12 @@ function collapseDrawer() {
     if (state.drawerOpen) {
         drawer.style.top = "calc(100vh - 60px)";
         drawer.style.bottom = 0 + "px";
-        collapseDrawerButton.childNodes[1].style.transform = "rotateX(0deg)";
+        collapseDrawerButton.childNodes[0].style.transform = "rotateX(0deg)";
         state.drawerOpen = false;
     } else {
         drawer.style.top = "calc(50vh - 60px)";
         drawer.style.bottom = 0 + "px";
-        collapseDrawerButton.childNodes[1].style.transform = "rotateX(-180deg)";
+        collapseDrawerButton.childNodes[0].style.transform = "rotateX(-180deg)";
         state.drawerOpen = true;
     }
 
