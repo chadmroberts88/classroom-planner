@@ -65,7 +65,7 @@ i {
     display: grid;
     height: auto;
     left: 0px;
-    overflow: auto overlay;
+    overflow: auto;
     position: fixed;
     top: 65px;
     width: 100vw;
@@ -161,9 +161,9 @@ i {
 #classroom-wrapper {
     align-items: center;
     display: grid;
-    height: calc(100vh - 320px);
+    height: calc(100vh - 330px);
     justify-items: center;
-    overflow: auto overlay;
+    overflow: auto;
     padding-bottom: 120px;
     padding-left: 60px;
     padding-right: 60px;
@@ -258,7 +258,7 @@ i {
     border-radius: 10px;
     height: calc(50vh - 85px);
     margin-bottom: 10px;
-    overflow: auto overlay;
+    overflow: auto;
     width: 100%;
 }
 
