@@ -312,6 +312,7 @@ i {
 .drawer-row {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    overflow: auto;
 }
 
 .drawer-row span {
@@ -361,9 +362,8 @@ i {
     background-color: rgba(218, 165, 32, 0.4);
     border-radius: 10px;
     height: 100%;
-    margin-bottom: 10px;
-    overflow: auto;
     width: 100%;
+    padding-top: 5px;
 }
 
 .student {
@@ -377,8 +377,8 @@ i {
     grid-template-columns: 30px auto 30px 30px;
     justify-content: left;
     justify-content: stretch;
-    margin: 5px;
     padding: 5px;
+    margin: 0px 5px 5px 5px;
 }
 
 .student button {
@@ -398,6 +398,10 @@ i {
     pointer-events: none;
     user-select: none;
     white-space: nowrap;
+}
+
+.student i {
+    color: black;
 }
 
 .assigned {
