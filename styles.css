@@ -13,7 +13,7 @@ html {
     -moz-background-size: cover;
     -o-background-size: cover;
     -webkit-background-size: cover;
-    background-color: rgb(226, 226, 226);
+    background-color: rgb(25, 117, 69);
     background-size: cover;
     background: url(./images/background.svg) no-repeat center center fixed;
     color: black;
@@ -21,6 +21,7 @@ html {
 }
 
 body {
+    position: relative;
     width: 100vw;
     height: 100vh;
 }
@@ -34,7 +35,7 @@ i {
 
 #title-box {
     align-items: center;
-    background-color: #197545;
+    background-color: rgb(25, 117, 69);
     border-bottom: 5px solid goldenrod;
     box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.8);
     display: flex;
@@ -300,7 +301,7 @@ i {
     height: auto;
     left: 0px;
     padding: 0px 10px 10px 10px;
-    position: fixed;
+    position: absolute;
     top: calc(100vh - 60px);
     width: 300px;
     z-index: 4;
