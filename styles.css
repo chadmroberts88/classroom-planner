@@ -21,6 +21,9 @@ html {
 }
 
 body {
+    overflow: hidden;
+    width: auto;
+    height: 100vh;
 }
 
 i {
@@ -158,7 +161,7 @@ i {
     display: grid;
     height: 95px;
     left: 0px;
-    overflow: auto;
+    overflow: auto hidden;
     position: fixed;
     top: 65px;
     width: 100vw;
@@ -299,7 +302,7 @@ i {
     left: 0px;
     padding: 0px 10px 10px 10px;
     position: fixed;
-    top: calc(100vh - 60px);
+    top: calc(100% - 60px);
     bottom: 0px;
     width: 300px;
     z-index: 4;
