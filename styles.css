@@ -123,7 +123,7 @@ i {
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 5px;
     color: black;
-    height: 20px;
+    height: 30px;
     margin: 15px 5px 15px 5px;
 }
 
@@ -539,17 +539,6 @@ i {
     width: 100%;
 }
 
-.modal-button-underlay {
-    align-items: center;
-    background-color: darkgrey;
-    border-radius: 10px;
-    display: flex;
-    height: 40px;
-    justify-content: center;
-    margin: 5px;
-    width: 140px;
-}
-
 .modal-button {
     align-items: center;
     background-color: transparent;
@@ -562,6 +551,68 @@ i {
     height: 40px;
     justify-content: center;
     width: 140px;
+    margin: 5px;
+}
+
+#close-modal-button {
+    background-color: lightgrey;
+}
+
+#save-changes-button {
+    background-color: goldenrod;
+}
+
+#close-modal-button:hover, #close-modal-button:active, #close-modal-button:focus {
+    background-color: rgba(211, 211, 211, 0.8);
+}
+
+#save-changes-button:hover, #save-changes-button:active, #save-changes-button:focus {
+    background-color: rgba(218, 165, 32, 0.8);
+}
+
+/* Snackbar Styling */
+
+.snackbar {
+    visibility: hidden;
+    width: fit-content;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 15px;
+    position: fixed;
+    z-index: 4;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    bottom: 20px;
+    font-size: 1rem;
+}
+
+.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 20px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 20px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 20px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 20px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
 }
 
 /* Print Styling */
