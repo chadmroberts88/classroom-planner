@@ -157,7 +157,7 @@ i {
     background-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.8);
     display: grid;
-    height: auto;
+    height: 95px;
     left: 0px;
     overflow: auto;
     position: fixed;
@@ -248,21 +248,26 @@ i {
 /* Classroom Styling */
 
 #classroom-container {
-    height: 100vh;
+    position: fixed;
+    top: 160px;
     width: 100vw;
+    height: calc(100vh - 160px);
+    overflow: auto;
 }
 
 #classroom-wrapper {
     align-items: center;
     display: grid;
-    height: calc(100vh - 330px);
+    height: fit-content;
+    width: fit-content;
+    min-height: 250px;
+    min-width: 250px;
     justify-items: center;
-    overflow: auto;
+    padding-top: 60px;
     padding-bottom: 120px;
     padding-left: 60px;
     padding-right: 60px;
-    padding-top: 210px;
-    width: auto;
+    margin: auto;
 }
 
 #classroom {
@@ -278,15 +283,7 @@ i {
     overflow: hidden;
     position: relative;
     width: 380px;
-}
 
-/* Footer Styling */
-
-#footer {
-    height: 20px;
-    padding: 10px;
-    font-size: 1rem;
-    text-align: right;
 }
 
 /* Drawer Styling */
