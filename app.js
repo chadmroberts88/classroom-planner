@@ -123,6 +123,9 @@ const state = {
     arrowKeysPressed: {},
 
     displayNameStatus: "hidden",
+
+    sortedAz: false,
+
     mainPageInFocus: true,
     classroomInFocus: false,
 
@@ -510,17 +513,18 @@ function bringforward() {
 
 function removeObject() {
     const selectedElement = document.querySelector('.selected');
+    const removeMessage = document.querySelector('#remove-message');
 
     if (selectedElement) {
         if (selectedElement.classList.contains('occupied')) {
-            alert("Please unassign this desk before removing it.");
+            removeMessage.innerText = 'Please unassign this desk before removing it.';
+            removeMessage.classList.add('show');
+            setTimeout(() => { removeMessage.classList.remove('show'); }, 3000);
         } else {
             selectedElement.remove();
             const objectId = parseInt(selectedElement.getAttribute('data-object-id'));
             state.objects.delete(objectId);
         }
-    } else {
-        alert("Please select an object to remove.")
     }
 
 }
@@ -572,7 +576,7 @@ function addStudent() {
     const newRemoveStudentButton = document.createElement('button');
     newRemoveStudentButton.classList.add('remove-student-button', 'fas', 'fa-trash-alt', 'ol-active', 'bg-active');
     newRemoveStudentButton.setAttribute('role', 'button');
-    newRemoveStudentButton.setAttribute('title', 'Assign to Desk');
+    newRemoveStudentButton.setAttribute('title', 'Remove Student');
     newRemoveStudentButton.setAttribute('tabindex', 0);
     newDiv.appendChild(newRemoveStudentButton);
 
@@ -592,6 +596,7 @@ function sortAz() {
 
     const studentDivs = document.querySelectorAll('.student');
     const unsortedStudents = [];
+    let sortedStudents;
     const studentsToSort = [];
     const sortedStudentDivs = [];
 
@@ -607,11 +612,30 @@ function sortAz() {
         };
     }
 
-    const sortedStudents = studentsToSort.sort(function (a, b) {
-        if (a.fullName.toLowerCase() < b.fullName.toLowerCase()) return -1;
-        if (a.fullName.toLowerCase() > b.fullName.toLowerCase()) return 1;
-        return 0;
-    });
+    if (state.sortedAz) {
+
+        sortedStudents = studentsToSort.sort(function (a, b) {
+            if (a.fullName.toLowerCase() > b.fullName.toLowerCase()) return -1;
+            if (a.fullName.toLowerCase() < b.fullName.toLowerCase()) return 1;
+            return 0;
+        });
+
+        state.sortedAz = false;
+        sortAzButton.childNodes[0].classList.remove('fa-sort-alpha-down-alt');
+        sortAzButton.childNodes[0].classList.add('fa-sort-alpha-down');
+
+    } else {
+
+        sortedStudents = studentsToSort.sort(function (a, b) {
+            if (a.fullName.toLowerCase() < b.fullName.toLowerCase()) return -1;
+            if (a.fullName.toLowerCase() > b.fullName.toLowerCase()) return 1;
+            return 0;
+        });
+
+        state.sortedAz = true;
+        sortAzButton.childNodes[0].classList.remove('fa-sort-alpha-down');
+        sortAzButton.childNodes[0].classList.add('fa-sort-alpha-down-alt');
+    }
 
     for (let i = 0; i < sortedStudents.length; i++) {
 
@@ -664,24 +688,42 @@ function setStudentInfo() {
 
 function assignDesk(event) {
 
-    const selectedElement = document.querySelector(".selected");
+    const selectedElement = document.querySelector('.selected');
     const studentDiv = event.target.parentNode;
 
     const studentId = parseInt(studentDiv.getAttribute('data-student-id'));
     const currentStudent = state.students.get(studentId);
 
+    const selectMessage = document.querySelector('#select-message');
+    const occupiedMessage = document.querySelector('#occupied-message');
+    const assignedMessage = document.querySelector('#assigned-message');
+    const unassignedMessage = document.querySelector('#unassigned-message');
+
     if (studentDiv.classList.contains('assigned')) {
-        if (confirm(`${currentStudent.getFirstName()} ${currentStudent.getLastName()} will be unassigned from thier desk.`)) { unassignDesk(event); }
+
+        unassignedMessage.innerText = `${currentStudent.getFirstName()} ${currentStudent.getLastName()} was unassigned from their desk.`;
+        unassignedMessage.classList.add('show');
+        setTimeout(() => { unassignedMessage.classList.remove('show'); }, 3000);
+        unassignDesk(event);
         return;
+
     }
 
     if (!selectedElement || !selectedElement.classList.contains('student-desk')) {
-        alert("Please select a student desk to assign.");
+
+        selectMessage.innerText = 'Please select a student desk to assign.';
+        selectMessage.classList.add('show');
+        setTimeout(() => { selectMessage.classList.remove('show'); }, 3000);
         return;
+
     }
 
     if (selectedElement.classList.contains('occupied')) {
-        alert("The selected desk is already occupied.");
+
+        occupiedMessage.innerText = 'The selected desk is already occupied';
+        occupiedMessage.classList.add('show');
+        setTimeout(() => { occupiedMessage.classList.remove('show'); }, 3000);
+
     } else {
 
         const objectId = parseInt(selectedElement.getAttribute('data-object-id'));
@@ -697,7 +739,10 @@ function assignDesk(event) {
         studentDiv.classList.add('assigned');
         selectedElement.classList.add('occupied');
 
-        alert(`${currentStudent.getFirstName()} ${currentStudent.getLastName()} was assigned to the selected desk.`);
+        assignedMessage.innerText = `${currentStudent.getFirstName()} ${currentStudent.getLastName()} was assigned to the selected desk.`;
+        assignedMessage.classList.add('show');
+        setTimeout(() => { assignedMessage.classList.remove('show'); }, 3000);
+        assignedMessage, innerText = '';
 
     }
 
@@ -733,7 +778,7 @@ function unassignDesk(event) {
 
 function removeStudent(event) {
 
-    if (confirm("WARNING: This student will be removed. This action cannot be undone.")) {
+    if (confirm("This student will be removed from the list. This action cannot be undone.")) {
 
         unassignDesk(event);
         event.target.parentNode.remove();
@@ -749,10 +794,11 @@ function removeStudent(event) {
 
 function openModal() {
     addStudentModal.style.display = "block";
+    document.querySelector('#first-name').focus();
 
-    let buttons = document.getElementsByTagName('button');
-    let selectors = document.getElementsByTagName('select');
-    let roomObjects = document.querySelectorAll('[data-object-id]');
+    const buttons = document.getElementsByTagName('button');
+    const selectors = document.getElementsByTagName('select');
+    const roomObjects = document.querySelectorAll('[data-object-id]');
 
     for (let i = 0; i < buttons.length; i++) {
 
@@ -777,9 +823,9 @@ function openModal() {
 function closeModal() {
     addStudentModal.style.display = "none";
 
-    let buttons = document.getElementsByTagName('button');
-    let selectors = document.getElementsByTagName('select');
-    let roomObjects = document.querySelectorAll('[data-object-id]');
+    const buttons = document.getElementsByTagName('button');
+    const selectors = document.getElementsByTagName('select');
+    const roomObjects = document.querySelectorAll('[data-object-id]');
 
     for (let i = 0; i < buttons.length; i++) {
 
@@ -808,6 +854,7 @@ function decClassroomWidth() {
     const minWidth = getComputedStyle(classroom).minWidth;
     const x = 10;
     const roomElements = classroom.childNodes;
+    const minWidthMessage = document.querySelector('#min-width-message');
 
     if (parseInt(currentWidth) > parseInt(minWidth)) {
         classroom.style.width = parseInt(currentWidth) - x + "px";
@@ -820,7 +867,9 @@ function decClassroomWidth() {
         });
 
     } else {
-        alert("You've reached the minimum classroom width.");
+        minWidthMessage.innerText = "You've reached the minimum classroom width.";
+        minWidthMessage.classList.add('show');
+        setTimeout(() => { minWidthMessage.classList.remove('show'); }, 3000);
     }
 
 }
@@ -829,11 +878,14 @@ function incClassroomWidth() {
     const currentWidth = getComputedStyle(classroom).width;
     const maxWidth = getComputedStyle(classroom).maxWidth;
     const x = 10;
+    const maxWidthMessage = document.querySelector('#max-width-message');
 
     if (parseInt(currentWidth) < parseInt(maxWidth)) {
         classroom.style.width = parseInt(currentWidth) + x + "px";
     } else {
-        alert("You've reached the maximum classroom width.");
+        maxWidthMessage.innerText = "You've reached the maximum classroom width.";
+        maxWidthMessage.classList.add('show');
+        setTimeout(() => { maxWidthMessage.classList.remove('show'); }, 3000);
     }
 
 }
@@ -843,6 +895,7 @@ function decclassroomLength() {
     const minHeight = getComputedStyle(classroom).minHeight;
     const y = 10;
     const roomElements = classroom.childNodes;
+    const minLengthMessage = document.querySelector('#min-length-message');
 
     if (parseInt(currentHeight) > parseInt(minHeight)) {
         classroom.style.height = parseInt(currentHeight) - y + "px";
@@ -855,19 +908,25 @@ function decclassroomLength() {
         });
 
     } else {
-        alert("You've reached the minimum classroom length.");
+        minLengthMessage.innerText = "You've reached the minimum classroom length.";
+        minLengthMessage.classList.add('show');
+        setTimeout(() => { minLengthMessage.classList.remove('show'); }, 3000);
     }
+
 }
 
 function incclassroomLength() {
     const currentHeight = getComputedStyle(classroom).height;
     const maxHeight = getComputedStyle(classroom).maxHeight;
     const y = 10;
+    const maxLengthMessage = document.querySelector('#max-length-message');
 
     if (parseInt(currentHeight) < parseInt(maxHeight)) {
         classroom.style.height = parseInt(currentHeight) + y + "px";
     } else {
-        alert("You've reached the maximum classroom length.");
+        maxLengthMessage.innerText = "You've reached the maximum classroom length.";
+        maxLengthMessage.classList.add('show');
+        setTimeout(() => { maxLengthMessage.classList.remove('show'); }, 3000);
     }
 }
 
