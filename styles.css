@@ -301,7 +301,7 @@ i {
     height: auto;
     left: 0px;
     padding: 0px 10px 10px 10px;
-    position: absolute;
+    position: fixed;
     top: calc(100vh - 60px);
     width: 300px;
     z-index: 4;
