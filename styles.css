@@ -21,9 +21,6 @@ html {
 }
 
 body {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
 }
 
 i {
@@ -303,6 +300,7 @@ i {
     padding: 0px 10px 10px 10px;
     position: fixed;
     top: calc(100vh - 60px);
+    bottom: 0px;
     width: 300px;
     z-index: 4;
 }
