@@ -1235,12 +1235,12 @@ function collapseDrawer() {
     drawer.style.transition = "top 0.5s ease-out";
 
     if (state.drawerOpen) {
-        drawer.style.top = "calc(100vh - 60px)";
+        drawer.style.top = "calc(100% - 60px)";
         drawer.style.bottom = 0 + "px";
         collapseDrawerButton.childNodes[0].style.transform = "rotateX(0deg)";
         state.drawerOpen = false;
     } else {
-        drawer.style.top = "calc(50vh - 60px)";
+        drawer.style.top = "calc(50% - 60px)";
         drawer.style.bottom = 0 + "px";
         collapseDrawerButton.childNodes[0].style.transform = "rotateX(-180deg)";
         state.drawerOpen = true;
