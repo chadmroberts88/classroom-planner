@@ -982,8 +982,6 @@ function dragStart(event) {
 
     state.draggableObject = document.querySelector('.draggable');
 
-    event.preventDefault();
-
     if (state.draggableObject) {
 
         if (event.type === "touchstart") {
