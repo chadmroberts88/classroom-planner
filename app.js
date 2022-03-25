@@ -1,6 +1,10 @@
 // ------ Button Selectors ------
 
 const pageInfoButton = document.querySelector('#page-info-button');
+const closeInfoModalButton = document.querySelector('#close-info-modal-button');
+
+const saveSessionButton = document.querySelector('#save-session-button');
+const clearSessionButton = document.querySelector('#clear-session-button');
 const addObjectsButton = document.querySelector('#add-objects-button');
 const removeObjectButton = document.querySelector('#remove-object-button');
 const rotateCcwButton = document.querySelector('#rotate-ccw-button');
@@ -19,7 +23,6 @@ const addStudentButton = document.querySelector('#add-student-button');
 const sortAzButton = document.querySelector('#sort-az-button');
 const printStudentsButton = document.querySelector('#print-students-button');
 
-const closeInfoModalButton = document.querySelector('#close-info-modal-button');
 const closeStudentModalButton = document.querySelector('#close-student-modal-button');
 const saveChangesButton = document.querySelector('#save-changes-button');
 
@@ -50,6 +53,8 @@ const titleBox = document.querySelector('#title-box');
 pageInfoButton.addEventListener('click', openInfoModal);
 closeInfoModalButton.addEventListener('click', closeInfoModal);
 
+saveSessionButton.addEventListener('click', saveSession);
+clearSessionButton.addEventListener('click', clearSession);
 addObjectsButton.addEventListener('click', addObject);
 removeObjectButton.addEventListener('click', removeObject);
 rotateCcwButton.addEventListener('click', rotateCcw);
@@ -111,12 +116,12 @@ classroomContainer.addEventListener('mousedown', () => {
 
 // ------ State Object ------
 
-const state = {
+let state = {
     objectIds: 0,
-    objects: new Map(),
+    objects: {},
 
     studentIds: 0,
-    students: new Map(),
+    students: {},
 
     targetStudentId: null,
     targetStudent: null,
@@ -135,7 +140,10 @@ const state = {
     mainPageInFocus: true,
     classroomInFocus: false,
 
-    drawerOpen: false
+    drawerOpen: false,
+
+    classroomWidth: "380px",
+    classroomHeight: "380px"
 };
 
 // ------ Classes ------
@@ -147,61 +155,12 @@ class Student {
         this.lastName = 'Student';
         this.assignedDeskId = null;
     }
-
-    setId(value) {
-        this.id = value;
-    }
-
-    getId() {
-        return this.id;
-    }
-
-    setFirstName(value) {
-        this.firstName = value;
-    }
-
-    getFirstName() {
-        return this.firstName;
-    }
-
-    setLastName(value) {
-        this.lastName = value;
-    }
-
-    getLastName() {
-        return this.lastName;
-    }
-
-    getAssignedDeskId() {
-        return this.assignedDeskId;
-    }
-
-    setAssignedDeskId(value) {
-        this.assignedDeskId = value;
-    }
-
 }
 
 class Object {
     constructor() {
         this.rotationState = 0;
         this.assignedStudentId = null;
-    }
-
-    getRotationState() {
-        return this.rotationState;
-    }
-
-    setRotationState(value) {
-        this.rotationState = value;
-    }
-
-    getAssignedStudentId() {
-        return this.assignedStudentId;
-    }
-
-    setAssignedStudentId(value) {
-        this.assignedStudentId = value;
     }
 }
 
@@ -227,9 +186,9 @@ function createObject() {
     classroom.appendChild(newDiv);
 
     const newObject = new Object();
-    newObject.setRotationState(0);
+    newObject.rotationState = 0;
 
-    state.objects.set(state.objectIds, newObject);
+    state.objects[state.objectIds] = newObject;
 
     return newDiv;
 }
@@ -423,10 +382,10 @@ function rotateCcw() {
 
     if (selectedElement) {
         const objectId = parseInt(selectedElement.getAttribute('data-object-id'));
-        const currentObject = state.objects.get(objectId);
+        const currentObject = state.objects[objectId];
         const deg = 15;
 
-        const currentRotationState = currentObject.getRotationState();
+        const currentRotationState = currentObject.rotationState;
         let newRotationState = parseInt(currentRotationState) - deg;
 
         if (newRotationState === -360) {
@@ -434,7 +393,7 @@ function rotateCcw() {
         }
 
         selectedElement.style.transform = "rotate(" + newRotationState + "deg)";
-        currentObject.setRotationState(newRotationState);
+        currentObject.rotationState = newRotationState;
 
         const currentPos = {
             x: parseInt(getComputedStyle(selectedElement).left),
@@ -458,10 +417,10 @@ function rotateCw() {
 
     if (selectedElement) {
         const objectId = parseInt(selectedElement.getAttribute('data-object-id'));
-        const currentObject = state.objects.get(objectId);
+        const currentObject = state.objects[objectId];
         const deg = 15;
 
-        const currentRotationState = currentObject.getRotationState();
+        const currentRotationState = currentObject.rotationState;
         let newRotationState = parseInt(currentRotationState) + deg;
 
         if (newRotationState === 360) {
@@ -469,7 +428,7 @@ function rotateCw() {
         }
 
         selectedElement.style.transform = "rotate(" + newRotationState + "deg)";
-        currentObject.setRotationState(newRotationState);
+        currentObject.rotationState = newRotationState;
 
         const currentPos = {
             x: parseInt(getComputedStyle(selectedElement).left),
@@ -529,7 +488,7 @@ function removeObject() {
         } else {
             selectedElement.remove();
             const objectId = parseInt(selectedElement.getAttribute('data-object-id'));
-            state.objects.delete(objectId);
+            delete state.objects[objectId];
         }
     }
 
@@ -591,9 +550,9 @@ function addStudent() {
     newRemoveStudentButton.addEventListener('click', removeStudent);
 
     const newStudent = new Student();
-    newStudent.setId(state.studentIds);
+    newStudent.id = state.studentIds;
 
-    state.students.set(state.studentIds, newStudent);
+    state.students[state.studentIds] = newStudent;
     state.studentIds++;
 
 }
@@ -608,13 +567,13 @@ function sortAz() {
 
     studentDivs.forEach((element) => {
         const studentId = parseInt(element.getAttribute('data-student-id'));
-        unsortedStudents.push(state.students.get(studentId));
+        unsortedStudents.push(state.students[studentId]);
     });
 
     for (let i = 0; i < unsortedStudents.length; i++) {
         studentsToSort[i] = {
-            fullName: unsortedStudents[i].getFirstName() + " " + unsortedStudents[i].getLastName(),
-            id: unsortedStudents[i].getId()
+            fullName: unsortedStudents[i].firstName + " " + unsortedStudents[i].lastName,
+            id: unsortedStudents[i].id
         };
     }
 
@@ -659,10 +618,10 @@ function sortAz() {
 function loadStudentInfo(event) {
 
     state.targetStudentId = parseInt(event.target.parentNode.getAttribute('data-student-id'));
-    state.targetStudent = state.students.get(state.targetStudentId);
+    state.targetStudent = state.students[state.targetStudentId];
 
-    document.querySelector('#first-name').value = state.targetStudent.getFirstName();
-    document.querySelector('#last-name').value = state.targetStudent.getLastName();
+    document.querySelector('#first-name').value = state.targetStudent.firstName;
+    document.querySelector('#last-name').value = state.targetStudent.lastName;
 
     openStudentModal();
     state.mainPageInFocus = false;
@@ -674,17 +633,17 @@ function setStudentInfo() {
     const firstName = document.querySelector('#first-name').value;
     const lastName = document.querySelector('#last-name').value;
 
-    state.targetStudent.setFirstName(firstName);
-    state.targetStudent.setLastName(lastName);
+    state.targetStudent.firstName = firstName;
+    state.targetStudent.lastName = lastName;
 
     let currentElement = document.querySelector(`[data-student-id='${state.targetStudentId}']`);
 
     currentElement.childNodes[1].innerText = `${firstName} ${lastName}`;
 
-    if (parseInt(state.targetStudent.getAssignedDeskId()) >= 0) {
+    if (parseInt(state.targetStudent.assignedDeskId) >= 0) {
 
-        currentElement = document.querySelector(`[data-object-id='${state.targetStudent.getAssignedDeskId()}']`);
-        currentElement.childNodes[1].innerText = `${state.targetStudent.getFirstName()} ${state.targetStudent.getLastName()}`;
+        currentElement = document.querySelector(`[data-object-id='${state.targetStudent.assignedDeskId}']`);
+        currentElement.childNodes[1].innerText = `${state.targetStudent.firstName} ${state.targetStudent.lastName}`;
 
     }
 
@@ -698,7 +657,7 @@ function assignDesk(event) {
     const studentDiv = event.target.parentNode;
 
     const studentId = parseInt(studentDiv.getAttribute('data-student-id'));
-    const currentStudent = state.students.get(studentId);
+    const currentStudent = state.students[studentId];
 
     const selectMessage = document.querySelector('#select-message');
     const occupiedMessage = document.querySelector('#occupied-message');
@@ -707,7 +666,7 @@ function assignDesk(event) {
 
     if (studentDiv.classList.contains('assigned')) {
 
-        unassignedMessage.innerText = `${currentStudent.getFirstName()} ${currentStudent.getLastName()} was unassigned from their desk.`;
+        unassignedMessage.innerText = `${currentStudent.firstName} ${currentStudent.lastName} was unassigned from their desk.`;
         unassignedMessage.classList.add('show');
         setTimeout(() => { unassignedMessage.classList.remove('show'); }, 3000);
         unassignDesk(event);
@@ -733,19 +692,19 @@ function assignDesk(event) {
     } else {
 
         const objectId = parseInt(selectedElement.getAttribute('data-object-id'));
-        const currentObject = state.objects.get(objectId);
+        const currentObject = state.objects[objectId];
 
-        currentObject.setAssignedStudentId(studentId);
-        currentStudent.setAssignedDeskId(objectId);
+        currentObject.assignedStudentId = studentId;
+        currentStudent.assignedDeskId = objectId;
 
-        selectedElement.childNodes[1].innerText = `${currentStudent.getFirstName()} ${currentStudent.getLastName()}`;
+        selectedElement.childNodes[1].innerText = `${currentStudent.firstName} ${currentStudent.lastName}`;
         selectedElement.childNodes[0].classList.remove('far');
         selectedElement.childNodes[0].classList.add('fas');
 
         studentDiv.classList.add('assigned');
         selectedElement.classList.add('occupied');
 
-        assignedMessage.innerText = `${currentStudent.getFirstName()} ${currentStudent.getLastName()} was assigned to the selected desk.`;
+        assignedMessage.innerText = `${currentStudent.firstName} ${currentStudent.lastName} was assigned to the selected desk.`;
         assignedMessage.classList.add('show');
         setTimeout(() => { assignedMessage.classList.remove('show'); }, 3000);
         assignedMessage, innerText = '';
@@ -759,10 +718,10 @@ function unassignDesk(event) {
     const studentDiv = event.target.parentNode;
 
     const studentId = parseInt(studentDiv.getAttribute('data-student-id'));
-    const currentStudent = state.students.get(studentId);
+    const currentStudent = state.students[studentId];
 
-    const objectId = parseInt(currentStudent.getAssignedDeskId());
-    const currentObject = state.objects.get(objectId);
+    const objectId = parseInt(currentStudent.assignedDeskId);
+    const currentObject = state.objects[objectId];
 
     if (objectId >= 0) {
 
@@ -773,8 +732,8 @@ function unassignDesk(event) {
         assignedObject.childNodes[1].innerText = "Vacant";
         assignedObject.classList.remove('occupied')
 
-        currentStudent.setAssignedDeskId(null);
-        currentObject.setAssignedStudentId(null);
+        currentStudent.assignedDeskId = null;
+        currentObject.assignedStudentId = null;
 
     }
 
@@ -790,7 +749,7 @@ function removeStudent(event) {
         event.target.parentNode.remove();
 
         const studentId = parseInt(event.target.parentNode.getAttribute('data-student-id'));
-        state.students.delete(studentId);
+        delete state.students[studentId];
 
     }
 
@@ -881,6 +840,7 @@ function decClassroomWidth() {
 
     if (parseInt(currentWidth) > parseInt(minWidth)) {
         classroom.style.width = parseInt(currentWidth) - x + "px";
+        state.classroomWidth = classroom.style.width;
 
         roomElements.forEach((element) => {
             const currentPosX = parseInt(getComputedStyle(element).left);
@@ -905,6 +865,7 @@ function incClassroomWidth() {
 
     if (parseInt(currentWidth) < parseInt(maxWidth)) {
         classroom.style.width = parseInt(currentWidth) + x + "px";
+        state.classroomWidth = classroom.style.width;
     } else {
         maxWidthMessage.innerText = "You've reached the maximum classroom width.";
         maxWidthMessage.classList.add('show');
@@ -922,6 +883,7 @@ function decclassroomLength() {
 
     if (parseInt(currentHeight) > parseInt(minHeight)) {
         classroom.style.height = parseInt(currentHeight) - y + "px";
+        state.classroomHeight = classroom.style.height;
 
         roomElements.forEach((element) => {
             const currentPosY = parseInt(getComputedStyle(element).top);
@@ -946,6 +908,7 @@ function incclassroomLength() {
 
     if (parseInt(currentHeight) < parseInt(maxHeight)) {
         classroom.style.height = parseInt(currentHeight) + y + "px";
+        state.classroomHeight = classroom.style.height;
     } else {
         maxLengthMessage.innerText = "You've reached the maximum classroom length.";
         maxLengthMessage.classList.add('show');
@@ -1036,6 +999,7 @@ function drag(event) {
             state.newPos.y = event.clientY - state.cursorOffset.y;
         }
 
+        state.draggableObject = document.querySelector('.draggable');
         checkBounds(state.draggableObject);
 
         state.draggableObject.style.left = state.newPos.x + "px";
@@ -1054,9 +1018,9 @@ function dragEnd() {
 function checkBounds(object) {
 
     const objectId = parseInt(object.getAttribute('data-object-id'));
-    const currentObject = state.objects.get(objectId);
+    const currentObject = state.objects[objectId];
 
-    let deg = Math.abs(currentObject.getRotationState());
+    let deg = Math.abs(currentObject.rotationState);
 
     if (deg >= 0 && deg <= 90) {
         deg = deg;
@@ -1238,9 +1202,9 @@ function printStudents() {
         win.document.write('&#9744; ');
 
         const studentId = parseInt(studentDivs[i].getAttribute('data-student-id'));
-        const currentStudent = state.students.get(studentId);
-        const firstName = currentStudent.getFirstName();
-        const lastName = currentStudent.getLastName();
+        const currentStudent = state.students[studentId];
+        const firstName = currentStudent.firstName;
+        const lastName = currentStudent.lastName;
 
         win.document.write(firstName + " " + lastName);
         win.document.write('</p>');
@@ -1271,4 +1235,105 @@ function collapseDrawer() {
 
     setTimeout(() => { drawer.style.transition = "none"; }, 500);
 
+}
+
+// ------ Save/Reset Session ------
+
+function saveSession() {
+
+    const classroomElementsObj = [];
+    const studentElementsObj = [];
+
+    const classroomElements = document.querySelectorAll('[data-object-id]');
+    const studentElements = document.querySelectorAll('[data-student-id]');
+
+    for (let i = 0; i < classroomElements.length; i++) {
+        classroomElementsObj[i] = classroomElements[i].outerHTML;
+    }
+
+    for (let i = 0; i < studentElements.length; i++) {
+        studentElementsObj[i] = studentElements[i].outerHTML;
+    }
+
+    const sessionData = {
+        classroomElements: classroomElementsObj,
+        studentElements: studentElementsObj,
+        sessionState: state
+    }
+
+    const savedSessionData = JSON.stringify(sessionData);
+    localStorage.setItem("savedSessionData", savedSessionData);
+
+    const sessionSavedMessage = document.querySelector('#session-saved-message');
+    sessionSavedMessage.innerText = 'Session Saved.';
+    sessionSavedMessage.classList.add('show');
+    setTimeout(() => { sessionSavedMessage.classList.remove('show'); }, 3000);
+
+}
+
+function clearSession() {
+
+    if (confirm("This will clear all saved session data and reload the page.")) {
+        localStorage.removeItem("savedSessionData");
+        location.reload();
+    }
+
+}
+
+window.onload = function () {
+    if (localStorage.getItem("savedSessionData")) {
+
+        const sessionData = JSON.parse(localStorage.getItem("savedSessionData"));
+        const loadedClassroomElements = sessionData.classroomElements;
+        const loadedStudentElements = sessionData.studentElements;
+        state = sessionData.sessionState;
+
+        for (let i = 0; i < loadedClassroomElements.length; i++) {
+            classroom.insertAdjacentHTML('beforeend', loadedClassroomElements[i]);
+        }
+
+        for (let i = 0; i < loadedStudentElements.length; i++) {
+            studentList.insertAdjacentHTML('beforeend', loadedStudentElements[i]);
+        }
+
+        const classroomElements = document.querySelectorAll('[data-object-id');
+        classroomElements.forEach((element) => {
+            element.addEventListener('mousedown', selectObject);
+            element.addEventListener('touchstart', selectObject);
+            element.addEventListener('mousedown', addDraggable);
+            element.addEventListener('touchstart', addDraggable);
+            element.addEventListener('keydown', (event) => {
+                if (event.key === "Enter") {
+                    selectObject(event);
+                }
+            });
+        });
+
+        const studentInfoButtons = document.querySelectorAll('.student-info-button');
+        const assignDeskButtons = document.querySelectorAll('.assign-desk-button');
+        const removeStudentButtons = document.querySelectorAll('.remove-student-button');
+
+        studentInfoButtons.forEach((element) => {
+            element.addEventListener('click', loadStudentInfo);
+        });
+
+        assignDeskButtons.forEach((element) => {
+            element.addEventListener('click', assignDesk);
+        });
+
+        removeStudentButtons.forEach((element) => {
+            element.addEventListener('click', removeStudent);
+        });
+
+        classroom.style.width = state.classroomWidth;
+        classroom.style.height = state.classroomHeight;
+
+    } else {
+
+        const newSessionMessage = document.querySelector('#new-session-message');
+        newSessionMessage.innerText = 'New Session.';
+        newSessionMessage.classList.add('show');
+        setTimeout(() => { newSessionMessage.classList.remove('show'); }, 3000);
+
+    }
 }
