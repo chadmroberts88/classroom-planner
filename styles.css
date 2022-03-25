@@ -31,6 +31,15 @@ i {
     font-size: 1.3rem;
 }
 
+button {
+    color: black;
+}
+
+button:hover, button:active, button:focus {
+    outline: none;
+    border-color: red;
+}
+
 /* Title Box Styling */
 
 #title-box {
@@ -62,8 +71,8 @@ i {
     position: absolute;
     right: 15px;
     background-color: transparent;
+    border: 1px solid transparent;
     border-radius: 50%;
-    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -77,7 +86,8 @@ i {
 }
 
 #page-info-button:hover, #page-info-button:active, #page-info-button:focus {
-    outline: 1px solid aqua;
+    outline: none;
+    border-color: aqua;
     -webkit-animation: heartbeat 1.5s ease-in-out infinite both;
 	animation: heartbeat 1.5s ease-in-out infinite both;
 }
@@ -205,7 +215,7 @@ i {
     align-items: center;
     background-color: transparent;
     border-radius: 10px;
-    border: none;
+    border: 1px solid transparent;
     cursor: pointer;
     display: flex;
     font-family: Arial, Helvetica, sans-serif;
@@ -217,6 +227,7 @@ i {
 
 #quantity-selector, #object-selector {
     background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid transparent;
     border-radius: 5px;
     color: black;
     height: 30px;
@@ -239,12 +250,17 @@ i {
     transform: rotate(180deg);
 }
 
-.bg-active:hover, .bg-active:active, .bg-active:focus {
-    background-color: rgba(255, 255, 255, 0.3);
+.bg-active:hover, .bg-active:active, .bg-active:focus,
+#collapse-drawer-button:hover, #collapse-drawer-button:active, #collapse-drawer-button:focus {
+    background-color: rgba(255, 255, 255);
 }
 
-.ol-active:hover, .ol-active:active, .ol-active:focus {
-    outline: 1px solid aqua;
+ .ol-active:hover, .ol-active:focus, .ol-active:focus,
+#quantity-selector:hover, #quantity-selector:active, #quantity-selector:focus,
+#object-selector:hover, #object-selector:active, #object-selector:focus,
+#collapse-drawer-button:hover, #collapse-drawer-button:active, #collapse-drawer-button:focus {
+    outline: none;
+    border-color: aqua;
 }
 
 /* Classroom Styling */
@@ -252,7 +268,7 @@ i {
 #classroom-container {
     position: fixed;
     top: 160px;
-    bottom: 60px;
+    bottom: 0px;
     width: 100vw;
     height: auto;
     overflow: auto;
@@ -267,7 +283,7 @@ i {
     min-width: 250px;
     justify-items: center;
     padding-top: 60px;
-    padding-bottom: 60px;
+    padding-bottom: 120px;
     padding-left: 60px;
     padding-right: 60px;
     margin: auto;
@@ -335,7 +351,7 @@ i {
     align-items: center;
     background-color: transparent;
     border-radius: 20px;
-    border: none;
+    border: 1px solid transparent;
     cursor: pointer;
     display: flex;
     font-family: Arial, Helvetica, sans-serif;
@@ -384,8 +400,8 @@ i {
 .student button {
     align-items: center;
     background-color: transparent;
-    border-radius: 5px;
-    border: none;
+    border-radius: 10px;
+    border: 1px solid transparent;
     display: flex;
     font-size: 1rem;
     height: 30px;
@@ -398,10 +414,6 @@ i {
     pointer-events: none;
     user-select: none;
     white-space: nowrap;
-}
-
-.student i {
-    color: black;
 }
 
 .assigned {
@@ -527,13 +539,8 @@ i {
     user-select: none;
 }
 
-[data-object-id]:hover {
-    border-color: aqua;
-}
-
 [data-object-id]:hover, [data-object-id]:active, [data-object-id]:focus {
-    border-color: aqua;
-    outline: none;
+    outline: 2px solid aqua;
 }
 
 .selected {
@@ -576,7 +583,7 @@ i {
 
 /* Modal Styling */
 
-#add-student-modal{
+.modal {
     background-color: rgba(0,0,0,0.6);
     display: none;
     height: 100%;
@@ -630,7 +637,30 @@ i {
     font-weight: bold;
 }
 
+.modal-section i {
+    color: black;
+    font-size: 2.5rem;
+}
+
+.modal-section a {
+    text-decoration: none;
+    color: black;
+    font-size: 2.5rem;
+    margin: 0px 5px;
+    padding: 0px 2px 1px 2px;
+    outline: none;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+.modal-section a:hover, .modal-section a:active, .modal-section a:focus {
+    outline: none;
+    border-color: aqua;
+}
+
 .modal-section input {
+    border: 1px solid black;
+    border-radius: 5px;
     margin: 5px 10px;
     width: 70%;
 }
@@ -651,7 +681,7 @@ i {
     align-items: center;
     background-color: transparent;
     border-radius: 10px;
-    border: none;
+    border: 1px solid transparent;
     cursor: pointer;
     display: flex;
     font-family: Arial, Helvetica, sans-serif;
@@ -662,7 +692,7 @@ i {
     margin: 5px;
 }
 
-#close-modal-button {
+#close-student-modal-button, #close-info-modal-button {
     background-color: lightgrey;
 }
 
@@ -670,11 +700,16 @@ i {
     background-color: goldenrod;
 }
 
-#close-modal-button:hover, #close-modal-button:active, #close-modal-button:focus {
+#close-student-modal-button:hover, #close-student-modal-button:active, #close-student-modal-button:focus,
+#close-info-modal-button:hover, #close-info-modal-button:active, #close-info-modal-button:focus {
+    outline: none;
+    border-color: aqua;
     background-color: rgba(211, 211, 211, 0.8);
 }
 
 #save-changes-button:hover, #save-changes-button:active, #save-changes-button:focus {
+    outline: none;
+    border-color: aqua;
     background-color: rgba(218, 165, 32, 0.8);
 }
 
@@ -686,7 +721,7 @@ i {
     background-color: #333;
     color: #fff;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 15px;
     position: fixed;
     z-index: 4;

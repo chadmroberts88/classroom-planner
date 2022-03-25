@@ -1,5 +1,6 @@
 // ------ Button Selectors ------
 
+const pageInfoButton = document.querySelector('#page-info-button');
 const addObjectsButton = document.querySelector('#add-objects-button');
 const removeObjectButton = document.querySelector('#remove-object-button');
 const rotateCcwButton = document.querySelector('#rotate-ccw-button');
@@ -18,7 +19,8 @@ const addStudentButton = document.querySelector('#add-student-button');
 const sortAzButton = document.querySelector('#sort-az-button');
 const printStudentsButton = document.querySelector('#print-students-button');
 
-const closeModalButton = document.querySelector('#close-modal-button');
+const closeInfoModalButton = document.querySelector('#close-info-modal-button');
+const closeStudentModalButton = document.querySelector('#close-student-modal-button');
 const saveChangesButton = document.querySelector('#save-changes-button');
 
 // ------ Student List Selector ------
@@ -30,8 +32,9 @@ const studentList = document.querySelector('#student-list');
 const classroomContainer = document.querySelector('#classroom-container');
 const classroom = document.querySelector('#classroom');
 
-// ------ Modal Selector ------
+// ------ Modal Selectors ------
 
+const pageInfoModal = document.querySelector('#page-info-modal');
 const addStudentModal = document.querySelector('#add-student-modal');
 
 // ------ Drawer Selector ------
@@ -43,6 +46,9 @@ const drawer = document.querySelector('#drawer');
 const titleBox = document.querySelector('#title-box');
 
 // ------ Event Listeners ------
+
+pageInfoButton.addEventListener('click', openInfoModal);
+closeInfoModalButton.addEventListener('click', closeInfoModal);
 
 addObjectsButton.addEventListener('click', addObject);
 removeObjectButton.addEventListener('click', removeObject);
@@ -62,7 +68,7 @@ addStudentButton.addEventListener('click', addStudent);
 sortAzButton.addEventListener('click', sortAz);
 printStudentsButton.addEventListener('click', printStudents);
 
-closeModalButton.addEventListener('click', closeModal);
+closeStudentModalButton.addEventListener('click', closeStudentModal);
 saveChangesButton.addEventListener('click', setStudentInfo);
 
 classroom.addEventListener("touchstart", dragStart, false);
@@ -658,7 +664,7 @@ function loadStudentInfo(event) {
     document.querySelector('#first-name').value = state.targetStudent.getFirstName();
     document.querySelector('#last-name').value = state.targetStudent.getLastName();
 
-    openModal();
+    openStudentModal();
     state.mainPageInFocus = false;
 
 }
@@ -682,7 +688,7 @@ function setStudentInfo() {
 
     }
 
-    closeModal();
+    closeStudentModal();
     state.mainPageInFocus = true;
 }
 
@@ -790,19 +796,16 @@ function removeStudent(event) {
 
 }
 
-// ------ Add-Student Modal Functions ------
+// ------ Modal Functions ------
 
-function openModal() {
-    addStudentModal.style.display = "block";
-    document.querySelector('#first-name').focus();
-
+function removeTabbing() {
     const buttons = document.getElementsByTagName('button');
     const selectors = document.getElementsByTagName('select');
     const roomObjects = document.querySelectorAll('[data-object-id]');
 
     for (let i = 0; i < buttons.length; i++) {
 
-        if (!(buttons[i].id === "close-modal-button" || buttons[i].id === "save-changes-button")) {
+        if (!(buttons[i].id === "close-student-modal-button" || buttons[i].id === "close-info-modal-button" || buttons[i].id === "save-changes-button")) {
             buttons[i].setAttribute("tabindex", -1);
         } else {
             buttons[i].setAttribute("tabindex", 0);
@@ -820,8 +823,7 @@ function openModal() {
 
 }
 
-function closeModal() {
-    addStudentModal.style.display = "none";
+function replaceTabbing() {
 
     const buttons = document.getElementsByTagName('button');
     const selectors = document.getElementsByTagName('select');
@@ -829,7 +831,7 @@ function closeModal() {
 
     for (let i = 0; i < buttons.length; i++) {
 
-        if (buttons[i].id === "close-modal-button" || buttons[i].id === "save-changes-button") {
+        if (buttons[i].id === "close-student-modal-button" || buttons[i].id === "close-info-modal-button" || buttons[i].id === "save-changes-button") {
             buttons[i].setAttribute("tabindex", -1);
         } else {
             buttons[i].setAttribute("tabindex", 0);
@@ -845,6 +847,27 @@ function closeModal() {
         roomObjects[i].setAttribute("tabindex", 0);
     }
 
+}
+
+function openStudentModal() {
+    addStudentModal.style.display = "block";
+    document.querySelector('#first-name').focus();
+    removeTabbing();
+}
+
+function closeStudentModal() {
+    addStudentModal.style.display = "none";
+    replaceTabbing();
+}
+
+function openInfoModal() {
+    pageInfoModal.style.display = "block";
+    removeTabbing();
+}
+
+function closeInfoModal() {
+    pageInfoModal.style.display = "none";
+    replaceTabbing();
 }
 
 // ------ Classroom Functions ------

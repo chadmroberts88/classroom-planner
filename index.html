@@ -141,7 +141,7 @@
     <div id="drawer">
         <div class="drawer-row">
             <div class="span-3-col">
-                <button id="collapse-drawer-button" class="ol-active" role="button" title="Collapse Drawer"><i
+                <button id="collapse-drawer-button" role="button" title="Collapse Drawer"><i
                         class="fas fa-chevron-up"></i><span class="collapse-drawer-label">Student
                         Controls</span></button>
             </div>
@@ -180,7 +180,7 @@
         </div>
     </div>
 
-    <div id="add-student-modal" role="dialog" aria-modal="true">
+    <div id="add-student-modal" class="modal" role="dialog" aria-modal="true">
         <div class="modal-container">
             <div class="modal-header">
                 <p>Edit Student Information</p>
@@ -198,11 +198,33 @@
             </div>
 
             <div class="modal-footer">
-                <button id="close-modal-button" class="modal-button ol-active" role="button"
+                <button id="close-student-modal-button" class="modal-button ol-active" role="button"
                     title="Close Modal"><span>Close</span></button>
                 <button id="save-changes-button" class="modal-button ol-active" role="button"
                     title="Save Changes"><span>Save
                         Changes</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-info-modal" class="modal" role="dialog" aria-modal="true">
+        <div class="modal-container">
+            <div class="modal-header">
+                <p>About</p>
+            </div>
+            <div class="modal-content">
+                <div class="modal-section">
+                    <p>Classroom Planner was developed by Chad Roberts.</p>
+                </div>
+            </div>
+            <div class="modal-section">
+                <p><a href="https://www.linkedin.com/in/chadmroberts88" class="fab fa-linkedin"></a>
+                    <a href=" https://github.com/chadmroberts88" class="fab fa-github-square"></a>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button id="close-info-modal-button" class="modal-button ol-active" role="button"
+                    title="Close Modal"><span>Close</span></button>
             </div>
         </div>
     </div>
