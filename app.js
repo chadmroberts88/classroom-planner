@@ -170,6 +170,7 @@ function createObject() {
     const newDiv = document.createElement('div');
     newDiv.setAttribute('data-object-id', state.objectIds);
     newDiv.addEventListener('mousedown', selectObject);
+    newDiv.addEventListener('click', selectObject);
     newDiv.addEventListener('touchstart', selectObject);
     newDiv.addEventListener('mousedown', addDraggable);
     newDiv.addEventListener('touchstart', addDraggable);
@@ -1300,6 +1301,7 @@ window.onload = function () {
         classroomElements.forEach((element) => {
             element.addEventListener('mousedown', selectObject);
             element.addEventListener('touchstart', selectObject);
+            element.addEventListener('click', selectObject);
             element.addEventListener('mousedown', addDraggable);
             element.addEventListener('touchstart', addDraggable);
             element.addEventListener('keydown', (event) => {
