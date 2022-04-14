@@ -35,18 +35,13 @@ button {
     color: black;
 }
 
-button:hover, button:active, button:focus {
-    outline: none;
-    border-color: red;
-}
-
 /* Title Box Styling */
 
 #title-box {
     align-items: center;
     background-color: rgb(25, 117, 69);
     border-bottom: 5px solid goldenrod;
-    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.8);
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.8);
     display: flex;
     height: 40px;
     justify-content: center;
@@ -85,81 +80,91 @@ button:hover, button:active, button:focus {
     padding: 2px 1px 0px 1px;
 }
 
-#page-info-button:hover, #page-info-button:active, #page-info-button:focus {
+#page-info-button:hover,
+#page-info-button:active,
+#page-info-button:focus {
     outline: none;
-    border-color: aqua;
+    border-color: white;
     -webkit-animation: heartbeat 1.5s ease-in-out infinite both;
-	animation: heartbeat 1.5s ease-in-out infinite both;
+    animation: heartbeat 1.5s ease-in-out infinite both;
 }
 
 @-webkit-keyframes heartbeat {
-  from {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    -webkit-transform-origin: center center;
-            transform-origin: center center;
-    -webkit-animation-timing-function: ease-out;
-            animation-timing-function: ease-out;
-  }
-  10% {
-    -webkit-transform: scale(0.91);
-            transform: scale(0.91);
-    -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in;
-  }
-  17% {
-    -webkit-transform: scale(0.98);
-            transform: scale(0.98);
-    -webkit-animation-timing-function: ease-out;
-            animation-timing-function: ease-out;
-  }
-  33% {
-    -webkit-transform: scale(0.87);
-            transform: scale(0.87);
-    -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in;
-  }
-  45% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    -webkit-animation-timing-function: ease-out;
-            animation-timing-function: ease-out;
-  }
+    from {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-transform-origin: center center;
+        transform-origin: center center;
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+
+    10% {
+        -webkit-transform: scale(0.91);
+        transform: scale(0.91);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+
+    17% {
+        -webkit-transform: scale(0.98);
+        transform: scale(0.98);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+
+    33% {
+        -webkit-transform: scale(0.87);
+        transform: scale(0.87);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+
+    45% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
 }
 
 @keyframes heartbeat {
-  from {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    -webkit-transform-origin: center center;
-            transform-origin: center center;
-    -webkit-animation-timing-function: ease-out;
-            animation-timing-function: ease-out;
-  }
-  10% {
-    -webkit-transform: scale(0.91);
-            transform: scale(0.91);
-    -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in;
-  }
-  17% {
-    -webkit-transform: scale(0.98);
-            transform: scale(0.98);
-    -webkit-animation-timing-function: ease-out;
-            animation-timing-function: ease-out;
-  }
-  33% {
-    -webkit-transform: scale(0.87);
-            transform: scale(0.87);
-    -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in;
-  }
-  45% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    -webkit-animation-timing-function: ease-out;
-            animation-timing-function: ease-out;
-  }
+    from {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-transform-origin: center center;
+        transform-origin: center center;
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+
+    10% {
+        -webkit-transform: scale(0.91);
+        transform: scale(0.91);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+
+    17% {
+        -webkit-transform: scale(0.98);
+        transform: scale(0.98);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+
+    33% {
+        -webkit-transform: scale(0.87);
+        transform: scale(0.87);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+
+    45% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
 }
 
 /* Toolbar Styling */
@@ -167,7 +172,7 @@ button:hover, button:active, button:focus {
 .toolbar-wrapper {
     align-items: center;
     background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.8);
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.8);
     display: grid;
     height: 95px;
     left: 0px;
@@ -225,7 +230,8 @@ button:hover, button:active, button:focus {
     width: 40px;
 }
 
-#quantity-selector, #object-selector {
+#quantity-selector,
+#object-selector {
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid transparent;
     border-radius: 5px;
@@ -238,11 +244,13 @@ button:hover, button:active, button:focus {
     width: 120px;
 }
 
-#dec-width-button i, #inc-width-button i {
+#dec-width-button i,
+#inc-width-button i {
     transform: rotate(45deg);
 }
 
-#dec-length-button i, #inc-length-button i {
+#dec-length-button i,
+#inc-length-button i {
     transform: rotate(-45deg);
 }
 
@@ -250,17 +258,28 @@ button:hover, button:active, button:focus {
     transform: rotate(180deg);
 }
 
-.bg-active:hover, .bg-active:active, .bg-active:focus,
-#collapse-drawer-button:hover, #collapse-drawer-button:active, #collapse-drawer-button:focus {
-    background-color: rgba(255, 255, 255);
+.bg-active:hover,
+.bg-active:active {
+    background-color: rgba(240, 195, 81, 0.5);
 }
 
- .ol-active:hover, .ol-active:focus, .ol-active:focus,
-#quantity-selector:hover, #quantity-selector:active, #quantity-selector:focus,
-#object-selector:hover, #object-selector:active, #object-selector:focus,
-#collapse-drawer-button:hover, #collapse-drawer-button:active, #collapse-drawer-button:focus {
+.fill-active:hover,
+.fill-active:active,
+.fill-active:focus {
+    color: goldenrod;
+}
+
+.ol-active:hover,
+.ol-active:active,
+.ol-active:focus,
+#quantity-selector:hover,
+#quantity-selector:active,
+#quantity-selector:focus,
+#object-selector:hover,
+#object-selector:active,
+#object-selector:focus {
     outline: none;
-    border-color: aqua;
+    border-color: darkgrey;
 }
 
 /* Classroom Styling */
@@ -293,7 +312,7 @@ button:hover, button:active, button:focus {
     background-blend-mode: lighten;
     background-image: url(./images/grid.png);
     border: 5px solid darkgrey;
-    box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.8);
+    box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.8);
     height: 380px;
     max-height: 670px;
     max-width: 670px;
@@ -312,7 +331,7 @@ button:hover, button:active, button:focus {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     bottom: 0px;
-    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.8);
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.8);
     display: grid;
     grid-template-rows: 60px calc(100% - 125px) 65px;
     height: auto;
@@ -363,6 +382,7 @@ button:hover, button:active, button:focus {
 
 #collapse-drawer-button i {
     color: black;
+    font-size: 2rem;
     pointer-events: none;
     transition: transform 0.5s ease-out;
 }
@@ -375,7 +395,7 @@ button:hover, button:active, button:focus {
 }
 
 #student-list {
-    background-color: rgba(218, 165, 32, 0.4);
+    background-color: rgba(187, 187, 187, 0.3);
     border-radius: 10px;
     height: 100%;
     width: 100%;
@@ -390,7 +410,7 @@ button:hover, button:active, button:focus {
     column-gap: 5px;
     cursor: pointer;
     display: grid;
-    grid-template-columns: 30px auto 30px 30px;
+    grid-template-columns: auto 30px 30px 30px;
     justify-content: left;
     justify-content: stretch;
     padding: 5px;
@@ -400,7 +420,7 @@ button:hover, button:active, button:focus {
 .student button {
     align-items: center;
     background-color: transparent;
-    border-radius: 10px;
+    border-radius: 5px;
     border: 1px solid transparent;
     display: flex;
     font-size: 1rem;
@@ -414,10 +434,11 @@ button:hover, button:active, button:focus {
     pointer-events: none;
     user-select: none;
     white-space: nowrap;
+    margin-left: 5px;
 }
 
 .assigned {
-    background-color: rgb(240, 195, 81);
+    border-color: greenyellow;
 }
 
 /* Classroom Objects Styling */
@@ -458,7 +479,8 @@ button:hover, button:active, button:focus {
     width: 96px;
 }
 
-.doorway-left, .doorway-right {
+.doorway-left,
+.doorway-right {
     background-color: rgba(255, 160, 122, 0.5);
     border: 2px dotted black;
     height: 36px;
@@ -539,8 +561,15 @@ button:hover, button:active, button:focus {
     user-select: none;
 }
 
-[data-object-id]:hover, [data-object-id]:active, [data-object-id]:focus {
-    outline: 2px solid aqua;
+[data-object-id]:hover,
+[data-object-id]:focus {
+    outline: none;
+    border-color: aqua;
+}
+
+[data-object-id]:active {
+    outline: none;
+    border-color: darkgrey;
 }
 
 .selected {
@@ -584,7 +613,7 @@ button:hover, button:active, button:focus {
 /* Modal Styling */
 
 .modal {
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.6);
     display: none;
     height: 100%;
     left: 0;
@@ -653,11 +682,6 @@ button:hover, button:active, button:focus {
     border-radius: 5px;
 }
 
-.modal-section a:hover, .modal-section a:active, .modal-section a:focus {
-    outline: none;
-    border-color: aqua;
-}
-
 .modal-section input {
     border: 1px solid black;
     border-radius: 5px;
@@ -665,7 +689,8 @@ button:hover, button:active, button:focus {
     width: 70%;
 }
 
-#first-name, #last-name {
+#first-name,
+#last-name {
     padding: 3px;
 }
 
@@ -692,7 +717,8 @@ button:hover, button:active, button:focus {
     margin: 5px;
 }
 
-#close-student-modal-button, #close-info-modal-button {
+#close-student-modal-button,
+#close-info-modal-button {
     background-color: lightgrey;
 }
 
@@ -700,16 +726,22 @@ button:hover, button:active, button:focus {
     background-color: goldenrod;
 }
 
-#close-student-modal-button:hover, #close-student-modal-button:active, #close-student-modal-button:focus,
-#close-info-modal-button:hover, #close-info-modal-button:active, #close-info-modal-button:focus {
+#close-student-modal-button:hover,
+#close-student-modal-button:active,
+#close-student-modal-button:focus,
+#close-info-modal-button:hover,
+#close-info-modal-button:active,
+#close-info-modal-button:focus {
     outline: none;
-    border-color: aqua;
+    border-color: darkgrey;
     background-color: rgba(211, 211, 211, 0.8);
 }
 
-#save-changes-button:hover, #save-changes-button:active, #save-changes-button:focus {
+#save-changes-button:hover,
+#save-changes-button:active,
+#save-changes-button:focus {
     outline: none;
-    border-color: aqua;
+    border-color: darkgrey;
     background-color: rgba(218, 165, 32, 0.8);
 }
 
@@ -739,23 +771,51 @@ button:hover, button:active, button:focus {
 }
 
 @-webkit-keyframes fadein {
-    from {bottom: 0; opacity: 0;} 
-    to {bottom: 20px; opacity: 1;}
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 20px;
+        opacity: 1;
+    }
 }
 
 @keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 20px; opacity: 1;}
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 20px;
+        opacity: 1;
+    }
 }
 
 @-webkit-keyframes fadeout {
-    from {bottom: 20px; opacity: 1;} 
-    to {bottom: 0; opacity: 0;}
+    from {
+        bottom: 20px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
 }
 
 @keyframes fadeout {
-    from {bottom: 20px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
+    from {
+        bottom: 20px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
 }
 
 /* Print Styling */
@@ -792,6 +852,4 @@ button:hover, button:active, button:focus {
     #student-list {
         width: calc(100vw - 20px);
     }
-
-
 }

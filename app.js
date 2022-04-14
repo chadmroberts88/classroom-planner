@@ -521,26 +521,26 @@ function addStudent() {
     newDiv.setAttribute('data-student-id', state.studentIds);
     studentList.appendChild(newDiv);
 
+    const newPara = document.createElement('p');
+    newPara.textContent = "New Student";
+    newDiv.appendChild(newPara);
+
     const newInfoButton = document.createElement('button');
-    newInfoButton.classList.add('student-info-button', 'fas', 'fa-info', 'ol-active', 'bg-active');
+    newInfoButton.classList.add('student-info-button', 'fas', 'fa-edit', 'fill-active');
     newInfoButton.setAttribute('role', 'button');
     newInfoButton.setAttribute('title', 'Edit Student Info');
     newInfoButton.setAttribute('tabindex', 0);
     newDiv.appendChild(newInfoButton);
 
-    const newPara = document.createElement('p');
-    newPara.textContent = "New Student";
-    newDiv.appendChild(newPara);
-
     const newAssignButton = document.createElement('button');
-    newAssignButton.classList.add('assign-desk-button', 'fas', 'fa-chair', 'ol-active', 'bg-active');
+    newAssignButton.classList.add('assign-desk-button', 'fas', 'fa-chair', 'fill-active');
     newAssignButton.setAttribute('role', 'button');
     newAssignButton.setAttribute('title', 'Assign to Desk');
     newAssignButton.setAttribute('tabindex', 0);
     newDiv.appendChild(newAssignButton);
 
     const newRemoveStudentButton = document.createElement('button');
-    newRemoveStudentButton.classList.add('remove-student-button', 'fas', 'fa-trash-alt', 'ol-active', 'bg-active');
+    newRemoveStudentButton.classList.add('remove-student-button', 'fas', 'fa-trash-alt', 'fill-active');
     newRemoveStudentButton.setAttribute('role', 'button');
     newRemoveStudentButton.setAttribute('title', 'Remove Student');
     newRemoveStudentButton.setAttribute('tabindex', 0);
@@ -639,7 +639,7 @@ function setStudentInfo() {
 
     let currentElement = document.querySelector(`[data-student-id='${state.targetStudentId}']`);
 
-    currentElement.childNodes[1].innerText = `${firstName} ${lastName}`;
+    currentElement.childNodes[0].innerText = `${firstName} ${lastName}`;
 
     if (parseInt(state.targetStudent.assignedDeskId) >= 0) {
 
