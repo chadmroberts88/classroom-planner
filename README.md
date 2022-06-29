@@ -41,12 +41,4 @@ If a user wishes to finish their classroom plan at a later time, they can save t
 
    `cd classroom-planner`
 
-3. Install the required dependencies:
-
-   `npm install`
-
-4. Run the project:
-
-   `npm start`
-
-5. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+3. Open the index.html file in your browser.
